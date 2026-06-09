@@ -1,0 +1,20 @@
+<section class="experience" id="experience">
+  <div class="experience-container">
+    <h2 class="section-title">Experiencias Culinarias</h2>
+    <p class="section-subtitle">Más allá del menú: eventos privados y degustaciones inmersivas</p>
+
+    <div class="experiences-list">
+      <article class="experience-card" *ngFor="let exp of experiences">
+        <div class="experience-header">
+          <h3 class="experience-title">{{ exp.title }}</h3>
+          <span class="experience-duration">{{ exp.duration }}</span>
+        </div>
+        <p class="experience-description">{{ exp.description }}</p>
+        <div class="experience-footer">
+          <span class="price">{{ exp.price }}</span>
+          <button class="btn btn-outline">{{ exp.buttonText }}</button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

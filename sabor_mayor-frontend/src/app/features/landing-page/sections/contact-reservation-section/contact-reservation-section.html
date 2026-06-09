@@ -1,0 +1,65 @@
+<section class="contact-reservation" id="contact">
+  <div class="contact-container">
+    <div class="contact-info">
+      <h2 class="section-title">Contáctanos</h2>
+      <div class="info-group">
+        <h3 class="info-label">Dirección</h3>
+        <p class="info-content">Calle Gourmet 123, Distrito Gastronómico</p>
+      </div>
+      <div class="info-group">
+        <h3 class="info-label">Teléfono</h3>
+        <p class="info-content">+1 (555) 123-4567</p>
+      </div>
+      <div class="info-group">
+        <h3 class="info-label">Email</h3>
+        <p class="info-content">reservas@sabor-mayor.com</p>
+      </div>
+      <div class="info-group">
+        <h3 class="info-label">Horarios</h3>
+        <p class="info-content">
+          Martes - Domingo: 18:00 - 23:00<br />
+          Lunes: Cerrado<br />
+          Almuerzo: Martes - Viernes, 12:00 - 16:00
+        </p>
+      </div>
+    </div>
+
+    <form class="reservation-form" (ngSubmit)="onSubmit()">
+      <h3 class="form-title">Hacer una Reserva</h3>
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input type="text" id="name" name="name" [(ngModel)]="formData.name" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="formData.email" required />
+      </div>
+      <div class="form-group">
+        <label for="date">Fecha</label>
+        <input type="date" id="date" name="date" [(ngModel)]="formData.date" required />
+      </div>
+      <div class="form-group">
+        <label for="time">Hora</label>
+        <input type="time" id="time" name="time" [(ngModel)]="formData.time" required />
+      </div>
+      <div class="form-group">
+        <label for="guests">Número de Huéspedes</label>
+        <select id="guests" name="guests" [(ngModel)]="formData.guests" required>
+          <option value="">Seleccionar</option>
+          <option value="1">1 Huésped</option>
+          <option value="2">2 Huéspedes</option>
+          <option value="3">3 Huéspedes</option>
+          <option value="4">4 Huéspedes</option>
+          <option value="5">5 Huéspedes</option>
+          <option value="6">6 Huéspedes</option>
+          <option value="7">7+ Huéspedes</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Mensaje especial</label>
+        <textarea id="message" name="message" [(ngModel)]="formData.message" rows="4"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar Reserva</button>
+    </form>
+  </div>
+</section>

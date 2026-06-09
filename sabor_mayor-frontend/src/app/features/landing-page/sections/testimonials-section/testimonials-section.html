@@ -1,0 +1,18 @@
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-container">
+    <h2 class="section-title">Lo Que Dicen Nuestros Huéspedes</h2>
+
+    <div class="testimonials-grid">
+      <article class="testimonial-card" *ngFor="let testimonial of testimonials">
+        <div class="stars">
+          <span>{{ getStars(testimonial.rating) }}</span>
+        </div>
+        <p class="testimonial-text">"{{ testimonial.text }}"</p>
+        <div class="testimonial-author">
+          <p class="author-name">- {{ testimonial.author }}</p>
+          <p class="author-role">{{ testimonial.role }}</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

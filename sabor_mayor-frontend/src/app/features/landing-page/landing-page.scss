@@ -1,0 +1,12 @@
+/* Landing Page Container - Orchestrates all sections */
+/* Estilos base y coordinación entre componentes */
+
+app-landing-page {
+  display: block;
+}
+app-public-header {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}

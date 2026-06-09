@@ -1,0 +1,437 @@
+/**
+ * PREMIUM EFFECTS & MICRO-INTERACTIONS - Sabor Mayor
+ * Top 1% Design Engineering
+ * Vintage blur, grain textures, magnetic interactions, 60 FPS optimizations
+ */
+
+/* ==========================================================================
+   PERFORMANCE OPTIMIZATION - Hardware Acceleration
+   ========================================================================== */
+
+/**
+ * GPU ACCELERATION SETUP
+ * will-change estratégicamente usado SOLO donde es necesario
+ * Se remueve en navegadores que no lo soporten bien
+ */
+@supports (will-change: transform) {
+  .interactive-element,
+  [class*='button'],
+  [class*='card'],
+  [class*='hover'] {
+    will-change: transform, opacity;
+  }
+}
+
+/* ==========================================================================
+   VINTAGE BLUR EFFECT - Agresivo pero Sofisticado
+   ========================================================================== */
+
+/**
+ * VINTAGE BLUR BACKGROUND
+ * Combina: Backdrop filter + color overlay + noise texture
+ * Efecto: Película antigua, sofisticado, memorable
+ */
+@mixin vintage-blur-bg {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(42, 30, 21, 0.85) 0%,
+    rgba(20, 16, 12, 0.92) 100%
+  );
+
+  /* Backdrop blur - solo en navegadores soportados */
+  @supports (backdrop-filter: blur(10px)) {
+    backdrop-filter: blur(8px) brightness(0.95);
+    background-color: rgba(28, 18, 8, 0.7);
+  }
+
+  /* Fallback para navegadores sin soporte */
+  @supports not (backdrop-filter: blur(10px)) {
+    background-color: rgba(20, 16, 12, 0.92);
+    background-image: linear-gradient(
+      135deg,
+      rgba(45, 34, 25, 0.3),
+      rgba(28, 18, 8, 0.3)
+    );
+  }
+}
+
+/* ==========================================================================
+   FILM GRAIN TEXTURE - Pixelated Subtil (5% opacity)
+   ========================================================================== */
+
+/**
+ * GRAIN OVERLAY - Efecto cinematográfico
+ * Basado en SVG fractal noise para máxima compatibilidad
+ * Opacidad: 5% para ser elegante sin ser molesto
+ */
+@mixin film-grain-overlay {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    /* SVG con fractal noise - crisp pixel effect */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+
+    background-size: 150px 150px;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    image-rendering: pixelated;
+    z-index: 10;
+
+    /* Evita que sea demasiado pesado */
+    will-change: opacity;
+  }
+}
+
+/* ==========================================================================
+   MAGNETIC BUTTON INTERACTION - Top 1% Micro-interaction
+   ========================================================================== */
+
+/**
+ * MAGNETIC CTA BUTTON
+ * Comportamiento: Escala suave + glow magnético + shadow profundo
+ * Curva: Spring cubic-bezier para sensación dinámica y natural
+ * Performance: Solo transform y opacity (GPU accelerated)
+ */
+@mixin magnetic-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Shadow inicial - sutil */
+  box-shadow: 0 4px 15px rgba(243, 181, 74, 0.2),
+              0 0 20px rgba(243, 181, 74, 0);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: -1;
+  }
+
+  &:hover {
+    /* Transform para mejor performance */
+    transform: translateY(-4px) scale(1.05);
+
+    /* Glow magnético */
+    box-shadow: 0 8px 25px rgba(243, 181, 74, 0.4),
+                0 0 30px rgba(243, 181, 74, 0.3);
+  }
+
+  &:active {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 15px rgba(243, 181, 74, 0.2);
+  }
+
+  /* Ripple effect en click */
+  &:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+/**
+ * LINK MAGNETIC EFFECT
+ * Para navegación y links - más sutil que botones
+ */
+@mixin magnetic-link {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #f3b54a, #d5c4a4);
+    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  &:hover {
+    color: #f3b54a;
+    transform: translateX(2px);
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+/* ==========================================================================
+   CARD HOVER EFFECTS - Premium Depth
+   ========================================================================== */
+
+/**
+ * CARD ELEVATION EFFECT
+ * Comportamiento: Sombra profunda + elevación + glow sutil
+ */
+@mixin card-elevation-hover {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(243, 181, 74, 0.15),
+                0 0 30px rgba(243, 181, 74, 0.1);
+  }
+}
+
+/**
+ * IMAGE ZOOM EFFECT
+ * Para imágenes dentro de cards - zoom suave sin blur
+ */
+@mixin image-zoom-hover {
+  overflow: hidden;
+
+  img {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  &:hover img {
+    transform: scale(1.08);
+  }
+}
+
+/* ==========================================================================
+   SCROLL REVEAL ANIMATIONS - Intersection Observer Ready
+   ========================================================================== */
+
+/**
+ * FADE IN UP STATE
+ * Aplicar clase "reveal" cuando Intersection Observer detecte elemento
+ */
+.reveal {
+  animation: fadeInUp 0.6s 0.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+
+  /* Para múltiples elementos con stagger */
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) {
+      animation-delay: (0.2s + ($i * 0.1s));
+    }
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/**
+ * FADE IN DOWN (Para elementos superiores)
+ */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/**
+ * SCALE IN (Para elementos que necesitan "aparecer")
+ */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ==========================================================================
+   PARALLAX EFFECT - Depth Without Performance Impact
+   ========================================================================== */
+
+/**
+ * PARALLAX CONTAINER
+ * Estructura para parallax suave basado en transform3d
+ */
+.parallax-container {
+  perspective: 1000px;
+  overflow: hidden;
+}
+
+.parallax-layer {
+  transform: translateZ(0); /* GPU acceleration */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  &.layer-bg {
+    will-change: transform;
+  }
+}
+
+/**
+ * PARALLAX DEPTH
+ * Aplicar a elementos que necesitan efecto de profundidad
+ * $offset: 0.3 (subtle), 0.5 (medium), 0.8 (aggressive)
+ */
+@mixin parallax-depth($offset: 0.5) {
+  position: relative;
+  transform: translateZ(0);
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Este transform será actualizado por JavaScript basado en scroll */
+    transition: transform 60ms linear;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY - prefers-reduced-motion
+   ========================================================================== */
+
+/**
+ * CRITICAL: Respeta preferencias de usuario para animaciones reducidas
+ * Desactiva todas las animaciones complejas para usuarios que lo requieran
+ */
+@media (prefers-reduced-motion: reduce) {
+  /* Desactiva todas las animaciones de transición */
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Mantén transforms básicos para structure pero sin animación */
+  .reveal,
+  [class*='hover'],
+  [class*='animation'] {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Parallax simplificado - solo static */
+  .parallax-layer {
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   GRADIENT ANIMATIONS - Breathing Color
+   ========================================================================== */
+
+/**
+ * ANIMATED GRADIENT BACKGROUND
+ * Para secciones hero - movimiento sutil y elegante
+ */
+@keyframes breathingGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@mixin breathing-gradient {
+  background: linear-gradient(
+    135deg,
+    #2d2219 0%,
+    #1c1208 25%,
+    #2d2219 50%,
+    #1c1208 75%,
+    #2d2219 100%
+  );
+  background-size: 200% 200%;
+  animation: breathingGradient 8s ease infinite;
+
+  /* Desactiva en prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background-position: 0% 50%;
+  }
+}
+
+/* ==========================================================================
+   TEXT EFFECTS - Premium Typography Animations
+   ========================================================================== */
+
+/**
+ * WORD REVEAL
+ * Anima palabras individuales en títulos
+ */
+@keyframes wordReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@mixin word-reveal {
+  display: inline-block;
+  animation: wordReveal 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* ==========================================================================
+   PERFORMANCE UTILITIES
+   ========================================================================== */
+
+/**
+ * SMOOTH SCROLL BEHAVIOR
+ * Scroll suave sin afectar performance
+ */
+html {
+  scroll-behavior: smooth;
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+/**
+ * DISABLE TRANSITIONS DURING SCROLL (Improvement)
+ * Desactiva transiciones mientras se hace scroll para mejor FPS
+ */
+body.is-scrolling {
+  [class*='transition'],
+  [class*='animation'] {
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   DEBUGGING HELPERS (Remover en producción)
+   ========================================================================== */
+
+/**
+ * Uncomment para visualizar elementos con will-change
+ */
+// [style*='will-change'] {
+//   outline: 2px solid rgba(255, 0, 0, 0.5);
+// }

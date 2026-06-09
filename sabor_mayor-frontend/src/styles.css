@@ -1,0 +1,70 @@
+/* ==========================================================================
+   1. IMPORTACIONES GLOBALES
+   ========================================================================== */
+/* Aquí traemos las variables para que existan en toda la app */
+@import '../src/styles/_variables.scss';
+
+/* Importar fuentes de Google Fonts - Identidad Sabor Mayor */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300..900;1,300..900&family=DM+Sans:ital,wght@0,100..900;1,100..900&family=DM+Mono:wght@400;500&display=swap');
+
+/* ==========================================================================
+   2. RESETEO BÁSICO (CSS Reset)
+   ========================================================================== */
+/* Evita inconsistencias de márgenes entre distintos navegadores */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==========================================================================
+   3. ESTILOS BASE DEL DOCUMENTO
+   ========================================================================== */
+html,
+body {
+  height: 100%;
+  width: 100%;
+
+  /* Configuración de fuente estándar y legible */
+  font-family:
+    'DM Sans',
+    system-ui,
+    -apple-system,
+    sans-serif;
+
+  /* Renderizado de texto más suave */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Tema oscuro de lujo */
+  background-color: var(--tierra-profunda);
+  color: var(--crema-antigua);
+}
+
+/* ==========================================================================
+   4. TIPOGRAFÍA BASE Y ELEMENTOS COMUNES
+   ========================================================================== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit; /* Hereda el color del elemento padre por defecto */
+}
+
+button {
+  font-family: inherit; /* Asegura que los botones usen la misma fuente */
+}
+
+/* ==========================================================================
+   5. CLASES DE UTILIDAD GLOBALES (Opcional)
+   ========================================================================== */
+/* Contenedor estándar para limitar el ancho en pantallas grandes */

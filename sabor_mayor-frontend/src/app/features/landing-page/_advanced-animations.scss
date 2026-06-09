@@ -1,0 +1,422 @@
+/**
+ * ADVANCED ANIMATIONS & DRAMATIC EFFECTS - Top 1% Engineering
+ * Clip-path reveals, text splitting, 3D physics, scroll dynamics
+ */
+
+/* ==========================================================================
+   CUSTOM BEZIER CURVES - Dramáticas pero Elegantes
+   ========================================================================== */
+
+/**
+ * EXPO IN-OUT: cubic-bezier(0.87, 0, 0.13, 1)
+ * Movimientos rápidos que se asientan lentamente
+ * Perfecto para: Reveals, transiciones de escala
+ */
+
+/**
+ * ELASTIC OUT: cubic-bezier(0.34, 1.56, 0.64, 1)
+ * Rebote elegante pero controlado
+ * Perfecto para: Hovers, micro-interacciones
+ */
+
+/**
+ * BACK OUT: cubic-bezier(0.175, 0.885, 0.32, 1.275)
+ * Overshoot seguido de asentamiento
+ * Perfecto para: Entrada de elementos, botones
+ */
+
+/* ==========================================================================
+   CLIP-PATH REVEAL ANIMATIONS - Dramatic Unveiling
+   ========================================================================== */
+
+/**
+ * REVEAL FROM BOTTOM (Top-to-bottom unveiling)
+ */
+@keyframes revealFromBottom {
+  0% {
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+    opacity: 0;
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
+}
+
+/**
+ * REVEAL FROM TOP (Bottom-to-top unveiling)
+ */
+@keyframes revealFromTop {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    opacity: 0;
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
+}
+
+/**
+ * REVEAL FROM LEFT (Left-to-right unveiling)
+ */
+@keyframes revealFromLeft {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    opacity: 0;
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
+}
+
+/**
+ * REVEAL FROM RIGHT (Right-to-left unveiling)
+ */
+@keyframes revealFromRight {
+  0% {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    opacity: 0;
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
+}
+
+/* Mixins para aplicar reveals */
+@mixin clip-path-reveal($direction: bottom, $duration: 0.8s, $delay: 0s) {
+  animation: revealFrom#{str-slice(#{$direction}, 1, 1)}#{str-slice(#{$direction}, 2)} $duration cubic-bezier(0.87, 0, 0.13, 1) $delay forwards;
+}
+
+/* ==========================================================================
+   TEXT SPLITTING - Animar Palabras Individualmente
+   ========================================================================== */
+
+/**
+ * TEXT REVEAL LINE BY LINE
+ * Cada línea aparece secuencialmente desde abajo
+ */
+@keyframes textRevealUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@mixin text-split-animation($stagger-count: 3) {
+  display: inline-block;
+  animation: textRevealUp 0.7s cubic-bezier(0.87, 0, 0.13, 1) both;
+
+  @for $i from 1 through $stagger-count {
+    &:nth-child(#{$i}) {
+      animation-delay: 0.3s + ($i * 0.15s);
+    }
+  }
+}
+
+/* ==========================================================================
+   SKEW ON SCROLL - Physics of Movement
+   ========================================================================== */
+
+/**
+ * SKEW DYNAMIC - Distorsión sutil durante scroll rápido
+ * El elemento se "comprime" durante scroll descendente
+ */
+.element-skew-scroll {
+  transition: transform 0.2s ease-out;
+  /* Transform se aplica via JavaScript basado en scroll velocity */
+}
+
+/* ==========================================================================
+   3D TILT EFFECTS - Card Physics
+   ========================================================================== */
+
+/**
+ * TILT CONTAINER BASE
+ * Prepara el contenedor para efectos 3D
+ */
+@mixin tilt-card-base {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+  will-change: transform;
+  position: relative;
+
+  /* GPU acceleration */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/**
+ * GLARE EFFECT OVERLAY
+ * Reflejo dinámico basado en posición del cursor
+ */
+@mixin glare-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 10;
+  transition: opacity 0.1s ease-out;
+}
+
+/* ==========================================================================
+   MAGNETIC HOVER EXTREME - Button Physics
+   ========================================================================== */
+
+/**
+ * MAGNETIC BUTTON STATE
+ * El botón es atraído hacia el cursor
+ */
+@mixin magnetic-button-base {
+  position: relative;
+  will-change: transform;
+  transition: box-shadow 0.3s ease-out;
+
+  /* Shadow inicial sutil */
+  box-shadow: 0 4px 15px rgba(243, 181, 74, 0.2);
+
+  /* GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+
+  &:hover {
+    box-shadow: 0 0 40px rgba(243, 181, 74, 0.6),
+                inset 0 0 20px rgba(243, 181, 74, 0.1);
+  }
+}
+
+/* ==========================================================================
+   SCROLL REVEAL ACTIVE - Dynamic Classes
+   ========================================================================== */
+
+/**
+ * Clase agregada por directive cuando elemento está en viewport
+ */
+.scroll-reveal-active {
+  animation: fadeInUp 0.6s cubic-bezier(0.87, 0, 0.13, 1) forwards;
+
+  /* Stagger para múltiples elementos */
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i}) {
+      animation-delay: 0.2s + ($i * 0.08s);
+    }
+  }
+}
+
+/* ==========================================================================
+   SECTION TRANSITIONS - Sticky Stacking Effect
+   ========================================================================== */
+
+/**
+ * STICKY STACKING SIMULATION
+ * Sección anterior se queda pegada, nueva sección se desliza por encima
+ */
+section {
+  position: relative;
+  z-index: auto;
+
+  &:nth-child(even) {
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+/**
+ * Cuando sección anterior está siendo cubierta
+ */
+.section-sticky-hide {
+  transform: translateY(-5%);
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   KEYFRAMES GLOBALES
+   ========================================================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-10deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY - Reduced Motion Respect
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Desactiva todas las animaciones dramáticas */
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Mantén transforms básicos sin animación */
+  [appTilt3d],
+  [appMagneticHover],
+  [appAdvancedScroll] {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   UTILITY CLASSES - Para uso directo en templates
+   ========================================================================== */
+
+/**
+ * Agregar clase .animate-reveal-bottom a elemento
+ */
+.animate-reveal-bottom {
+  @include clip-path-reveal(bottom);
+}
+
+.animate-reveal-top {
+  @include clip-path-reveal(top);
+}
+
+.animate-reveal-left {
+  @include clip-path-reveal(left);
+}
+
+.animate-reveal-right {
+  @include clip-path-reveal(right);
+}
+
+/**
+ * Tarjeta con tilt 3D y glare
+ */
+.card-3d-tilt {
+  @include tilt-card-base;
+
+  .glare {
+    @include glare-overlay;
+  }
+}
+
+/**
+ * Botón con magnetic hover
+ */
+.btn-magnetic {
+  @include magnetic-button-base;
+}
+
+/**
+ * Elemento que debe animar en scroll
+ */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(30px);
+
+  &.in-view {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.6s cubic-bezier(0.87, 0, 0.13, 1);
+  }
+}
+
+/* ==========================================================================
+   PERFORMANCE OPTIMIZATION
+   ========================================================================== */
+
+/**
+ * GPU Layer Promotion
+ * Para elementos que van a ser animados
+ */
+.gpu-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+/**
+ * Disable Transitions During Scroll
+ * Para mejor rendimiento durante scroll rápido
+ */
+body.is-scrolling {
+  [class*='transition'] {
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   DEBUG HELPERS (Remover en producción)
+   ========================================================================== */
+
+/**
+ * Uncomment para visualizar áreas de clip-path
+ */
+// .clip-path-debug {
+//   outline: 2px solid rgba(243, 181, 74, 0.5);
+// }
+
+/**
+ * Uncomment para ver layers 3D
+ */
+// .tilt-debug {
+//   outline: 2px dashed rgba(255, 0, 0, 0.5);
+// }

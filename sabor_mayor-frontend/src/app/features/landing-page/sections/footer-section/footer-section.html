@@ -1,0 +1,18 @@
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-section" *ngFor="let section of footerSections">
+        <h3>{{ section.title }}</h3>
+        <p *ngIf="section.content">{{ section.content }}</p>
+        <ul *ngIf="section.links">
+          <li *ngFor="let link of section.links">
+            <a [href]="link.href">{{ link.label }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; {{ currentYear }} Sabor Mayor. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,74 @@
+<section class="hero" id="hero" [@fadeInUp]="heroLoaded">
+  <div class="hero-content" appScrollReveal>
+    <h1 class="hero-title">Sabor Mayor</h1>
+
+    <p class="hero-subtitle" appScrollReveal>
+      Donde la tradición culinaria latinoamericana encuentra la sofisticación moderna
+    </p>
+
+    <div class="hero-cta">
+      <!-- PRIMARY CTA - Magnetic Button Effect + Extreme Hover Physics -->
+      <button
+        class="btn btn-primary magnetic-button"
+        appMagneticHover
+        [magneticConfig]="{ magneticRange: 200, magneticStrength: 0.8, elasticity: 0.12 }"
+        (mouseenter)="onButtonHover()"
+        (mouseleave)="onButtonLeave()"
+        (click)="onButtonClick()"
+        [@glowEffect]="glowState"
+        [attr.aria-label]="'Reservar una mesa en Sabor Mayor'"
+      >
+        <span class="btn-text">Reservar Ahora</span>
+        <span class="btn-glow"></span>
+      </button>
+
+      <!-- SECONDARY CTA - Magnetic Link Style + Magnetic Hover -->
+      <button
+        class="btn btn-secondary magnetic-button"
+        appMagneticHover
+        [magneticConfig]="{ magneticRange: 180, magneticStrength: 0.6, elasticity: 0.15 }"
+        (mouseenter)="onButtonHover()"
+        (mouseleave)="onButtonLeave()"
+        [attr.aria-label]="'Ver menú completo'"
+      >
+        <span class="btn-text">Explorar Menú</span>
+      </button>
+    </div>
+
+    <!-- Scroll Indicator - Fade in animation -->
+    <!--
+    <div class="scroll-indicator" appScrollReveal>
+      <span class="scroll-text">Scroll para descubrir</span>
+      <div class="scroll-arrow">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path
+            d="M10 2v12M4 10l6 6 6-6"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+    </div>
+    -->
+  </div>
+
+  <!-- PARALLAX IMAGE LAYER -->
+  <div class="hero-image-wrapper" #heroImage>
+    <div class="hero-image parallax-layer">
+      <img
+        src="assets/ceviche.jpg"
+        alt="Plato destacado de Sabor Mayor - Experiencia culinaria premium"
+        loading="lazy"
+        decoding="async"
+      />
+      <!-- Overlay con vintage blur effect -->
+      <div class="image-overlay"></div>
+    </div>
+  </div>
+
+  <!-- DECORATIVE ELEMENTS -->
+  <div class="hero-decoration hero-deco-1"></div>
+  <div class="hero-decoration hero-deco-2"></div>
+</section>

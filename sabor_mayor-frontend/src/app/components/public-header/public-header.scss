@@ -1,0 +1,147 @@
+/* public-header.component.scss */
+
+.public-header {
+  /* --- CONFIGURACIÓN DE LAYOUT --- */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4rem;
+  height: 10dvh;
+  min-height: 80px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  /* Fondo base oscuro de tu paleta */
+  background-color: #14100c;
+
+  /* El degradado sutil de fondo para dar profundidad debajo de los píxeles */
+  background-image: radial-gradient(circle at center, #2a1e15 0%, #14100c 85%);
+
+  /* ==========================================================================
+     EL EFECTO DE MICRO-PÍXELES ELEGANTES (Grano Analógico Nítido)
+     ========================================================================== */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Controla qué tan marcado se ve el pixelado. 
+       0.12 es un 12% de opacidad, ideal para que se note con elegancia sin ser molesto */
+    opacity: 2.12;
+
+    /* Generador de ruido matemático puro */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+
+    /* EL TRUCO DEL PIXELADO: Al forzar un tamaño de caja pequeño (150px), los puntos 
+       del ruido se estiran obligatoriamente como micro-cuadrados (píxeles) perfectos */
+    background-size: 150px 150px;
+
+    /* Evita que el navegador suavice los bordes, manteniendo los píxeles crujientes */
+    image-rendering: pixelated;
+
+    /* Mezcla los píxeles con el color marrón de fondo de forma orgánica */
+    mix-blend-mode: overlay;
+
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ==========================================================================
+     CONTENIDO (Texto y botones limpios por encima del grano)
+     ========================================================================== */
+  .logo,
+  .header-actions {
+    position: relative;
+    z-index: 2; /* Flotan sobre el efecto texturizado */
+  }
+
+  /* --- LOGO --- */
+  .logo {
+    font-size: 2.8rem;
+    color: var(--sabor-gold-main);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /* --- CONTENEDOR DERECHO --- */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  /* --- NAVEGACIÓN --- */
+  .main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+    margin: 0;
+    padding: 0;
+
+    li a {
+      color: var(--sabor-gold-muted);
+      text-decoration: none;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: var(--sabor-gold-main);
+      }
+    }
+  }
+
+  /* --- BOTONES --- */
+  .header-buttons {
+    display: flex;
+    gap: 1rem;
+
+    button {
+      padding: 0.7rem 2rem;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--sabor-gold-muted);
+      border: 1px solid var(--sabor-gold-muted);
+      &:hover {
+        background-color: rgba(213, 196, 164, 0.05);
+      }
+    }
+
+    .btn-solid {
+      background-color: var(--sabor-gold-main);
+      color: #14100c;
+      border: 1px solid var(--sabor-gold-main);
+      font-weight: 600;
+      &:hover {
+        filter: brightness(1.1);
+      }
+    }
+  }
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-direction: row;
+
+    .logo-logo {
+      height: 10dvh;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}

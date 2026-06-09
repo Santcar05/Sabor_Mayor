@@ -1,0 +1,90 @@
+@use '../../_landing-config.scss' as *;
+
+.wine-selection {
+  @include section-base;
+
+  .wine-container {
+    @include container;
+  }
+
+  .section-title {
+    @include title-md;
+    text-align: center;
+    margin-bottom: $spacing-sm;
+  }
+
+  .section-subtitle {
+    @include body-text-muted;
+    text-align: center;
+    margin-bottom: $spacing-2xl;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .wines-grid {
+    @include grid-responsive;
+    position: relative;
+    z-index: 2;
+  }
+
+  .wine-card {
+    text-align: center;
+    padding: $spacing-lg;
+    border: 1px solid $color-cobre-vivo;
+    background-color: rgba($color-cobre-vivo, 0.02);
+    @include transition-smooth;
+
+    &:hover {
+      background-color: rgba($gold-main, 0.05);
+      border-color: $gold-main;
+    }
+
+    .wine-image {
+      width: 100%;
+      height: 280px;
+      overflow: hidden;
+      margin-bottom: $spacing-md;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        @include transition-smooth;
+      }
+
+      &:hover img {
+        transform: scale(1.05);
+      }
+    }
+
+    .wine-name {
+      @include title-sm;
+      margin-bottom: $spacing-sm;
+    }
+
+    .wine-region {
+      @include body-text-accent;
+      margin-bottom: $spacing-sm;
+      position: relative;
+      z-index: 2;
+    }
+
+    .wine-description {
+      @include body-text-muted;
+      margin-bottom: $spacing-md;
+      position: relative;
+      z-index: 2;
+    }
+
+    .price {
+      @include body-text-accent;
+      color: $gold-main;
+      font-size: 1.1rem;
+      position: relative;
+      z-index: 2;
+    }
+  }
+}

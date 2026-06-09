@@ -1,0 +1,68 @@
+@use '../../_landing-config.scss' as *;
+
+.testimonials {
+  @include section-base;
+
+  .testimonials-container {
+    @include container;
+  }
+
+  .section-title {
+    @include title-md;
+    text-align: center;
+    margin-bottom: $spacing-2xl;
+  }
+
+  .testimonials-grid {
+    @include grid-responsive;
+    position: relative;
+    z-index: 2;
+  }
+
+  .testimonial-card {
+    padding: $spacing-lg;
+    border: 1px solid $color-cobre-vivo;
+    background-color: rgba($color-cobre-vivo, 0.02);
+    @include transition-smooth;
+
+    &:hover {
+      border-color: $gold-main;
+      background-color: rgba($gold-main, 0.05);
+    }
+
+    .stars {
+      font-size: 1.2rem;
+      color: $gold-main;
+      margin-bottom: $spacing-md;
+      letter-spacing: 0.2em;
+      position: relative;
+      z-index: 2;
+    }
+
+    .testimonial-text {
+      @include body-text-lg;
+      font-style: italic;
+      margin-bottom: $spacing-md;
+      position: relative;
+      z-index: 2;
+    }
+
+    .testimonial-author {
+      @include divider-subtle;
+      padding-top: $spacing-md;
+      position: relative;
+      z-index: 2;
+
+      .author-name {
+        @include body-text-accent;
+        color: $gold-main;
+        margin: 0;
+      }
+
+      .author-role {
+        @include body-text-muted;
+        margin: $spacing-sm 0 0 0;
+      }
+    }
+  }
+}

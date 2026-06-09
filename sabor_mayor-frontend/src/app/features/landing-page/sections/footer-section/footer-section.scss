@@ -1,0 +1,74 @@
+@use '../../_landing-config.scss' as *;
+
+.footer {
+  position: relative;
+  background-color: #0d0905;
+  color: $gold-muted;
+  padding: $spacing-2xl $spacing-lg;
+  @include grain-texture;
+
+  .footer-container {
+    @include container;
+  }
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-2xl;
+    margin-bottom: $spacing-2xl;
+    position: relative;
+    z-index: 2;
+
+    @media (max-width: $bp-tablet) {
+      grid-template-columns: 1fr;
+      gap: $spacing-lg;
+    }
+  }
+
+  .footer-section {
+    h3 {
+      @include title-sm;
+      color: $gold-main;
+      margin-bottom: $spacing-md;
+    }
+
+    p {
+      @include body-text-md;
+      margin: 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: $spacing-sm;
+
+        a {
+          @include body-text-md;
+          color: $gold-muted;
+          @include transition-fast;
+
+          &:hover {
+            color: $gold-main;
+          }
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    @include divider-copper;
+    padding-top: $spacing-lg;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+
+    p {
+      @include body-text-md;
+      color: $gold-muted;
+      margin: 0;
+    }
+  }
+}

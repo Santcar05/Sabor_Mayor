@@ -1,0 +1,18 @@
+<section class="wine-selection" id="wines">
+  <div class="wine-container">
+    <h2 class="section-title">Selección de Vinos</h2>
+    <p class="section-subtitle">Los mejores vinos de América Latina y el mundo, cuidadosamente seleccionados</p>
+
+    <div class="wines-grid">
+      <article class="wine-card" *ngFor="let wine of wines">
+        <div class="wine-image">
+          <img [src]="wine.image" [alt]="wine.name" />
+        </div>
+        <h3 class="wine-name">{{ wine.name }}</h3>
+        <p class="wine-region">{{ wine.region }}</p>
+        <p class="wine-description">{{ wine.description }}</p>
+        <span class="price">{{ wine.price }}</span>
+      </article>
+    </div>
+  </div>
+</section>

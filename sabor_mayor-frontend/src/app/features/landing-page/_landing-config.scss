@@ -1,0 +1,355 @@
+/* Landing Page Configuration - Shared SCSS */
+/* Basado en header.scss y _variables.scss con 40 años de experiencia UI/UX */
+
+/* ==========================================================================
+   PALETA DE COLORES DEFINITIVA (De _variables.scss)
+   ========================================================================== */
+$color-tierra-profunda: #1c1208;
+$color-ambar-dorado: #c8902a;
+$color-crema-antigua: #f4ecd8;
+$color-humo-suave: #3a2e22;
+$color-marfil-puro: #fafaf7;
+$color-cobre-vivo: #e09f7f; /* De un marrón rojizo oscuro a un terracota/cobre suave */
+$color-verde-selva: #8ab06a; /* De un verde oscuro a un tono salvia/botánico claro */
+$color-rojo-aji: #de7373;
+
+/* Fondos y gradientes (Del header) */
+$bg-center: #2d2219;
+$bg-edge: #14100c;
+$gold-main: #f3b54a;
+$gold-muted: #d5c4a4;
+
+/* ==========================================================================
+   TIPOGRAFÍA - IDENTIDAD SABOR MAYOR (Amigable y Premium)
+   ========================================================================== */
+$font-sans: 'DM Sans', system-ui, sans-serif;
+$font-heading: 'Raleway', sans-serif; // Títulos - Moderna, amigable, contemporánea
+$font-mono: 'DM Mono', monospace; // Precios, datos técnicos
+
+/* ==========================================================================
+   ESPACIADO Y LAYOUT
+   ========================================================================== */
+$spacing-unit: 8px;
+$spacing-xs: $spacing-unit;
+$spacing-sm: $spacing-unit * 2; // 16px
+$spacing-md: $spacing-unit * 3; // 24px
+$spacing-lg: $spacing-unit * 4; // 32px
+$spacing-xl: $spacing-unit * 8; // 64px
+$spacing-2xl: $spacing-unit * 10; // 80px
+$spacing-3xl: $spacing-unit * 15; // 120px
+
+$container-max: 1200px;
+$container-gutter: 32px;
+
+/* Breakpoints */
+$bp-mobile: 480px;
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+
+/* ==========================================================================
+   EFECTO SIGNATURE: GRANO ANALÓGICO (Del header)
+   ========================================================================== */
+@mixin grain-texture {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-size: 150px 150px;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    image-rendering: pixelated;
+    z-index: 0;
+  }
+}
+
+/* ==========================================================================
+   GRADIENTES SIGNATURE
+   ========================================================================== */
+@mixin gradient-bg-subtle {
+  background: linear-gradient(135deg, $bg-center 0%, $color-tierra-profunda 100%);
+}
+
+@mixin gradient-radial-header {
+  background-image: radial-gradient(circle at center, $bg-center 0%, $bg-edge 85%);
+}
+
+/* ==========================================================================
+   CONTENEDOR ESTÁNDAR
+   ========================================================================== */
+@mixin container {
+  max-width: $container-max;
+  margin: 0 auto;
+  padding: 0 $container-gutter;
+
+  @media (max-width: $bp-tablet) {
+    padding: 0 $spacing-md;
+  }
+
+  @media (max-width: $bp-mobile) {
+    padding: 0 $spacing-sm;
+  }
+}
+
+/* ==========================================================================
+   SECCIÓN ESTÁNDAR (Espaciado vertical consistente)
+   ========================================================================== */
+@mixin section-base {
+  position: relative;
+  padding: $spacing-3xl $spacing-lg;
+  background-color: $color-tierra-profunda;
+  @include grain-texture;
+
+  @media (max-width: $bp-tablet) {
+    padding: $spacing-lg $spacing-md;
+  }
+
+  @media (max-width: $bp-mobile) {
+    padding: $spacing-lg $spacing-sm;
+  }
+}
+
+/* ==========================================================================
+   TÍTULOS (Jerarquía tipográfica de lujo - Identidad Sabor Mayor)
+   ========================================================================== */
+@mixin title-lg {
+  font-family: $font-heading;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: $gold-main;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+
+  @media (max-width: $bp-tablet) {
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: $bp-mobile) {
+    font-size: 1.875rem;
+  }
+}
+
+@mixin title-md {
+  font-family: $font-heading;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: $gold-main;
+  line-height: 1.2;
+  margin: 0 0 $spacing-lg 0;
+  letter-spacing: -0.01em;
+
+  @media (max-width: $bp-tablet) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: $bp-mobile) {
+    font-size: 1.5rem;
+  }
+}
+
+@mixin title-sm {
+  font-family: $font-heading;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $color-crema-antigua;
+  line-height: 1.4;
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+
+/* ==========================================================================
+   BODY TEXT (Legibilidad premium y elegancia - DM Sans amigable)
+   ========================================================================== */
+@mixin body-text-lg {
+  font-family: $font-sans;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: $color-crema-antigua;
+  line-height: 1.8;
+  letter-spacing: 0.005em;
+}
+
+@mixin body-text-md {
+  font-family: $font-sans;
+  font-size: 1rem;
+  font-weight: 400;
+  color: $color-crema-antigua;
+  line-height: 1.6;
+  letter-spacing: 0.003em;
+}
+
+@mixin body-text-muted {
+  font-family: $font-sans;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: $gold-muted;
+  line-height: 1.6;
+  letter-spacing: 0.003em;
+}
+
+@mixin body-text-accent {
+  font-family: $font-mono;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $color-cobre-vivo;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@mixin body-text-price {
+  font-family: $font-mono;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: $gold-main;
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   BOTONES (Estilo consistente con header)
+   ========================================================================== */
+@mixin btn-base {
+  font-family: $font-sans;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 0.875rem 2rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  border-radius: 0;
+  text-transform: uppercase;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+}
+
+@mixin btn-primary {
+  @include btn-base;
+  background-color: $gold-main;
+  color: $color-tierra-profunda;
+  border: 1px solid $gold-main;
+
+  &:hover {
+    filter: brightness(1.15);
+    transform: translateY(-2px);
+  }
+}
+
+@mixin btn-secondary {
+  @include btn-base;
+  background-color: transparent;
+  color: $gold-main;
+  border: 2px solid $gold-main;
+
+  &:hover {
+    background-color: rgba($gold-main, 0.1);
+  }
+}
+
+@mixin btn-outline {
+  @include btn-base;
+  background-color: transparent;
+  color: $color-crema-antigua;
+  border: 1px solid $gold-muted;
+
+  &:hover {
+    background-color: rgba($gold-main, 0.05);
+    border-color: $gold-main;
+    color: $gold-main;
+  }
+}
+
+/* ==========================================================================
+   CARDS (Elegancia editorial)
+   ========================================================================== */
+@mixin card-base {
+  position: relative;
+  border-top: 2px solid $gold-main;
+  padding: $spacing-lg;
+  background-color: rgba($gold-main, 0.02);
+  transition: all 0.3s ease;
+  @include grain-texture;
+
+  &:hover {
+    background-color: rgba($gold-main, 0.08);
+    transform: translateY(-4px);
+  }
+}
+
+/* ==========================================================================
+   DIVIDERS Y LÍNEAS
+   ========================================================================== */
+@mixin divider-gold {
+  border-top: 1px solid $gold-main;
+}
+
+@mixin divider-copper {
+  border-top: 1px solid $color-cobre-vivo;
+}
+
+@mixin divider-subtle {
+  border-top: 1px solid $gold-muted;
+}
+
+/* ==========================================================================
+   TRANSICIONES (Smooth animations - Luxe editorial timing)
+   ========================================================================== */
+@mixin transition-smooth {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@mixin transition-slow {
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@mixin transition-fast {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   RESPONSIVE UTILITIES
+   ========================================================================== */
+@mixin hide-on-mobile {
+  @media (max-width: $bp-tablet) {
+    display: none;
+  }
+}
+
+@mixin show-on-mobile-only {
+  display: none;
+
+  @media (max-width: $bp-tablet) {
+    display: block;
+  }
+}
+
+@mixin flex-responsive {
+  display: flex;
+  flex-direction: row;
+
+  @media (max-width: $bp-tablet) {
+    flex-direction: column;
+  }
+}
+
+@mixin grid-responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: $spacing-lg;
+
+  @media (max-width: $bp-mobile) {
+    grid-template-columns: 1fr;
+  }
+}

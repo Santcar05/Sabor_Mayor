@@ -1,0 +1,22 @@
+<section class="featured-dishes" id="featured">
+  <div class="featured-container">
+    <h2 class="section-title">Platos Destacados</h2>
+    <p class="section-subtitle">Una selección curada de nuestras creaciones más emblemáticas</p>
+
+    <div class="dishes-grid">
+      <article class="dish-card" *ngFor="let dish of dishes">
+        <div class="dish-image">
+          <img [src]="dish.image" [alt]="dish.name" />
+        </div>
+        <div class="dish-content">
+          <h3 class="dish-name">{{ dish.name }}</h3>
+          <p class="dish-description">{{ dish.description }}</p>
+          <div class="dish-meta">
+            <span class="price">{{ dish.price }}</span>
+            <span class="tag" [ngClass]="'tag-' + dish.tagType">{{ dish.tag }}</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

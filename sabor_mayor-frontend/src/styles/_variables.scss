@@ -1,0 +1,29 @@
+/*
+| Nombre              | Hex       | Uso                                  |
+| ------------------- | --------- | ------------------------------------ |
+| **Tierra Profunda** | `#1C1208` | Fondo principal, navbar              |
+| **Ámbar Dorado**    | `#C8902A` | Primario, CTAs, hover states         |
+| **Crema Antigua**   | `#F4ECD8` | Texto sobre fondos oscuros, tarjetas |
+| **Cobre Vivo**      | `#A0522D` | Acento secundario, bordes            |
+| **Verde Selva**     | `#2D5016` | Tags de vegetariano, frescura        |
+| **Rojo Ají**        | `#8B1A1A` | Alertas, platos picantes             |
+| **Humo Suave**      | `#3A2E22` | Cards, hover en fondos oscuros       |
+| **Marfil Puro**     | `#FAFAF7` | Fondos de secciones claras           |
+*/
+
+:root {
+  --tierra-profunda: #1c1208;
+  --ambar-dorado: #c8902a;
+  --crema-antigua: #f4ecd8;
+  --cobre-vivo: #a0522d;
+  --verde-selva: #2d5016;
+  --rojo-aji: #8b1a1a;
+  --humo-suave: #3a2e22;
+  --marfil-puro: #fafaf7;
+  /* Fondo: Gradiente Radial */
+  --sabor-bg-center: #2d2219; /* El marrón cálido sutil del centro */
+  --sabor-bg-edge: #14100c; /* El negro/marrón muy oscuro de los bordes (vignette) */
+  --sabor-bg-header: #14100c; /* El marrón/negro muy oscuro del fondo */
+  --sabor-gold-main: #f3b54a; /* El dorado fuerte del logo y el botón */
+  --sabor-gold-muted: #d5c4a4; /* El beige/dorado suave de los textos y el borde */
+}

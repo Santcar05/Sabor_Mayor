@@ -1,0 +1,106 @@
+@use '../../_landing-config.scss' as *;
+
+.contact-reservation {
+  @include section-base;
+  @include gradient-bg-subtle;
+
+  .contact-container {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-2xl;
+
+    @media (max-width: $bp-tablet) {
+      grid-template-columns: 1fr;
+      gap: $spacing-lg;
+    }
+  }
+
+  .contact-info {
+    position: relative;
+    z-index: 2;
+  }
+
+  .section-title {
+    @include title-md;
+    margin-bottom: $spacing-lg;
+  }
+
+  .info-group {
+    margin-bottom: $spacing-2xl;
+    position: relative;
+    z-index: 2;
+
+    .info-label {
+      @include body-text-accent;
+      margin-bottom: $spacing-sm;
+      display: block;
+    }
+
+    .info-content {
+      @include body-text-lg;
+      margin: 0;
+      line-height: 1.8;
+    }
+  }
+
+  .reservation-form {
+    position: relative;
+    z-index: 2;
+
+    .form-title {
+      @include title-sm;
+      margin-bottom: $spacing-lg;
+    }
+
+    .form-group {
+      margin-bottom: $spacing-lg;
+
+      label {
+        @include body-text-accent;
+        margin-bottom: $spacing-sm;
+        display: block;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid $gold-muted;
+        padding: 0.75rem 0;
+        font-family: $font-sans;
+        font-size: 1rem;
+        color: $color-crema-antigua;
+        @include transition-smooth;
+
+        &::placeholder {
+          color: $gold-muted;
+        }
+
+        &:focus {
+          outline: none;
+          border-bottom-color: $gold-main;
+        }
+
+        &:disabled {
+          background-color: rgba($color-tierra-profunda, 0.5);
+          color: $gold-muted;
+        }
+      }
+
+      select {
+        appearance: none;
+        cursor: pointer;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%23f3b54a' d='M0 0l6 8 6-8z'/%3E%3C/svg%3E") no-repeat right;
+        padding-right: 20px;
+      }
+    }
+
+    .btn {
+      @include btn-primary;
+      width: 100%;
+    }
+  }
+}

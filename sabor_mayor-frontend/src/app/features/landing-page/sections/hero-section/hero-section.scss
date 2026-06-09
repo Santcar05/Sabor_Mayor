@@ -1,0 +1,10 @@
+/**
+ * HERO SECTION - Premium Effects
+ * Importa y aplicar estilo premium con vintage blur, magnetic buttons, parallax
+ */
+
+@use '../../premium-effects' as effects;
+@use '../../_landing-config' as config;
+
+/* Importar estilos premium */
+@import './hero-section.premium.scss';
