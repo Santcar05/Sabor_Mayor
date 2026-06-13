@@ -1,0 +1,107 @@
+### Sabor Mayor — REST client collection (VS Code REST Client / IntelliJ HTTP)
+### Everything routes through the API gateway.
+@gateway = http://localhost:8080
+
+### --- 1. Login as customer (seeded user) ---
+# @name login
+POST {{gateway}}/api/auth/login
+Content-Type: application/json
+
+{ "email": "cliente@sabormayor.com", "password": "Cliente123!" }
+
+> {% client.global.set("accessToken", response.body.accessToken);
+     client.global.set("refreshToken", response.body.refreshToken); %}
+
+### --- 2. Register a new customer ---
+POST {{gateway}}/api/auth/register
+Content-Type: application/json
+
+{ "email": "nuevo@sabormayor.com", "password": "Password123!", "fullName": "Nuevo Cliente" }
+
+### --- 3. Current user ---
+GET {{gateway}}/api/auth/me
+Authorization: Bearer {{accessToken}}
+
+### --- 4. Rotate refresh token ---
+POST {{gateway}}/api/auth/refresh
+Content-Type: application/json
+
+{ "refreshToken": "{{refreshToken}}" }
+
+### --- 5. Login as admin ---
+# @name adminLogin
+POST {{gateway}}/api/auth/login
+Content-Type: application/json
+
+{ "email": "admin@sabormayor.com", "password": "Admin123!" }
+
+> {% client.global.set("adminToken", response.body.accessToken); %}
+
+### --- 6. Public menu (cached) ---
+GET {{gateway}}/api/menu/dishes?category=entradas
+
+### --- 7. Dish detail ---
+GET {{gateway}}/api/menu/dishes/ceviche-ancestral
+
+### --- 8. Update my profile ---
+PUT {{gateway}}/api/users/me
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{ "fullName": "Cliente Actualizado", "phone": "3001234567",
+  "dietaryPreferences": ["vegetariano"], "allergies": ["mani"] }
+
+### --- 9. Add item to cart ---
+POST {{gateway}}/api/cart/items
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{ "dishId": "20000000-0000-0000-0000-000000000001", "quantity": 2 }
+
+### --- 10. Place a dine-in order ---
+# @name placeOrder
+POST {{gateway}}/api/orders
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{ "type": "DINE_IN", "tableId": "30000000-0000-0000-0000-000000000001",
+  "items": [ { "dishId": "20000000-0000-0000-0000-000000000001", "quantity": 2 } ] }
+
+> {% client.global.set("orderId", response.body.id); %}
+
+### --- 11. Pay the order (mock gateway) ---
+POST {{gateway}}/api/payments
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{ "orderId": "{{orderId}}", "amount": 84000, "tip": 8400, "method": "CARD",
+  "paymentMethodToken": "tok_visa" }
+
+### --- 12. Loyalty account (points credited from OrderPaid) ---
+GET {{gateway}}/api/loyalty/me
+Authorization: Bearer {{accessToken}}
+
+### --- 13. Reservation availability (public) ---
+GET {{gateway}}/api/reservations/availability?date=2026-06-19&partySize=4
+
+### --- 14. Create a reservation ---
+POST {{gateway}}/api/reservations
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{ "date": "2026-06-19", "time": "20:00", "partySize": 4 }
+
+### --- 15. Kitchen Display System (cook) ---
+GET {{gateway}}/api/kitchen/orders?station=CALIENTES
+Authorization: Bearer {{adminToken}}
+
+### --- 16. Blog posts (public) ---
+GET {{gateway}}/api/content/posts
+
+### --- 17. Inventory low-stock (admin) ---
+GET {{gateway}}/api/inventory/ingredients/low-stock
+Authorization: Bearer {{adminToken}}
+
+### --- 18. Analytics dashboard (admin) ---
+GET {{gateway}}/api/analytics/dashboard?from=2026-06-01&to=2026-06-30
+Authorization: Bearer {{adminToken}}

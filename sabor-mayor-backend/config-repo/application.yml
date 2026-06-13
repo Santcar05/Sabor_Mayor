@@ -1,0 +1,25 @@
+# Shared configuration served by config-server to every client service.
+
+# Keep each service's connection pool small: 11 services share one Postgres
+# instance, so a default pool of 10 each would exhaust the connection limit.
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    sampling:
+      probability: 1.0
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

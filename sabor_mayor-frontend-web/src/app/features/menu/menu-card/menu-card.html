@@ -1,0 +1,23 @@
+<article class="menu-card">
+  <div class="image-wrapper">
+    <img [src]="dish().image" [alt]="dish().name" loading="lazy" />
+    <div class="gradient-overlay"></div>
+  </div>
+
+  <div class="card-header-row">
+    <h3 class="dish-title">{{ dish().name }}</h3>
+    <div class="editorial-line"></div>
+    <span class="dish-price">{{ dish().price }}</span>
+  </div>
+
+  <p class="dish-subtitle" *ngIf="dish().subtitle">
+    <em>{{ dish().subtitle }}</em>
+  </p>
+  <p class="dish-description">{{ dish().description }}</p>
+
+  <div class="tags-container" *ngIf="dish().tags?.length">
+    <span *ngFor="let tag of dish().tags" [ngClass]="['tag', 'tag-' + tag.type]">
+      {{ tag.label }}
+    </span>
+  </div>
+</article>

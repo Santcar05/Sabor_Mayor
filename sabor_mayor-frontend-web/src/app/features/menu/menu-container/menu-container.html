@@ -1,0 +1,33 @@
+<app-public-header></app-public-header>
+<section class="menu-section">
+  <div class="watercolor-1"></div>
+  <div class="watercolor-2"></div>
+
+  <div class="menu-layout-container">
+    <header class="menu-editorial-header">
+      <span class="sub-heading">ALQUIMIA LATINOAMERICANA</span>
+      <h2 class="main-title">Nuestra Carta</h2>
+      <p class="editorial-summary">
+        Cada plato es una partitura arqueológica culinaria, reinterpretando técnicas sagradas bajo
+        ópticas de la alta cocina contemporánea.
+      </p>
+    </header>
+
+    <app-menu-search (searchChanged)="updateSearch($event)"></app-menu-search>
+
+    <app-menu-filters
+      [currentCategory]="selectedCategory()"
+      (categoryChanged)="updateCategory($event)"
+    >
+    </app-menu-filters>
+
+    <div class="menu-grid" [@listStagger]="filteredDishes().length">
+      <app-menu-card *ngFor="let item of filteredDishes(); trackBy: trackByDishId" [dish]="item">
+      </app-menu-card>
+    </div>
+
+    <div class="empty-state" *ngIf="filteredDishes().length === 0">
+      <p>No se encontraron creaciones con los criterios especificados.</p>
+    </div>
+  </div>
+</section>

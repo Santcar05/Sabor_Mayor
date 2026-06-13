@@ -1,0 +1,77 @@
+@use 'menu-tokens' as *;
+
+app-public-header {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+.menu-section {
+  background-color: $color-surface;
+  color: $color-on-surface;
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  @include film-grain;
+}
+
+// Splashes de Acuarela de Fondo Detallados en la Spec
+.watercolor-1 {
+  @include watercolor-blur($color-cobre, 10%, -10%, 600px);
+}
+.watercolor-2 {
+  @include watercolor-blur($color-surface-bright, 50%, 80%, 500px);
+}
+
+.menu-layout-container {
+  max-width: $container-max;
+  margin: 0 auto;
+  padding: 0 $gutter;
+  position: relative;
+  z-index: 2; // Sobre la acuarela y debajo del grano
+}
+
+.menu-editorial-header {
+  text-align: center;
+  margin-bottom: 60px;
+
+  .sub-heading {
+    @include font-label-price;
+    color: $color-primary;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .main-title {
+    @include font-display-lg;
+    color: $color-on-surface;
+    margin: 0 0 24px 0;
+  }
+
+  .editorial-summary {
+    @include font-body-lg;
+    color: $color-on-surface-variant;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 40px;
+  margin-top: 40px;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 0;
+  @include font-body-lg;
+  color: $color-outline;
+  font-style: italic;
+}

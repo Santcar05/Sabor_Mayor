@@ -1,0 +1,153 @@
+/* ==========================================================================
+   TOKENS DE COLOR - CONFIGURACIÓN "TIERRA PROFUNDA"
+   ========================================================================== */
+$color-surface: #1b1107;
+$color-surface-bright: #44372b;
+$color-surface-container: #291d13;
+$color-surface-container-high: #34281c;
+$color-on-surface: #f4dfcd;
+$color-on-surface-variant: #d4c4b0;
+$color-outline: #9d8f7c;
+$color-outline-variant: #504536;
+
+$color-primary: #fabc53; // Ámbar Dorado
+$color-primary-container: #c8902a;
+$color-cobre: #e09f7f; // Cobre Vivo
+
+// Colores Semánticos Atenuados (Muted Luxury Spec)
+$color-vegetariano: #8ab06a; // Verde Selva
+$color-picante: #de7373; // Rojo Ají
+
+/* ==========================================================================
+   SISTEMA DE ESPACIADO Y REJILLA EDITORIAL (Mapeo Semántico)
+   ========================================================================== */
+$spacing-unit: 8px;
+$spacing-xs: $spacing-unit; // 8px
+$spacing-sm: $spacing-unit * 2; // 16px
+$spacing-md: $spacing-unit * 3; // 24px
+$spacing-lg: $spacing-unit * 4; // 32px
+$spacing-xl: $spacing-unit * 8; // 64px
+$spacing-2xl: $spacing-unit * 10; // 80px
+$spacing-3xl: $spacing-unit * 15; // 120px
+
+/* Aliases Estructurales de Diseño (Requeridos por los componentes) */
+$container-max: 1200px;
+$container-gutter: 32px;
+$gutter: $container-gutter; // Alias directo para compatibilidad de layouts
+
+$margin-desktop: $spacing-2xl; // 80px (Framing de museo)
+$margin-mobile: $spacing-md; // 24px (Márgenes ajustados para smartphones)
+$section-gap: $spacing-3xl; // 120px (Ritmo vertical pausado de lujo)
+
+/* Breakpoints de Media Queries */
+$bp-mobile: 480px;
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+
+/* ==========================================================================
+   TIPOGRAFÍAS EDITORIALES DE ALTA GAMA
+   ========================================================================== */
+@mixin font-display-lg {
+  font-family: 'Raleway', sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+@mixin font-headline-lg {
+  font-family: 'Raleway';
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.2;
+  @media (max-width: $bp-tablet) {
+    font-size: 32px; // Equivalente a headline-lg-mobile de la especificación
+  }
+}
+
+@mixin font-headline-md {
+  font-family: 'Raleway';
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+@mixin font-body-lg {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+@mixin font-body-md {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+@mixin font-label-price {
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Tipografía de Acompañamiento Lírico (Añadido para descripciones/subtítulos) */
+@mixin font-accent-script {
+  font-family: 'Raleway', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   MIXINS DE EFECTOS TÁCTILES & PROFUNDIDAD
+   ========================================================================== */
+@mixin film-grain {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-size: 150px 150px;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    image-rendering: pixelated;
+    z-index: 1;
+  }
+}
+
+@mixin watercolor-blur($color, $top, $left, $size) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  width: $size;
+  height: $size;
+  background: radial-gradient(circle, rgba($color, 0.08) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@mixin border-fade-gold {
+  border: none;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, $color-primary 50%, transparent 100%);
+  }
+}

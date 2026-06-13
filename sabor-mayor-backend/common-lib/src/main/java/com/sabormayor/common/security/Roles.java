@@ -1,0 +1,13 @@
+package com.sabormayor.common.security;
+
+public final class Roles {
+
+    public static final String CLIENTE = "CLIENTE";
+    public static final String MESERO = "MESERO";
+    public static final String COCINERO = "COCINERO";
+    public static final String ADMIN = "ADMIN";
+    public static final String SUPER_ADMIN = "SUPER_ADMIN";
+
+    private Roles() {
+    }
+}

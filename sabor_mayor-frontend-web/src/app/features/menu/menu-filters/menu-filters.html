@@ -1,0 +1,10 @@
+<nav class="filter-nav" aria-label="Categorías del menú">
+  <ul class="filter-list">
+    <li *ngFor="let cat of categories">
+      <button [class.active]="currentCategory() === cat.id" (click)="selectCategory(cat.id)">
+        {{ cat.label }}
+        <span class="indicator" *ngIf="currentCategory() === cat.id"></span>
+      </button>
+    </li>
+  </ul>
+</nav>
