@@ -3,6 +3,7 @@
   grid-template-columns: 260px 1fr;
   gap: 2rem;
   padding-block: 2.5rem;
+  padding-top: calc(var(--header-height) + 2.5rem);
   align-items: start;
 }
 

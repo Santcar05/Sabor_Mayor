@@ -1,0 +1,46 @@
+<div class="ap-header">
+  <h1>Gestión de Pedidos</h1>
+  <select class="ap-filter" [(ngModel)]="filterStatusModel">
+    @for (opt of statusOptions; track opt.value) {
+      <option [value]="opt.value">{{ opt.label }}</option>
+    }
+  </select>
+</div>
+
+@if (loading()) {
+  <div class="ap-loading"><app-loading-spinner /></div>
+} @else if (filtered().length === 0) {
+  <p class="ap-empty">No hay pedidos con ese filtro.</p>
+} @else {
+  <div class="ap-list">
+    @for (o of filtered(); track o.id) {
+      <div class="ap-card">
+        <div class="ap-card-head">
+          <span class="ap-code">#{{ o.id.slice(0, 8).toUpperCase() }}</span>
+          <span class="ap-type">{{ o.type }}</span>
+          <span class="ap-badge ap-badge--{{ statusClass(o.status) }}">{{ statusLabel(o.status) }}</span>
+          <span class="ap-date">{{ o.createdAt | date:'d MMM, h:mm a' }}</span>
+        </div>
+        <ul class="ap-items">
+          @for (item of o.items; track item.id) {
+            <li>× {{ item.quantity }} {{ item.dishName }} — <span class="ap-price">{{ item.unitPrice * item.quantity | cop }}</span></li>
+          }
+        </ul>
+        <div class="ap-footer">
+          <strong class="ap-total">{{ o.total | cop }}</strong>
+          <div class="ap-actions">
+            @for (next of nextStatuses(o.status); track next.value) {
+              <button
+                app-button
+                [variant]="next.value === 'CANCELLED' ? 'danger' : 'secondary'"
+                size="sm"
+                [loading]="updating() === o.id"
+                (pressed)="updateStatus(o.id, next.value)"
+              >{{ next.label }}</button>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}

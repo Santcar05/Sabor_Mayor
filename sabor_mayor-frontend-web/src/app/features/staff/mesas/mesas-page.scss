@@ -1,0 +1,149 @@
+.mesas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  h1 { font-family: var(--font-heading); color: var(--crema-antigua); }
+}
+
+.mesas-stats { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.stat {
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.stat--free { background: rgba(52, 199, 89, 0.18); color: #34c759; }
+.stat--occupied { background: rgba(243, 181, 74, 0.18); color: var(--sabor-gold-main); }
+.stat--orders { background: rgba(10, 132, 255, 0.18); color: #0a84ff; }
+
+.mesas-loading { display: flex; justify-content: center; padding: 4rem; }
+
+.mesas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.mesa-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 1.25rem 1rem;
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  transition: transform var(--dur-fast), border-color var(--dur-fast), box-shadow var(--dur-fast);
+
+  &:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  &.selected { border-color: var(--sabor-gold-main); }
+
+  &--free { background: rgba(52, 199, 89, 0.1); border-color: rgba(52, 199, 89, 0.3); }
+  &--occupied { background: rgba(243, 181, 74, 0.12); border-color: rgba(243, 181, 74, 0.35); }
+  &--reserved { background: rgba(10, 132, 255, 0.1); border-color: rgba(10, 132, 255, 0.3); }
+  &--maintenance { background: rgba(100, 100, 100, 0.15); border-color: rgba(100, 100, 100, 0.3); }
+}
+.mesa-number { font-size: var(--fs-h3); font-family: var(--font-heading); color: var(--crema-antigua); }
+.mesa-cap { font-size: var(--fs-xs); color: var(--sabor-gold-muted); }
+.mesa-status { font-size: var(--fs-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.mesa-card--free .mesa-status { color: #34c759; }
+.mesa-card--occupied .mesa-status { color: var(--sabor-gold-main); }
+.mesa-card--reserved .mesa-status { color: #0a84ff; }
+.mesa-card--maintenance .mesa-status { color: #888; }
+
+.mesa-orders-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  padding: 0.15rem 0.5rem;
+  background: var(--rojo-aji);
+  color: white;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+}
+
+.mesa-detail {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: var(--gradient-card);
+  border: var(--border-subtle);
+  border-radius: var(--radius-xl);
+  animation: sm-fade-in-up var(--dur-fast) var(--ease-out) both;
+}
+.mesa-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+
+  h2 { font-family: var(--font-heading); font-size: var(--fs-h3); color: var(--crema-antigua); }
+}
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--sabor-gold-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  &:hover { color: var(--crema-antigua); background: rgba(213, 196, 164, 0.1); }
+}
+
+.no-orders { color: var(--sabor-gold-muted); font-style: italic; }
+
+.order-card {
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background: rgba(28, 18, 8, 0.6);
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+.order-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+.order-code { font-family: var(--font-mono); font-size: var(--fs-small); color: var(--crema-antigua); }
+.order-time { font-size: var(--fs-xs); color: var(--sabor-gold-muted); margin-left: auto; }
+.order-badge {
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+
+  &--created, &--confirmed { background: rgba(243, 181, 74, 0.2); color: var(--sabor-gold-main); }
+  &--in_kitchen { background: rgba(255, 149, 0, 0.2); color: #ff9500; }
+  &--ready { background: rgba(52, 199, 89, 0.2); color: #34c759; }
+  &--served { background: rgba(100, 100, 100, 0.2); color: #888; }
+}
+.order-items {
+  list-style: none;
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  li { display: flex; justify-content: space-between; font-size: var(--fs-small); color: var(--crema-antigua); }
+}
+.order-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: var(--border-subtle);
+  padding-top: 0.75rem;
+
+  strong { color: var(--sabor-gold-main); }
+}

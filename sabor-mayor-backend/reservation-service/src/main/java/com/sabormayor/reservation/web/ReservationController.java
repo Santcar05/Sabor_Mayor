@@ -85,6 +85,13 @@ public class ReservationController {
         return mapper.toResponses(reservationService.byDate(date));
     }
 
+    @GetMapping("/all")
+    @PreAuthorize("hasAnyRole('ADMIN','SUPER_ADMIN')")
+    @Operation(summary = "All reservations without date filter (admin)")
+    public List<ReservationResponse> allReservations() {
+        return mapper.toResponses(reservationService.allReservations());
+    }
+
     @PatchMapping("/{reservationId}/status")
     @PreAuthorize("hasAnyRole('MESERO','ADMIN','SUPER_ADMIN')")
     @Operation(summary = "Confirm / complete / mark no-show (staff)")

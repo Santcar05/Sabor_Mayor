@@ -1,0 +1,45 @@
+<div class="au-header">
+  <h1>Gestión de Usuarios</h1>
+  <select class="au-filter" [(ngModel)]="filterRoleModel">
+    @for (opt of roleOptions; track opt.value) {
+      <option [value]="opt.value">{{ opt.label }}</option>
+    }
+  </select>
+</div>
+
+@if (loading()) {
+  <div class="au-loading"><app-loading-spinner /></div>
+} @else if (filtered().length === 0) {
+  <p class="au-empty">No hay usuarios con ese filtro.</p>
+} @else {
+  <div class="au-table-wrap">
+    <table class="au-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Proveedor</th>
+          <th>Estado</th>
+          <th>Registro</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (u of filtered(); track u.id) {
+          <tr>
+            <td class="au-name">{{ u.fullName }}</td>
+            <td class="au-email">{{ u.email }}</td>
+            <td><span class="au-role au-role--{{ roleClass(u.role) }}">{{ roleLabel(u.role) }}</span></td>
+            <td class="au-provider">{{ u.provider }}</td>
+            <td>
+              <span class="au-status" [class.au-status--disabled]="!u.enabled">
+                {{ u.enabled ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+            <td class="au-date">{{ u.createdAt | date:'d MMM yyyy' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

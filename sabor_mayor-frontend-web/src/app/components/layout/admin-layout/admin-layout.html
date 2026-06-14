@@ -1,0 +1,33 @@
+<app-navbar />
+
+<div class="admin-wrap sm-container">
+  <aside class="admin-sidebar">
+    <div class="admin-badge">
+      <span class="badge-icon">🔐</span>
+      <div>
+        <strong>{{ user()?.fullName }}</strong>
+        <span class="role-chip">{{ roleLabel() }}</span>
+      </div>
+    </div>
+
+    <nav class="admin-nav" aria-label="Panel de administración">
+      @for (link of links(); track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: link.path === '/admin' }"
+        >
+          <span class="ico" aria-hidden="true">{{ link.icon }}</span>
+          {{ link.label }}
+        </a>
+      }
+      <button class="logout" (click)="logout()">
+        <span class="ico" aria-hidden="true">⎋</span> Cerrar sesión
+      </button>
+    </nav>
+  </aside>
+
+  <main class="admin-content">
+    <router-outlet />
+  </main>
+</div>

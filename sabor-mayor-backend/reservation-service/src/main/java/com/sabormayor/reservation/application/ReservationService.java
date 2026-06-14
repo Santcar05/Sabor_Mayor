@@ -111,6 +111,11 @@ public class ReservationService {
     }
 
     @Transactional(readOnly = true)
+    public List<Reservation> allReservations() {
+        return reservationRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
     public List<Reservation> byDate(LocalDate date) {
         return reservationRepository.findByDateOrderByTimeAsc(date);
     }

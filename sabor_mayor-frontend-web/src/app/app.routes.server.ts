@@ -6,9 +6,11 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'blog/:slug', renderMode: RenderMode.Server },
   { path: 'pedidos/:id/rastreo', renderMode: RenderMode.Server },
 
-  // Auth portal — rendered per-request (personalized content)
+  // Auth + role-specific portals — rendered per-request (personalized content)
   { path: 'auth/**', renderMode: RenderMode.Server },
   { path: 'perfil/**', renderMode: RenderMode.Server },
+  { path: 'staff/**', renderMode: RenderMode.Server },
+  { path: 'admin/**', renderMode: RenderMode.Server },
 
   // All other routes can be prerendered
   { path: '**', renderMode: RenderMode.Prerender },

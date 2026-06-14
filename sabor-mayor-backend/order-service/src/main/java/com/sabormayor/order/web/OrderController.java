@@ -84,6 +84,14 @@ public class OrderController {
         return mapper.toResponse(orderService.cancelByCustomer(orderId, userId(jwt)));
     }
 
+    @GetMapping
+    @PreAuthorize(STAFF)
+    @Operation(summary = "List all orders, optionally filtered by status (comma-separated)")
+    public List<OrderDtos.OrderResponse> allOrders(
+            @RequestParam(required = false) String statuses) {
+        return mapper.toResponses(orderService.getAllOrders(statuses));
+    }
+
     @PostMapping("/{orderId}/items")
     @PreAuthorize(STAFF)
     @Operation(summary = "Waiter adds items to an open order")

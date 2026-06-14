@@ -1,0 +1,40 @@
+<div class="ar-header">
+  <h1>Gestión de Reservas</h1>
+  <select class="ar-filter" [(ngModel)]="filterStatusModel">
+    @for (opt of statusOptions; track opt.value) {
+      <option [value]="opt.value">{{ opt.label }}</option>
+    }
+  </select>
+</div>
+
+@if (loading()) {
+  <div class="ar-loading"><app-loading-spinner /></div>
+} @else if (filtered().length === 0) {
+  <p class="ar-empty">No hay reservas con ese filtro.</p>
+} @else {
+  <div class="ar-list">
+    @for (r of filtered(); track r.id) {
+      <div class="ar-card">
+        <div class="ar-card-head">
+          <div class="ar-info">
+            <span class="ar-code">#{{ r.id.slice(0, 8).toUpperCase() }}</span>
+            <span class="ar-name">{{ r.customerName }}</span>
+            <span class="ar-email">{{ r.customerEmail }}</span>
+          </div>
+          <span class="ar-badge ar-badge--{{ statusClass(r.status) }}">{{ statusLabel(r.status) }}</span>
+        </div>
+        <div class="ar-details">
+          <div class="ar-detail"><span>Fecha</span><strong>{{ r.date }} — {{ r.time }}</strong></div>
+          <div class="ar-detail"><span>Personas</span><strong>{{ r.partySize }}</strong></div>
+          @if (r.occasion) {
+            <div class="ar-detail"><span>Ocasión</span><strong>{{ r.occasion }}</strong></div>
+          }
+          @if (r.specialRequests) {
+            <div class="ar-detail ar-detail--full"><span>Solicitudes</span><span>{{ r.specialRequests }}</span></div>
+          }
+          <div class="ar-detail"><span>Creada</span><span>{{ r.createdAt | date:'d MMM yyyy' }}</span></div>
+        </div>
+      </div>
+    }
+  </div>
+}

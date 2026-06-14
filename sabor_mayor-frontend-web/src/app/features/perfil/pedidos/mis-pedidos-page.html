@@ -21,7 +21,7 @@
             <span class="mp-code">#{{ o.id.slice(0, 8).toUpperCase() }}</span>
             <span class="mp-date">{{ o.createdAt | date:'d MMM yyyy, h:mm a' }}</span>
           </div>
-          <span class="mp-badge mp-badge--{{ statusClass(o.status) }}">{{ o.status }}</span>
+          <span class="mp-badge mp-badge--{{ statusClass(o.status) }}">{{ statusLabel(o.status) }}</span>
         </div>
         <ul class="mp-items">
           @for (item of o.items; track item.dishId) {
@@ -37,6 +37,17 @@
           <div class="mp-actions">
             @if (o.status === 'CREATED' || o.status === 'CONFIRMED' || o.status === 'IN_KITCHEN') {
               <a app-button variant="ghost" size="sm" [routerLink]="['/pedidos', o.id, 'rastreo']">Ver rastreo</a>
+            }
+            @if (canCancel(o.status)) {
+              <button
+                app-button
+                variant="danger"
+                size="sm"
+                [loading]="cancelling() === o.id"
+                (pressed)="cancelOrder(o.id)"
+              >
+                Cancelar
+              </button>
             }
             <button app-button variant="secondary" size="sm" (pressed)="orderAgain(o)">Pedir de nuevo</button>
           </div>

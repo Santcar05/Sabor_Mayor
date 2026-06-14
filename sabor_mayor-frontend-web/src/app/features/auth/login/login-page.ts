@@ -3,6 +3,7 @@ import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth.service';
 import { NotificationService } from '../../../shared/services/notification.service';
+import { getRoleHome } from '../../../shared/guards/role.guard';
 import { FormInputComponent } from '../../../components/ui/form-input/form-input';
 import { ButtonComponent } from '../../../components/ui/button/button';
 
@@ -46,9 +47,13 @@ export class LoginPageComponent {
     this.loading.set(true);
     const { email, password } = this.form.getRawValue();
     this.auth.login({ email, password }).subscribe({
-      next: () => {
-        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/perfil';
-        this.router.navigateByUrl(returnUrl);
+      next: (user) => {
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+        if (returnUrl) {
+          this.router.navigateByUrl(returnUrl);
+        } else {
+          this.router.navigate([getRoleHome(user.role)]);
+        }
       },
       error: (err) => {
         this.loading.set(false);

@@ -1,0 +1,119 @@
+<div class="cocina-header">
+  <h1>Pantalla de Cocina</h1>
+  <div class="cocina-stats">
+    <span class="kds-stat kds-new">{{ newOrders().length }} nuevos</span>
+    <span class="kds-stat kds-progress">{{ inProgress().length }} en preparación</span>
+    <span class="kds-stat kds-ready">{{ ready().length }} listos</span>
+  </div>
+</div>
+
+@if (loading()) {
+  <div class="cocina-loading"><app-loading-spinner /></div>
+} @else {
+  <div class="kds-board">
+
+    <!-- Columna: Nuevos (CONFIRMED) -->
+    <div class="kds-col">
+      <h2 class="kds-col-title kds-col-title--new">🆕 Nuevos</h2>
+      @if (newOrders().length === 0) {
+        <p class="kds-empty">Sin pedidos nuevos</p>
+      }
+      @for (o of newOrders(); track o.id) {
+        <div class="kds-card kds-card--new">
+          <div class="kds-card-head">
+            <span class="kds-code">#{{ o.id.slice(0, 8).toUpperCase() }}</span>
+            <span class="kds-elapsed kds-elapsed--{{ elapsedClass(o.createdAt) }}">{{ elapsed(o.createdAt) }}</span>
+          </div>
+          @if (o.tableId) {
+            <span class="kds-table">Mesa — dine in</span>
+          }
+          <ul class="kds-items">
+            @for (item of o.items; track item.id) {
+              <li>
+                <span class="kds-qty">× {{ item.quantity }}</span>
+                <span class="kds-dish">{{ item.dishName }}</span>
+                <span class="kds-station">{{ stationLabel(item.station) }}</span>
+              </li>
+            }
+          </ul>
+          @if (o.notes) {
+            <p class="kds-notes">📝 {{ o.notes }}</p>
+          }
+          <button
+            app-button
+            variant="primary"
+            size="sm"
+            [block]="true"
+            [loading]="updating() === o.id"
+            (pressed)="startCooking(o.id)"
+          >
+            Iniciar preparación
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- Columna: En preparación (IN_KITCHEN) -->
+    <div class="kds-col">
+      <h2 class="kds-col-title kds-col-title--progress">🔥 En preparación</h2>
+      @if (inProgress().length === 0) {
+        <p class="kds-empty">Sin pedidos en preparación</p>
+      }
+      @for (o of inProgress(); track o.id) {
+        <div class="kds-card kds-card--progress">
+          <div class="kds-card-head">
+            <span class="kds-code">#{{ o.id.slice(0, 8).toUpperCase() }}</span>
+            <span class="kds-elapsed kds-elapsed--{{ elapsedClass(o.createdAt) }}">{{ elapsed(o.createdAt) }}</span>
+          </div>
+          <ul class="kds-items">
+            @for (item of o.items; track item.id) {
+              <li>
+                <span class="kds-qty">× {{ item.quantity }}</span>
+                <span class="kds-dish">{{ item.dishName }}</span>
+                <span class="kds-station">{{ stationLabel(item.station) }}</span>
+              </li>
+            }
+          </ul>
+          @if (o.notes) {
+            <p class="kds-notes">📝 {{ o.notes }}</p>
+          }
+          <button
+            app-button
+            variant="secondary"
+            size="sm"
+            [block]="true"
+            [loading]="updating() === o.id"
+            (pressed)="markReady(o.id)"
+          >
+            ✓ Marcar como listo
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- Columna: Listos (READY) -->
+    <div class="kds-col">
+      <h2 class="kds-col-title kds-col-title--ready">✅ Listos para servir</h2>
+      @if (ready().length === 0) {
+        <p class="kds-empty">Nada esperando</p>
+      }
+      @for (o of ready(); track o.id) {
+        <div class="kds-card kds-card--ready">
+          <div class="kds-card-head">
+            <span class="kds-code">#{{ o.id.slice(0, 8).toUpperCase() }}</span>
+            <span class="kds-elapsed kds-elapsed--ok">{{ elapsed(o.createdAt) }}</span>
+          </div>
+          <ul class="kds-items">
+            @for (item of o.items; track item.id) {
+              <li>
+                <span class="kds-qty">× {{ item.quantity }}</span>
+                <span class="kds-dish">{{ item.dishName }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+
+  </div>
+}

@@ -1,0 +1,78 @@
+.ap-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+
+  h1 { font-family: var(--font-heading); color: var(--crema-antigua); }
+}
+.ap-filter {
+  padding: 0.5rem 0.9rem;
+  background: rgba(28, 18, 8, 0.8);
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--crema-antigua);
+  font-size: var(--fs-small);
+  cursor: pointer;
+}
+
+.ap-loading { display: flex; justify-content: center; padding: 3rem; }
+.ap-empty { color: var(--sabor-gold-muted); font-style: italic; padding: 2rem 0; }
+
+.ap-list { display: flex; flex-direction: column; gap: 1rem; }
+
+.ap-card {
+  padding: 1.1rem 1.25rem;
+  background: var(--gradient-card);
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+.ap-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+.ap-code { font-family: var(--font-mono); font-size: var(--fs-small); font-weight: 700; color: var(--crema-antigua); }
+.ap-type { font-size: var(--fs-xs); color: var(--sabor-gold-muted); text-transform: uppercase; }
+.ap-date { font-size: var(--fs-xs); color: var(--sabor-gold-muted); margin-left: auto; }
+
+.ap-badge {
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+
+  &--pending { background: rgba(255, 149, 0, 0.18); color: #ff9500; }
+  &--cooking { background: rgba(255, 59, 48, 0.18); color: #ff3b30; }
+  &--ready { background: rgba(52, 199, 89, 0.18); color: #34c759; }
+  &--done { background: rgba(100, 100, 100, 0.18); color: #888; }
+  &--cancelled { background: rgba(139, 26, 26, 0.18); color: #e07a7a; }
+}
+
+.ap-items {
+  list-style: none;
+  margin-bottom: 0.75rem;
+  font-size: var(--fs-small);
+  color: var(--crema-antigua);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.ap-price { color: var(--sabor-gold-main); font-family: var(--font-mono); }
+
+.ap-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  border-top: var(--border-subtle);
+  padding-top: 0.75rem;
+}
+.ap-total { color: var(--sabor-gold-main); font-family: var(--font-mono); }
+.ap-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }

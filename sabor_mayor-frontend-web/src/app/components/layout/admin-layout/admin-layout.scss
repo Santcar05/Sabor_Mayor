@@ -1,0 +1,78 @@
+.admin-wrap {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2rem;
+  padding-top: calc(var(--header-height) + 2rem);
+  padding-bottom: 3rem;
+  align-items: start;
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.admin-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(139, 26, 26, 0.2) 0%, rgba(80, 10, 10, 0.1) 100%);
+  border: 1px solid rgba(220, 50, 50, 0.35);
+  border-radius: var(--radius-lg);
+}
+.badge-icon { font-size: 1.5rem; }
+.admin-badge strong { display: block; color: var(--crema-antigua); font-size: var(--fs-body); }
+.role-chip {
+  display: inline-block;
+  margin-top: 0.2rem;
+  padding: 0.15rem 0.6rem;
+  background: linear-gradient(135deg, #c0392b, #8e1010);
+  color: #fff;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.admin-nav { display: flex; flex-direction: column; gap: 0.2rem; }
+.admin-nav a,
+.admin-nav .logout {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-md);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--crema-antigua);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+.admin-nav .ico { width: 1.2rem; text-align: center; color: #e07a7a; }
+.admin-nav a:hover { background: rgba(220, 50, 50, 0.08); }
+.admin-nav a.active {
+  background: rgba(139, 26, 26, 0.2);
+  color: #e07a7a;
+  border-left: 3px solid #c0392b;
+  padding-left: calc(0.9rem - 3px);
+}
+.admin-nav .logout { color: #e07a7a; margin-top: 0.5rem; border-top: var(--border-subtle); }
+.admin-nav .logout:hover { background: rgba(139, 26, 26, 0.16); }
+
+.admin-content { min-width: 0; }
+
+@media (max-width: 900px) {
+  .admin-wrap { grid-template-columns: 1fr; }
+  .admin-sidebar { position: static; }
+  .admin-nav { flex-direction: row; flex-wrap: wrap; }
+  .admin-nav a, .admin-nav .logout { flex: 1 1 auto; }
+}

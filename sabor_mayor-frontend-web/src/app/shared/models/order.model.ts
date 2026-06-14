@@ -40,6 +40,16 @@ export interface Order {
   createdAt: string;
 }
 
+export type TableStatus = 'LIBRE' | 'OCUPADA' | 'RESERVADA' | 'MANTENIMIENTO';
+
+export interface RestaurantTable {
+  id: string;
+  number: number;
+  capacity: number;
+  status: TableStatus;
+  qrToken: string;
+}
+
 /** Cuerpo de POST /api/orders */
 export interface CreateOrderRequest {
   type: OrderType;

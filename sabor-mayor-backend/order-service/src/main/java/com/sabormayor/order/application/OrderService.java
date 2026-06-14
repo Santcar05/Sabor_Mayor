@@ -98,6 +98,19 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
+    public List<Order> getAllOrders(String statusesParam) {
+        if (statusesParam == null || statusesParam.isBlank()) {
+            return orderRepository.findAll();
+        }
+        List<OrderStatus> statuses = java.util.Arrays.stream(statusesParam.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .map(OrderStatus::valueOf)
+                .toList();
+        return orderRepository.findByStatusInOrderByCreatedAtAsc(statuses);
+    }
+
+    @Transactional(readOnly = true)
     public Order getOrder(UUID orderId, UUID requesterId, boolean isStaff) {
         Order order = requireOrder(orderId);
         if (!isStaff && !order.getCustomerId().equals(requesterId)) {

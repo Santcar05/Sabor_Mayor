@@ -27,4 +27,9 @@ export class ReservationService {
   cancel(id: string): Observable<void> {
     return this.api.delete<void>(`/api/reservations/${id}`);
   }
+
+  /** Admin: todas las reservas con filtros opcionales. */
+  allReservations(params?: { status?: string; date?: string }): Observable<Reservation[]> {
+    return this.api.get<Reservation[]>('/api/reservations/all', params);
+  }
 }

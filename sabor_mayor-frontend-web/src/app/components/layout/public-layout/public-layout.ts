@@ -26,6 +26,7 @@ import { FooterComponent } from '../footer/footer';
       .public-main {
         flex: 1;
         display: block;
+        padding-top: var(--header-height);
       }
     `,
   ],

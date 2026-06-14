@@ -3,6 +3,8 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth.service';
 import { CartService } from '../../../shared/services/cart.service';
 import { UserAvatarComponent } from '../../ui/user-avatar/user-avatar';
+import { getRoleHome } from '../../../shared/guards/role.guard';
+import { Role } from '../../../shared/models/auth.model';
 
 interface NavItem {
   label: string;
@@ -26,6 +28,7 @@ export class NavbarComponent {
   protected readonly cartCount = this.cart.count;
   protected readonly mobileOpen = signal(false);
   protected readonly userMenuOpen = signal(false);
+  protected readonly role = this.auth.role;
 
   protected readonly links: NavItem[] = [
     { label: 'Carta', path: '/carta' },
@@ -39,16 +42,42 @@ export class NavbarComponent {
   ];
 
   protected readonly isAuth = computed(() => this.auth.isAuthenticated());
+  protected readonly isCliente = computed(() => this.role() === 'CLIENTE' || this.role() === null);
+  protected readonly isStaff = computed(() => this.role() === 'MESERO' || this.role() === 'COCINERO');
+  protected readonly isAdmin = computed(() => this.role() === 'ADMIN' || this.role() === 'SUPER_ADMIN');
 
-  protected toggleMobile(): void {
-    this.mobileOpen.update((v) => !v);
-  }
-  protected closeMobile(): void {
-    this.mobileOpen.set(false);
-  }
-  protected toggleUserMenu(): void {
-    this.userMenuOpen.update((v) => !v);
-  }
+  protected readonly panelLink = computed(() => {
+    const r = this.role();
+    if (!r) return '/perfil';
+    return getRoleHome(r);
+  });
+
+  protected readonly panelLabel = computed(() => {
+    const map: Record<Role, string> = {
+      CLIENTE: 'Mi panel',
+      MESERO: 'Panel mesero',
+      COCINERO: 'Pantalla cocina',
+      ADMIN: 'Panel admin',
+      SUPER_ADMIN: 'Panel admin',
+    };
+    return map[this.role() ?? 'CLIENTE'] ?? 'Mi panel';
+  });
+
+  protected readonly roleChip = computed(() => {
+    const map: Record<Role, string> = {
+      CLIENTE: '',
+      MESERO: 'Mesero',
+      COCINERO: 'Cocinero',
+      ADMIN: 'Admin',
+      SUPER_ADMIN: 'Super Admin',
+    };
+    return map[this.role() ?? 'CLIENTE'] ?? '';
+  });
+
+  protected toggleMobile(): void { this.mobileOpen.update((v) => !v); }
+  protected closeMobile(): void { this.mobileOpen.set(false); }
+  protected toggleUserMenu(): void { this.userMenuOpen.update((v) => !v); }
+  protected closeUserMenu(): void { this.userMenuOpen.set(false); }
 
   protected logout(): void {
     this.auth.logout();

@@ -1,0 +1,74 @@
+<div class="mesas-header">
+  <h1>Mesas</h1>
+  <div class="mesas-stats">
+    <span class="stat stat--free">{{ summary().free }} libres</span>
+    <span class="stat stat--occupied">{{ summary().occupied }} ocupadas</span>
+    <span class="stat stat--orders">{{ summary().withOrders }} con pedidos</span>
+  </div>
+</div>
+
+@if (loading()) {
+  <div class="mesas-loading"><app-loading-spinner /></div>
+} @else {
+  <div class="mesas-grid">
+    @for (tw of tables(); track tw.table.id) {
+      <button
+        class="mesa-card mesa-card--{{ tableClass(tw.table.status) }}"
+        [class.selected]="selected()?.table?.id === tw.table.id"
+        (click)="selectTable(tw)"
+      >
+        <span class="mesa-number">Mesa {{ tw.table.number }}</span>
+        <span class="mesa-cap">{{ tw.table.capacity }} personas</span>
+        <span class="mesa-status">{{ tableStatusLabel(tw.table.status) }}</span>
+        @if (tw.activeOrders.length > 0) {
+          <span class="mesa-orders-badge">{{ tw.activeOrders.length }} pedido{{ tw.activeOrders.length > 1 ? 's' : '' }}</span>
+        }
+      </button>
+    }
+  </div>
+
+  @if (selected(); as sel) {
+    <div class="mesa-detail">
+      <div class="mesa-detail-header">
+        <h2>Mesa {{ sel.table.number }} — Pedidos activos</h2>
+        <button class="close-btn" (click)="selected.set(null)" aria-label="Cerrar">✕</button>
+      </div>
+
+      @if (sel.activeOrders.length === 0) {
+        <p class="no-orders">Esta mesa no tiene pedidos activos.</p>
+      } @else {
+        @for (o of sel.activeOrders; track o.id) {
+          <div class="order-card">
+            <div class="order-head">
+              <span class="order-code">#{{ o.id.slice(0, 8).toUpperCase() }}</span>
+              <span class="order-badge order-badge--{{ o.status.toLowerCase() }}">{{ orderStatusLabel(o.status) }}</span>
+              <span class="order-time">{{ o.createdAt | date:'h:mm a' }}</span>
+            </div>
+            <ul class="order-items">
+              @for (item of o.items; track item.id) {
+                <li>
+                  <span>× {{ item.quantity }} {{ item.dishName }}</span>
+                  <span>{{ item.unitPrice * item.quantity | cop }}</span>
+                </li>
+              }
+            </ul>
+            <div class="order-footer">
+              <strong>Total: {{ o.total | cop }}</strong>
+              @if (canServe(o.status)) {
+                <button
+                  app-button
+                  variant="primary"
+                  size="sm"
+                  [loading]="updatingOrder() === o.id"
+                  (pressed)="markServed(o.id)"
+                >
+                  Marcar como servido
+                </button>
+              }
+            </div>
+          </div>
+        }
+      }
+    </div>
+  }
+}

@@ -1,0 +1,76 @@
+.staff-wrap {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2rem;
+  padding-top: calc(var(--header-height) + 2rem);
+  padding-bottom: 3rem;
+  align-items: start;
+  min-height: 100vh;
+}
+
+.staff-sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.staff-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(243, 181, 74, 0.15) 0%, rgba(200, 144, 42, 0.08) 100%);
+  border: var(--border-gold);
+  border-radius: var(--radius-lg);
+}
+.badge-icon { font-size: 1.5rem; }
+.staff-badge strong { display: block; color: var(--crema-antigua); font-size: var(--fs-body); }
+.role-chip {
+  display: inline-block;
+  margin-top: 0.2rem;
+  padding: 0.15rem 0.6rem;
+  background: var(--gradient-gold);
+  color: var(--tierra-profunda);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.staff-nav { display: flex; flex-direction: column; gap: 0.2rem; }
+.staff-nav a,
+.staff-nav .logout {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-md);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--crema-antigua);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+.staff-nav .ico { width: 1.2rem; text-align: center; color: var(--sabor-gold-main); }
+.staff-nav a:hover { background: rgba(213, 196, 164, 0.07); }
+.staff-nav a.active {
+  background: rgba(200, 144, 42, 0.14);
+  color: var(--sabor-gold-main);
+}
+.staff-nav .logout { color: #e07a7a; margin-top: 0.5rem; border-top: var(--border-subtle); }
+.staff-nav .logout:hover { background: rgba(139, 26, 26, 0.16); }
+
+.staff-content { min-width: 0; }
+
+@media (max-width: 900px) {
+  .staff-wrap { grid-template-columns: 1fr; }
+  .staff-sidebar { position: static; }
+  .staff-nav { flex-direction: row; flex-wrap: wrap; }
+  .staff-nav a, .staff-nav .logout { flex: 1 1 auto; }
+}

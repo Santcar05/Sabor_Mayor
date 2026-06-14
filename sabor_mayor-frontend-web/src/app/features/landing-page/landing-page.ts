@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PublicHeader } from '../../components/public-header/public-header';
+import { NavbarComponent } from '../../components/layout/navbar/navbar';
 import { HeroSectionComponent } from './sections/hero-section/hero-section';
 import { AboutSectionComponent } from './sections/about-section/about-section';
 import { FeaturedDishesSectionComponent } from './sections/featured-dishes-section/featured-dishes-section';
@@ -13,7 +13,7 @@ import { FooterSectionComponent } from './sections/footer-section/footer-section
   selector: 'app-landing-page',
   standalone: true,
   imports: [
-    PublicHeader,
+    NavbarComponent,
     HeroSectionComponent,
     AboutSectionComponent,
     FeaturedDishesSectionComponent,

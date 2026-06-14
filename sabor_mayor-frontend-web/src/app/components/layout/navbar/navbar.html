@@ -30,14 +30,49 @@
         <div class="user">
           <button class="user-trigger" (click)="toggleUserMenu()" aria-label="Menú de usuario">
             <app-user-avatar [name]="user()?.fullName ?? ''" [size]="38" />
+            @if (roleChip()) {
+              <span class="user-role-chip">{{ roleChip() }}</span>
+            }
           </button>
           @if (userMenuOpen()) {
             <div class="user-menu">
-              <p class="user-name">{{ user()?.fullName }}</p>
-              <a routerLink="/perfil" (click)="toggleUserMenu()">Mi panel</a>
-              <a routerLink="/perfil/reservas" (click)="toggleUserMenu()">Mis reservas</a>
-              <a routerLink="/perfil/pedidos" (click)="toggleUserMenu()">Mis pedidos</a>
-              <a routerLink="/perfil/puntos" (click)="toggleUserMenu()">Sabor Points</a>
+              <div class="user-info">
+                <p class="user-name">{{ user()?.fullName }}</p>
+                <span class="user-email">{{ user()?.email }}</span>
+                @if (roleChip()) {
+                  <span class="user-role-badge">{{ roleChip() }}</span>
+                }
+              </div>
+
+              <!-- Panel principal según rol -->
+              <a [routerLink]="panelLink()" (click)="closeUserMenu()">{{ panelLabel() }}</a>
+
+              <!-- Opciones solo para CLIENTE -->
+              @if (isCliente()) {
+                <a routerLink="/perfil/reservas" (click)="closeUserMenu()">Mis reservas</a>
+                <a routerLink="/perfil/pedidos" (click)="closeUserMenu()">Mis pedidos</a>
+                <a routerLink="/perfil/puntos" (click)="closeUserMenu()">Sabor Points</a>
+              }
+
+              <!-- Opciones para MESERO -->
+              @if (isStaff() && role() === 'MESERO') {
+                <a routerLink="/staff/mesas" (click)="closeUserMenu()">Ver mesas</a>
+              }
+
+              <!-- Opciones para COCINERO -->
+              @if (isStaff() && role() === 'COCINERO') {
+                <a routerLink="/staff/cocina" (click)="closeUserMenu()">Pantalla cocina</a>
+              }
+
+              <!-- Opciones para ADMIN/SUPER_ADMIN -->
+              @if (isAdmin()) {
+                <a routerLink="/admin/pedidos" (click)="closeUserMenu()">Pedidos</a>
+                <a routerLink="/admin/reservas" (click)="closeUserMenu()">Reservas</a>
+                @if (role() === 'SUPER_ADMIN') {
+                  <a routerLink="/admin/usuarios" (click)="closeUserMenu()">Usuarios</a>
+                }
+              }
+
               <button class="logout" (click)="logout()">Cerrar sesión</button>
             </div>
           }

@@ -18,7 +18,7 @@
       <div class="mr-card">
         <div class="mr-card-header">
           <span class="mr-date">{{ r.date }} · {{ r.time }}</span>
-          <span class="mr-badge mr-badge--{{ statusClass(r.status) }}">{{ r.status }}</span>
+          <span class="mr-badge mr-badge--{{ statusClass(r.status) }}">{{ statusLabel(r.status) }}</span>
         </div>
         <div class="mr-details">
           <div class="mr-detail">

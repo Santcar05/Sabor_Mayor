@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './shared/guards/auth.guard';
 import { guestGuard } from './shared/guards/guest.guard';
+import { roleGuard } from './shared/guards/role.guard';
 
 export const routes: Routes = [
-  // Landing autocontenida (trae su propio header/footer premium).
+  // Landing autocontenida (trae su propio navbar/footer premium).
   {
     path: '',
     pathMatch: 'full',
@@ -111,10 +112,10 @@ export const routes: Routes = [
     ],
   },
 
-  // Portal del cliente (protected)
+  // Portal del cliente (solo CLIENTE)
   {
     path: 'perfil',
-    canActivate: [authGuard],
+    canActivate: [authGuard, roleGuard('CLIENTE')],
     loadComponent: () =>
       import('./components/layout/portal-layout/portal-layout').then((m) => m.PortalLayoutComponent),
     children: [
@@ -148,6 +149,66 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/perfil/configuracion/configuracion-page').then(
             (m) => m.ConfiguracionPageComponent,
+          ),
+      },
+    ],
+  },
+
+  // Panel de staff (MESERO y COCINERO)
+  {
+    path: 'staff',
+    canActivate: [authGuard, roleGuard('MESERO', 'COCINERO')],
+    loadComponent: () =>
+      import('./components/layout/staff-layout/staff-layout').then((m) => m.StaffLayoutComponent),
+    children: [
+      {
+        path: 'mesas',
+        canActivate: [roleGuard('MESERO')],
+        loadComponent: () =>
+          import('./features/staff/mesas/mesas-page').then((m) => m.MesasPageComponent),
+      },
+      {
+        path: 'cocina',
+        canActivate: [roleGuard('COCINERO')],
+        loadComponent: () =>
+          import('./features/staff/cocina/cocina-page').then((m) => m.CocinaPageComponent),
+      },
+      { path: '', redirectTo: 'mesas', pathMatch: 'full' },
+    ],
+  },
+
+  // Panel de administración (ADMIN y SUPER_ADMIN)
+  {
+    path: 'admin',
+    canActivate: [authGuard, roleGuard('ADMIN', 'SUPER_ADMIN')],
+    loadComponent: () =>
+      import('./components/layout/admin-layout/admin-layout').then((m) => m.AdminLayoutComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./features/admin/dashboard/admin-dashboard-page').then(
+            (m) => m.AdminDashboardPageComponent,
+          ),
+      },
+      {
+        path: 'pedidos',
+        loadComponent: () =>
+          import('./features/admin/pedidos/admin-pedidos-page').then((m) => m.AdminPedidosPageComponent),
+      },
+      {
+        path: 'reservas',
+        loadComponent: () =>
+          import('./features/admin/reservas/admin-reservas-page').then(
+            (m) => m.AdminReservasPageComponent,
+          ),
+      },
+      {
+        path: 'usuarios',
+        canActivate: [roleGuard('SUPER_ADMIN')],
+        loadComponent: () =>
+          import('./features/admin/usuarios/admin-usuarios-page').then(
+            (m) => m.AdminUsuariosPageComponent,
           ),
       },
     ],

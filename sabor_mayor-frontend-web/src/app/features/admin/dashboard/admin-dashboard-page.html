@@ -1,0 +1,95 @@
+<div class="dash-header">
+  <div>
+    <h1>Panel de Administración</h1>
+    <p class="dash-subtitle">Bienvenido, {{ auth.currentUser()?.fullName }}</p>
+  </div>
+  @if (isSuperAdmin()) {
+    <span class="super-badge">Super Admin</span>
+  }
+</div>
+
+@if (loading()) {
+  <div class="dash-loading"><app-loading-spinner /></div>
+} @else {
+  <!-- Stats -->
+  <div class="dash-stats">
+    <div class="stat-card">
+      <span class="stat-icon">🛒</span>
+      <div class="stat-body">
+        <span class="stat-value">{{ stats().todayOrders }}</span>
+        <span class="stat-label">Pedidos hoy</span>
+      </div>
+    </div>
+    <div class="stat-card stat-card--alert">
+      <span class="stat-icon">⏳</span>
+      <div class="stat-body">
+        <span class="stat-value">{{ stats().pending }}</span>
+        <span class="stat-label">Pedidos activos</span>
+      </div>
+    </div>
+    <div class="stat-card stat-card--gold">
+      <span class="stat-icon">💰</span>
+      <div class="stat-body">
+        <span class="stat-value">{{ stats().revenue | cop }}</span>
+        <span class="stat-label">Ingresos hoy</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon">📅</span>
+      <div class="stat-body">
+        <span class="stat-value">{{ stats().confirmedRes }}</span>
+        <span class="stat-label">Reservas confirmadas</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick links -->
+  <div class="dash-quicklinks">
+    <a class="quicklink" routerLink="/admin/pedidos">
+      <span class="quicklink-ico">🍽</span>
+      <span>Gestionar pedidos</span>
+    </a>
+    <a class="quicklink" routerLink="/admin/reservas">
+      <span class="quicklink-ico">📅</span>
+      <span>Gestionar reservas</span>
+    </a>
+    @if (isSuperAdmin()) {
+      <a class="quicklink quicklink--super" routerLink="/admin/usuarios">
+        <span class="quicklink-ico">👥</span>
+        <span>Gestionar usuarios</span>
+      </a>
+    }
+  </div>
+
+  <!-- Recent orders -->
+  <div class="dash-section">
+    <div class="dash-section-header">
+      <h2>Pedidos recientes</h2>
+      <a class="view-all" routerLink="/admin/pedidos">Ver todos →</a>
+    </div>
+    <div class="orders-table-wrap">
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th>Total</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (o of recentOrders(); track o.id) {
+            <tr>
+              <td class="order-code">#{{ o.id.slice(0, 8).toUpperCase() }}</td>
+              <td>{{ o.type }}</td>
+              <td><span class="status-chip status-chip--{{ orderStatusClass(o.status) }}">{{ orderStatusLabel(o.status) }}</span></td>
+              <td class="order-total">{{ o.total | cop }}</td>
+              <td class="order-date">{{ o.createdAt | date:'d MMM, h:mm a' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+}

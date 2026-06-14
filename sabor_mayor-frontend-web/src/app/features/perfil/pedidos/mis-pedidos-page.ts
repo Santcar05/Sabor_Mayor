@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, inject, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError, of } from 'rxjs';
 import { OrderService } from '../../../shared/services/order.service';
 import { CartService } from '../../../shared/services/cart.service';
@@ -26,14 +26,39 @@ export class MisPedidosPageComponent {
   private readonly menuSvc = inject(MenuService);
   private readonly notify = inject(NotificationService);
 
-  private readonly _all = toSignal(
-    this.orderSvc.myOrders().pipe(catchError(() => of(null))),
-    { initialValue: undefined },
-  );
+  private readonly _all = signal<Order[] | null | undefined>(undefined);
+  protected readonly cancelling = signal<string | null>(null);
 
   protected readonly loading = computed(() => this._all() === undefined);
   protected readonly orders = computed(() => this._all() ?? []);
   protected readonly error = computed(() => this._all() === null);
+
+  constructor() {
+    this.orderSvc
+      .myOrders()
+      .pipe(catchError(() => of(null)), takeUntilDestroyed())
+      .subscribe((orders) => this._all.set(orders));
+  }
+
+  protected canCancel(status: string): boolean {
+    return status === 'CREATED' || status === 'CONFIRMED';
+  }
+
+  protected cancelOrder(id: string): void {
+    if (this.cancelling()) return;
+    this.cancelling.set(id);
+    this.orderSvc.cancel(id).subscribe({
+      next: (updated) => {
+        this._all.update((list) => list?.map((o) => (o.id === id ? updated : o)) ?? list);
+        this.notify.success('Pedido cancelado');
+        this.cancelling.set(null);
+      },
+      error: () => {
+        this.notify.error('No se pudo cancelar el pedido');
+        this.cancelling.set(null);
+      },
+    });
+  }
 
   protected statusClass(status: string): string {
     const map: Record<string, string> = {
@@ -47,6 +72,20 @@ export class MisPedidosPageComponent {
       CANCELLED: 'cancelled',
     };
     return map[status] ?? 'pending';
+  }
+
+  protected statusLabel(status: string): string {
+    const map: Record<string, string> = {
+      CREATED: 'Creado',
+      CONFIRMED: 'Confirmado',
+      IN_KITCHEN: 'En cocina',
+      READY: 'Listo',
+      SERVED: 'Entregado',
+      DELIVERED: 'Entregado',
+      PAID: 'Pagado',
+      CANCELLED: 'Cancelado',
+    };
+    return map[status] ?? status;
   }
 
   protected orderAgain(order: Order): void {

@@ -1,0 +1,33 @@
+<app-navbar />
+
+<div class="staff-wrap sm-container">
+  <aside class="staff-sidebar">
+    <div class="staff-badge">
+      <span class="badge-icon">🏷</span>
+      <div>
+        <strong>{{ user()?.fullName }}</strong>
+        <span class="role-chip">{{ roleLabel() }}</span>
+      </div>
+    </div>
+
+    <nav class="staff-nav" aria-label="Panel de staff">
+      @for (link of links(); track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: false }"
+        >
+          <span class="ico" aria-hidden="true">{{ link.icon }}</span>
+          {{ link.label }}
+        </a>
+      }
+      <button class="logout" (click)="logout()">
+        <span class="ico" aria-hidden="true">⎋</span> Cerrar sesión
+      </button>
+    </nav>
+  </aside>
+
+  <main class="staff-content">
+    <router-outlet />
+  </main>
+</div>

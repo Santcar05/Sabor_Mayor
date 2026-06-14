@@ -1,0 +1,66 @@
+.ar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  h1 { font-family: var(--font-heading); color: var(--crema-antigua); }
+}
+.ar-filter {
+  padding: 0.5rem 0.9rem;
+  background: rgba(28, 18, 8, 0.8);
+  border: var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--crema-antigua);
+  font-size: var(--fs-small);
+  cursor: pointer;
+}
+.ar-loading { display: flex; justify-content: center; padding: 3rem; }
+.ar-empty { color: var(--sabor-gold-muted); font-style: italic; padding: 2rem 0; }
+.ar-list { display: flex; flex-direction: column; gap: 1rem; }
+.ar-card {
+  padding: 1.1rem 1.25rem;
+  background: var(--gradient-card);
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+.ar-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+.ar-info { display: flex; flex-direction: column; gap: 0.15rem; }
+.ar-code { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--sabor-gold-muted); }
+.ar-name { font-weight: 700; color: var(--crema-antigua); }
+.ar-email { font-size: var(--fs-xs); color: var(--sabor-gold-muted); }
+.ar-badge {
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+  &--pending { background: rgba(255, 149, 0, 0.18); color: #ff9500; }
+  &--confirmed { background: rgba(52, 199, 89, 0.18); color: #34c759; }
+  &--cancelled { background: rgba(139, 26, 26, 0.18); color: #e07a7a; }
+  &--completed { background: rgba(100, 100, 100, 0.18); color: #888; }
+}
+.ar-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.5rem 1rem;
+  font-size: var(--fs-small);
+  border-top: var(--border-subtle);
+  padding-top: 0.75rem;
+}
+.ar-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  span:first-child { font-size: var(--fs-xs); color: var(--sabor-gold-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  strong { color: var(--crema-antigua); }
+  &--full { grid-column: 1 / -1; }
+}
