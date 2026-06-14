@@ -1,0 +1,53 @@
+<div class="cfg-sections">
+
+  <!-- Profile -->
+  <section class="cfg-section">
+    <h2 class="cfg-section-title">Información personal</h2>
+    <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" novalidate class="cfg-form">
+      <app-form-input
+        label="Nombre completo"
+        formControlName="fullName"
+        autocomplete="name"
+        [required]="true"
+        [error]="fieldError('fullName')"
+        [invalid]="!!fieldError('fullName')"
+      />
+      <app-form-input
+        label="Teléfono"
+        type="tel"
+        formControlName="phone"
+        autocomplete="tel"
+      />
+      <div class="cfg-form-row">
+        <div class="cfg-readonly">
+          <span class="cfg-rl">Correo electrónico</span>
+          <span class="cfg-rv">{{ auth.currentUser()?.email }}</span>
+        </div>
+      </div>
+      <button app-button variant="primary" type="submit" [loading]="savingProfile()">Guardar cambios</button>
+    </form>
+  </section>
+
+  <!-- Dietary preferences -->
+  <section class="cfg-section">
+    <h2 class="cfg-section-title">Preferencias dietéticas</h2>
+    <p class="cfg-section-sub">Selecciona las que aplican para que podamos personalizar tu experiencia.</p>
+    <div class="cfg-diet-grid">
+      @for (opt of dietOptions; track opt) {
+        <button
+          class="cfg-diet-btn"
+          [class.cfg-diet-btn--active]="dietPrefs().includes(opt)"
+          type="button"
+          (click)="toggleDiet(opt)"
+        >{{ opt }}</button>
+      }
+    </div>
+  </section>
+
+  <!-- Danger zone -->
+  <section class="cfg-section cfg-danger">
+    <h2 class="cfg-section-title">Sesión y cuenta</h2>
+    <button app-button variant="danger" (pressed)="logout()">Cerrar sesión</button>
+  </section>
+
+</div>

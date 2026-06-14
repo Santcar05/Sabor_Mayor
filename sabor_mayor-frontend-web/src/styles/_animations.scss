@@ -1,0 +1,123 @@
+/* ==========================================================================
+   SABOR MAYOR — Librería de animaciones (keyframes + clases utilitarias)
+   Usar junto con Angular Animations para transiciones de ruta/lista.
+   ========================================================================== */
+
+@keyframes sm-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes sm-fade-in-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sm-fade-in-down {
+  from { opacity: 0; transform: translateY(-28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sm-scale-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes sm-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes sm-shimmer {
+  0% { background-position: -468px 0; }
+  100% { background-position: 468px 0; }
+}
+
+/* Aro de luz dorada para CTAs */
+@keyframes sm-gold-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(243, 181, 74, 0.55); }
+  50% { box-shadow: 0 0 0 10px rgba(243, 181, 74, 0); }
+}
+
+@keyframes sm-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes sm-draw-check {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ---- Clases utilitarias ---- */
+.sm-animate-fade-in { animation: sm-fade-in var(--dur-medium) var(--ease-out) both; }
+.sm-animate-fade-up { animation: sm-fade-in-up var(--dur-medium) var(--ease-out) both; }
+.sm-animate-fade-down { animation: sm-fade-in-down var(--dur-medium) var(--ease-out) both; }
+.sm-animate-scale-in { animation: sm-scale-in var(--dur-medium) var(--ease-out) both; }
+.sm-animate-float { animation: sm-float 6s ease-in-out infinite; }
+
+/* Stagger por índice (usar style="--i:N") */
+.sm-stagger { animation-delay: calc(var(--i, 0) * 90ms); }
+
+/* Scroll reveal: estado inicial; .is-visible lo activa (IntersectionObserver / directiva) */
+.sm-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity var(--dur-slow) var(--ease-slow),
+    transform var(--dur-slow) var(--ease-slow);
+  will-change: opacity, transform;
+}
+.sm-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Skeleton shimmer para loading states */
+.sm-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(58, 46, 34, 0.45) 25%,
+    rgba(90, 72, 52, 0.6) 50%,
+    rgba(58, 46, 34, 0.45) 75%
+  );
+  background-size: 936px 100%;
+  animation: sm-shimmer 1.4s linear infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ============================
+   View Transitions (Angular 21)
+   ============================ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 220ms;
+  animation-timing-function: var(--ease-out);
+}
+
+::view-transition-old(root) {
+  animation-name: sm-fade-out-view;
+}
+
+::view-transition-new(root) {
+  animation-name: sm-fade-in-view;
+}
+
+@keyframes sm-fade-out-view {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-8px); }
+}
+
+@keyframes sm-fade-in-view {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hover de elevación reutilizable */
+.sm-hover-lift {
+  transition:
+    transform var(--dur-fast) var(--ease-fast),
+    box-shadow var(--dur-fast) var(--ease-fast);
+}
+.sm-hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}

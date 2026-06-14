@@ -1,0 +1,62 @@
+<section class="gal-hero sm-section">
+  <div class="sm-container">
+    <p class="sm-script gal-eyebrow">Momentos que perduran</p>
+    <h1 class="gal-title">Nuestra <span class="sm-gold-text">Galería</span></h1>
+    <p class="gal-lead">Cada imagen captura la esencia de Sabor Mayor: luz, sabor y emoción.</p>
+  </div>
+</section>
+
+<section class="sm-section sm-container">
+  @if (loading()) {
+    <div class="gal-loading">
+      <app-loading-spinner label="Cargando galería…" />
+    </div>
+  } @else if (error()) {
+    <div class="gal-empty">
+      <p>No pudimos cargar la galería. Intenta de nuevo más tarde.</p>
+    </div>
+  } @else if (images().length === 0) {
+    <div class="gal-empty">
+      <p>Galería próximamente — estamos seleccionando los mejores momentos.</p>
+    </div>
+  } @else {
+    <div class="gal-masonry">
+      @for (img of images(); track img.id) {
+        <button class="gal-item" (click)="open(img)" [attr.aria-label]="'Ver imagen: ' + img.title">
+          <img
+            [src]="img.url"
+            [alt]="img.title"
+            class="gal-img"
+            loading="lazy"
+          />
+          <div class="gal-overlay">
+            <span class="gal-caption">{{ img.title }}</span>
+            @if (img.category) {
+              <span class="gal-cat">{{ img.category }}</span>
+            }
+          </div>
+        </button>
+      }
+    </div>
+  }
+</section>
+
+<!-- Lightbox -->
+@if (lightbox(); as img) {
+  <div class="gal-lightbox" (click)="close()" role="dialog" aria-modal="true" [attr.aria-label]="img.title">
+    <button class="gal-lb-close" (click)="close()" aria-label="Cerrar">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="gal-lb-content" (click)="$event.stopPropagation()">
+      <img [src]="img.url" [alt]="img.title" class="gal-lb-img" />
+      @if (img.title || img.description) {
+        <div class="gal-lb-info">
+          <h3>{{ img.title }}</h3>
+          @if (img.description) {
+            <p>{{ img.description }}</p>
+          }
+        </div>
+      }
+    </div>
+  </div>
+}

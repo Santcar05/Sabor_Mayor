@@ -1,0 +1,185 @@
+.con-hero {
+  background: var(--gradient-bg);
+  padding-block: 5rem;
+  text-align: center;
+  border-bottom: var(--border-subtle);
+}
+
+.con-eyebrow { font-size: var(--fs-lg); color: var(--sabor-gold-main); }
+.con-title { font-family: var(--font-display); font-size: var(--fs-hero); color: var(--crema-antiga); margin: 0.25rem 0 1rem; }
+.con-lead { font-size: var(--fs-lg); color: var(--sabor-gold-muted); margin: 0 auto; max-width: 480px; }
+
+// Layout
+.con-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 3rem;
+  align-items: start;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Form column
+.con-form-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h2);
+  color: var(--crema-antiga);
+  margin: 0 0 1.5rem;
+}
+
+.con-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.con-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  @media (max-width: 600px) { grid-template-columns: 1fr; }
+}
+
+.con-field { display: flex; flex-direction: column; gap: 0.35rem; }
+
+.con-label {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--crema-antiga);
+}
+
+.con-req { color: var(--rojo-aji); margin-left: 0.1rem; }
+
+.con-select {
+  background: rgba(20,16,12,0.8);
+  border: 1px solid rgba(200,144,42,0.3);
+  border-radius: var(--radius-md);
+  color: var(--crema-antiga);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  padding: 0.6rem 0.875rem;
+  width: 100%;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+    border-color: var(--sabor-gold-main);
+    box-shadow: 0 0 0 3px rgba(200,144,42,0.15);
+  }
+
+  option { background: #1c1208; }
+}
+
+.con-field-error { font-size: var(--fs-xs); color: var(--rojo-aji); }
+
+// Success
+.con-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  padding: 3rem 2rem;
+  border: var(--border-gold);
+  border-radius: var(--radius-xl);
+  background: var(--gradient-card);
+  animation: sm-scale-in 0.4s var(--ease-out);
+
+  h2 { font-family: var(--font-heading); font-size: var(--fs-h2); color: var(--crema-antiga); margin: 0; }
+  p { color: rgba(244,236,216,0.7); margin: 0; }
+}
+
+.con-success-icon { margin-bottom: 0.5rem; }
+
+.con-circle {
+  stroke-dasharray: 151;
+  stroke-dashoffset: 0;
+  animation: sm-draw-check 0.6s var(--ease-out);
+}
+
+.con-check {
+  stroke-dasharray: 50;
+  stroke-dashoffset: 0;
+  animation: sm-draw-check 0.4s var(--ease-out) 0.5s backwards;
+}
+
+// Info column
+.con-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.con-info-card {
+  background: var(--gradient-card);
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  h3 {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h4);
+    color: var(--crema-antiga);
+    margin: 0;
+  }
+}
+
+.con-address {
+  color: rgba(244,236,216,0.75);
+  font-style: normal;
+  line-height: 1.6;
+  font-size: var(--fs-small);
+}
+
+.con-map-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--sabor-gold-main);
+  font-size: var(--fs-small);
+  text-decoration: none;
+  transition: opacity 0.2s;
+
+  &:hover { opacity: 0.8; }
+}
+
+.con-hours { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+
+.con-hour-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fs-small);
+  padding: 0.3rem 0;
+  border-bottom: 1px solid rgba(200,144,42,0.1);
+
+  &:last-child { border-bottom: none; }
+
+  &.con-closed .con-time { color: rgba(244,236,216,0.35); }
+}
+
+.con-day { color: var(--sabor-gold-muted); }
+.con-time { color: var(--crema-antiga); font-weight: 500; }
+
+.con-contact-links { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.con-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(244,236,216,0.75);
+  text-decoration: none;
+  font-size: var(--fs-small);
+  transition: color 0.2s;
+
+  &:hover { color: var(--sabor-gold-main); }
+}
+
+.con-map { border-radius: var(--radius-md); overflow: hidden; }

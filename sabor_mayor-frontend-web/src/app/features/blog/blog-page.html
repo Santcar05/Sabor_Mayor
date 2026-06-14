@@ -1,0 +1,69 @@
+<section class="blog-hero sm-section">
+  <div class="sm-container">
+    <p class="sm-script blog-eyebrow">Desde nuestra cocina</p>
+    <h1 class="blog-title">El <span class="sm-gold-text">Blog</span></h1>
+    <p class="blog-lead">Recetas, historias y el espíritu que da vida a cada plato.</p>
+  </div>
+</section>
+
+<section class="sm-section sm-container">
+  @if (loading()) {
+    <div class="blog-loading">
+      <app-loading-spinner label="Cargando artículos…" />
+    </div>
+  } @else if (error()) {
+    <div class="blog-empty">
+      <p>No pudimos cargar los artículos. Intenta de nuevo más tarde.</p>
+    </div>
+  } @else if (posts().length === 0) {
+    <div class="blog-empty">
+      <p>Próximamente — estamos preparando contenido especial para ti.</p>
+    </div>
+  } @else {
+    @let featured = posts()[0];
+    <article class="blog-featured" [routerLink]="['/blog', featured.slug]">
+      <div class="blog-featured-img-wrap">
+        @if (featured.coverImageUrl) {
+          <img [src]="featured.coverImageUrl" [alt]="featured.title" class="blog-featured-img" loading="lazy" />
+        }
+        <div class="blog-featured-overlay"></div>
+      </div>
+      <div class="blog-featured-body">
+        <span class="blog-tag">{{ featured.category }}</span>
+        <h2 class="blog-featured-title">{{ featured.title }}</h2>
+        <p class="blog-featured-excerpt">{{ featured.excerpt }}</p>
+        <div class="blog-meta">
+          <span>{{ featured.authorName }}</span>
+          <span class="blog-dot">·</span>
+          <span>{{ featured.publishedAt | date:'d MMM yyyy' }}</span>
+          <span class="blog-dot">·</span>
+          <span>{{ featured.readTimeMinutes }} min lectura</span>
+        </div>
+      </div>
+    </article>
+
+    <div class="blog-grid">
+      @for (post of posts().slice(1); track post.slug) {
+        <article class="blog-card" [routerLink]="['/blog', post.slug]">
+          <div class="blog-card-img-wrap">
+            @if (post.coverImageUrl) {
+              <img [src]="post.coverImageUrl" [alt]="post.title" class="blog-card-img" loading="lazy" />
+            } @else {
+              <div class="blog-card-img-placeholder"></div>
+            }
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-tag">{{ post.category }}</span>
+            <h3 class="blog-card-title">{{ post.title }}</h3>
+            <p class="blog-card-excerpt">{{ post.excerpt }}</p>
+            <div class="blog-meta">
+              <span>{{ post.publishedAt | date:'d MMM yyyy' }}</span>
+              <span class="blog-dot">·</span>
+              <span>{{ post.readTimeMinutes }} min</span>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

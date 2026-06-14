@@ -1,0 +1,84 @@
+<section class="reservar-hero">
+  <div class="sm-container">
+    <p class="sm-script">Reserva tu mesa</p>
+    <h1 class="sm-gold-text">Vive Sabor Mayor</h1>
+    <p class="lead">Asegura tu lugar en una experiencia inolvidable.</p>
+  </div>
+</section>
+
+<section class="sm-container reservar-body">
+  <div class="panel">
+    <div class="step-grid">
+      <div class="field">
+        <label>Fecha</label>
+        <input type="date" [min]="today" [value]="date()" (change)="setDate($any($event.target).value)" />
+      </div>
+      <div class="field">
+        <label>Personas</label>
+        <select [value]="partySize()" (change)="setParty($any($event.target).value)">
+          @for (n of partyOptions; track n) {
+            <option [value]="n">{{ n }} {{ n === 1 ? 'persona' : 'personas' }}</option>
+          }
+        </select>
+      </div>
+      <div class="field check-btn">
+        <button app-button [block]="true" (pressed)="checkAvailability()">Ver disponibilidad</button>
+      </div>
+    </div>
+
+    @if (depositRequired()) {
+      <div class="deposit-note">
+        ℹ Para grupos de 8+ personas se requiere un depósito de garantía de
+        <strong>{{ depositAmount() | cop }}</strong> ({{ partySize() }} × $30.000).
+      </div>
+    }
+
+    @if (loadingSlots()) {
+      <div class="slots-loading"><app-loading-spinner label="Consultando horarios…" /></div>
+    } @else if (slots() !== null) {
+      @if (slots()!.length === 0) {
+        <p class="no-slots">No hay disponibilidad para esa fecha. Prueba otro día.</p>
+      } @else {
+        <div class="slots">
+          <h3>Horarios disponibles</h3>
+          <div class="slot-grid">
+            @for (slot of slots()!; track slot.time) {
+              <button
+                class="slot"
+                [class.selected]="selectedTime() === slot.time.slice(0,5)"
+                [class.disabled]="!slot.fitsParty"
+                [disabled]="!slot.fitsParty"
+                (click)="pickTime(slot)"
+              >
+                {{ slot.time.slice(0,5) }}
+                <span class="seats">{{ slot.remainingSeats }} cupos</span>
+              </button>
+            }
+          </div>
+        </div>
+      }
+    }
+
+    @if (selectedTime()) {
+      <div class="confirm-box sm-animate-fade-up">
+        <h3>Detalles de tu reserva</h3>
+        <div class="field">
+          <label>Ocasión (opcional)</label>
+          <input type="text" placeholder="Cumpleaños, aniversario, negocios…" [value]="occasion()" (input)="occasion.set($any($event.target).value)" />
+        </div>
+        <div class="field">
+          <label>Solicitudes especiales (opcional)</label>
+          <textarea rows="3" placeholder="Mesa junto a la ventana, restricciones alimentarias…" [value]="specialRequests()" (input)="specialRequests.set($any($event.target).value)"></textarea>
+        </div>
+        <div class="resume">
+          <span>📅 {{ date() }}</span>
+          <span>🕐 {{ selectedTime() }}</span>
+          <span>👥 {{ partySize() }}</span>
+        </div>
+        <button app-button size="lg" [block]="true" [loading]="submitting()" [pulse]="true" (pressed)="confirm()">
+          Confirmar reserva
+        </button>
+      </div>
+    }
+  </div>
+</section>

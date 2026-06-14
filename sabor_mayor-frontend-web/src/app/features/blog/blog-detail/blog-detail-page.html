@@ -1,0 +1,101 @@
+@if (loading()) {
+  <div class="bd-loading">
+    <app-loading-spinner label="Cargando artículo…" />
+  </div>
+} @else if (state()?.error || !post()) {
+  <div class="bd-error sm-container sm-section">
+    <h2>Artículo no encontrado</h2>
+    <a app-button variant="ghost" routerLink="/blog">Volver al blog</a>
+  </div>
+} @else {
+  @let p = post()!;
+
+  <header class="bd-hero" [style.background-image]="p.coverImageUrl ? 'url(' + p.coverImageUrl + ')' : 'none'">
+    <div class="bd-hero-overlay"></div>
+    <div class="bd-hero-content sm-container">
+      <a class="bd-back" routerLink="/blog">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 5 5 12 12 19"/></svg>
+        Blog
+      </a>
+      <span class="bd-category">{{ p.category }}</span>
+      <h1 class="bd-title">{{ p.title }}</h1>
+      <div class="bd-meta">
+        <app-user-avatar [name]="p.authorName" [size]="32" />
+        <span>{{ p.authorName }}</span>
+        <span class="bd-dot">·</span>
+        <span>{{ p.publishedAt | date:'d MMMM yyyy' }}</span>
+        <span class="bd-dot">·</span>
+        <span>{{ p.readTimeMinutes }} min lectura</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="bd-layout sm-container">
+    <article class="bd-article">
+      @if (p.excerpt) {
+        <p class="bd-excerpt">{{ p.excerpt }}</p>
+      }
+      <div class="bd-body" [innerHTML]="p.content"></div>
+
+      @if (p.tags?.length) {
+        <div class="bd-tags">
+          @for (tag of p.tags; track tag) {
+            <span class="bd-tag">#{{ tag }}</span>
+          }
+        </div>
+      }
+    </article>
+
+    <aside class="bd-sidebar">
+      <div class="bd-sidebar-card">
+        <h4>Comparte este artículo</h4>
+        <div class="bd-share">
+          <button class="bd-share-btn" aria-label="Compartir en WhatsApp"
+            (click)="shareWhatsApp(p)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.477 2 2 6.477 2 12.001c0 1.765.463 3.423 1.27 4.86L2 22l5.272-1.38C8.67 21.455 10.31 22 12 22c5.522 0 10-4.477 10-10.001C22 6.477 17.522 2 12 2z"/></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Comments -->
+  <section class="bd-comments sm-container">
+    <h3 class="bd-comments-title">Comentarios ({{ comments().length }})</h3>
+
+    @if (auth.isAuthenticated()) {
+      <div class="bd-comment-form">
+        <textarea
+          class="bd-textarea"
+          [(ngModel)]="commentTextModel"
+          placeholder="Escribe tu comentario…"
+          [rows]="3"
+        ></textarea>
+        <button app-button variant="primary" size="sm" [loading]="submitting()" (pressed)="submitComment()">
+          Publicar comentario
+        </button>
+      </div>
+    } @else {
+      <p class="bd-login-prompt">
+        <a routerLink="/auth/login">Inicia sesión</a> para dejar un comentario.
+      </p>
+    }
+
+    <div class="bd-comments-list">
+      @for (c of comments(); track c.id) {
+        <div class="bd-comment">
+          <app-user-avatar [name]="c.authorName" [size]="32" />
+          <div class="bd-comment-body">
+            <div class="bd-comment-header">
+              <strong>{{ c.authorName }}</strong>
+              <span class="bd-comment-date">{{ c.createdAt | date:'d MMM yyyy' }}</span>
+            </div>
+            <p class="bd-comment-text">{{ c.body }}</p>
+          </div>
+        </div>
+      } @empty {
+        <p class="bd-no-comments">Sé el primero en comentar.</p>
+      }
+    </div>
+  </section>
+}

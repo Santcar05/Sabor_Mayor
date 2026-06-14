@@ -1,0 +1,50 @@
+<section class="sm-container confirmacion">
+  @if (!reservation()) {
+    <div class="empty">
+      <h2>Sin reserva activa</h2>
+      <p>No encontramos una reserva reciente. Puedes ver tus reservas en tu perfil.</p>
+      <a app-button routerLink="/perfil/reservas">Mis reservas</a>
+    </div>
+  } @else {
+    @let r = reservation()!;
+    <div class="card sm-animate-scale-in">
+      <div class="check">
+        <svg viewBox="0 0 52 52" class="check-svg" aria-hidden="true">
+          <circle class="check-circle" cx="26" cy="26" r="24" />
+          <path class="check-mark" d="M14 27 l8 8 l16 -16" />
+        </svg>
+      </div>
+
+      <h1>¡Reserva confirmada!</h1>
+      <p class="sub">Te enviamos los detalles por correo y WhatsApp.</p>
+
+      <div class="code-block">
+        <span class="code-label">Código de confirmación</span>
+        <span class="code">{{ code() }}</span>
+      </div>
+
+      <div class="details">
+        <div><span class="k">Fecha</span><span class="v">{{ r.date }}</span></div>
+        <div><span class="k">Hora</span><span class="v">{{ r.time }}</span></div>
+        <div><span class="k">Personas</span><span class="v">{{ r.partySize }}</span></div>
+        <div><span class="k">Estado</span><span class="v">{{ r.status }}</span></div>
+        @if (r.depositRequired) {
+          <div><span class="k">Depósito</span><span class="v">{{ r.depositAmount | cop }}</span></div>
+        }
+      </div>
+
+      @if (qrUrl()) {
+        <div class="qr">
+          <img [src]="qrUrl()" alt="Código QR de tu reserva" width="180" height="180" />
+          <span>Presenta este QR al llegar</span>
+        </div>
+      }
+
+      <div class="actions">
+        <button app-button variant="secondary" (pressed)="shareWhatsapp()">Compartir por WhatsApp</button>
+        <button app-button variant="ghost" (pressed)="print()">Descargar / Imprimir</button>
+      </div>
+      <a class="again" routerLink="/reservar">Hacer otra reserva</a>
+    </div>
+  }
+</section>

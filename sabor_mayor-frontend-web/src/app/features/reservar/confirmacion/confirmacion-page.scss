@@ -1,0 +1,70 @@
+.confirmacion { padding-block: 3rem 5rem; display: grid; place-items: center; }
+.empty { text-align: center; display: flex; flex-direction: column; gap: 1rem; align-items: center; }
+.empty h2 { font-family: var(--font-heading); font-size: var(--fs-h2); }
+
+.card {
+  width: 100%;
+  max-width: 560px;
+  text-align: center;
+  padding: 2.5rem 2rem;
+  background: var(--gradient-card);
+  border: var(--border-gold);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.check { width: 84px; height: 84px; }
+.check-svg { width: 100%; height: 100%; }
+.check-circle {
+  fill: none;
+  stroke: var(--verde-selva);
+  stroke-width: 3;
+  stroke-dasharray: 151;
+  stroke-dashoffset: 151;
+  animation: sm-draw-check 0.6s var(--ease-out) forwards;
+}
+.check-mark {
+  fill: none;
+  stroke: var(--sabor-gold-main);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: sm-draw-check 0.4s var(--ease-out) 0.5s forwards;
+}
+
+.card h1 { font-family: var(--font-display); font-size: var(--fs-h2); margin: 0; }
+.sub { color: var(--sabor-gold-muted); margin: 0; }
+
+.code-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem 2rem;
+  border-radius: var(--radius-md);
+  background: rgba(20, 16, 12, 0.5);
+  border: 1px dashed rgba(200, 144, 42, 0.4);
+}
+.code-label { font-size: var(--fs-xs); color: var(--sabor-gold-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.code { font-family: var(--font-mono); font-size: 1.8rem; font-weight: 700; color: var(--sabor-gold-main); letter-spacing: 0.1em; }
+
+.details { width: 100%; display: flex; flex-direction: column; gap: 0.5rem; }
+.details > div { display: flex; justify-content: space-between; font-size: var(--fs-small); padding: 0.4rem 0; border-bottom: var(--border-subtle); }
+.details .k { color: var(--sabor-gold-muted); }
+.details .v { color: var(--crema-antigua); font-weight: 600; }
+
+.qr { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+.qr img { border-radius: var(--radius-md); }
+.qr span { font-size: var(--fs-xs); color: var(--sabor-gold-muted); }
+
+.actions { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+.again { font-size: var(--fs-small); color: var(--sabor-gold-main); text-decoration: underline; }
+
+@media print {
+  .actions, .again { display: none; }
+}

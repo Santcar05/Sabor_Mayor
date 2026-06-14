@@ -3,9 +3,12 @@
    ========================================================================== */
 /* Aquí traemos las variables para que existan en toda la app */
 @import '../src/styles/_variables.scss';
+@import '../src/styles/_design-tokens.scss';
+@import '../src/styles/_animations.scss';
 
-/* Importar fuentes de Google Fonts - Identidad Sabor Mayor */
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300..900;1,300..900&family=DM+Sans:ital,wght@0,100..900;1,100..900&family=DM+Mono:wght@400;500&display=swap');
+/* Importar fuentes de Google Fonts - Identidad Sabor Mayor
+   Raleway/DM Sans/DM Mono (base) + Playfair Display (headings) + Great Vibes (taglines) */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300..900;1,300..900&family=DM+Sans:ital,wght@0,100..900;1,100..900&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Great+Vibes&display=swap');
 
 /* ==========================================================================
    2. RESETEO BÁSICO (CSS Reset)

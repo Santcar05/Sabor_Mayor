@@ -1,0 +1,99 @@
+@if (loading()) {
+  <div class="pt-loading"><app-loading-spinner label="Cargando tus puntos…" /></div>
+} @else if (!account()) {
+  <div class="pt-error">
+    <p>No pudimos cargar tu cuenta de puntos. Intenta de nuevo.</p>
+  </div>
+} @else {
+  @let a = account()!;
+
+  <div class="pt-card-main">
+    <div class="pt-card-header">
+      <div>
+        <p class="pt-label">Nivel actual</p>
+        <h2 class="pt-level">{{ levelLabel() }}</h2>
+      </div>
+      <div class="pt-balance">
+        <p class="pt-label">Puntos disponibles</p>
+        <span class="pt-points">{{ a.points }}</span>
+        <p class="pt-pts-label">Sabor Points</p>
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div class="pt-progress-wrap">
+      <div class="pt-progress-track">
+        <div class="pt-progress-bar" [style.width.%]="progressPct()"></div>
+      </div>
+      <div class="pt-progress-labels">
+        <span>{{ a.lifetimePoints }} acumulados</span>
+        <span>Próximo nivel: {{ nextThreshold() }}</span>
+      </div>
+    </div>
+
+    @if (a.nextLevel) {
+      <p class="pt-next-msg">
+        Te faltan <strong>{{ a.pointsToNextLevel }}</strong> puntos para alcanzar
+        <strong>{{ a.nextLevel }}</strong>.
+      </p>
+    }
+  </div>
+
+  <!-- Redeem -->
+  <div class="pt-redeem-card">
+    <h3>Canjear puntos</h3>
+    <p class="pt-redeem-info">
+      Convierte tus puntos en descuentos en tu próximo pedido. Cada 100 puntos = $5,000 COP.
+    </p>
+    <div class="pt-redeem-row">
+      <div class="pt-redeem-presets">
+        @for (opt of [100, 250, 500, 1000]; track opt) {
+          <button
+            class="pt-preset"
+            [class.pt-preset--active]="redeemAmount() === opt"
+            [disabled]="opt > a.points"
+            (click)="redeemAmount.set(opt)"
+          >{{ opt }} pts</button>
+        }
+      </div>
+      <button
+        app-button
+        variant="primary"
+        [loading]="redeeming()"
+        [disabled]="redeemAmount() <= 0 || redeemAmount() > a.points"
+        (pressed)="redeem()"
+      >
+        Canjear {{ redeemAmount() > 0 ? redeemAmount() + ' pts' : '' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Transactions -->
+  <div class="pt-history">
+    <h3>Historial de movimientos</h3>
+    @if (transactions().length === 0) {
+      <p class="pt-empty">Aún no tienes movimientos registrados.</p>
+    } @else {
+      <div class="pt-tx-list">
+        @for (tx of transactions(); track tx.id) {
+          <div class="pt-tx">
+            <div class="pt-tx-icon" [class.pt-tx-icon--earn]="tx.type === 'EARN'">
+              @if (tx.type === 'EARN') {
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+              } @else {
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+              }
+            </div>
+            <div class="pt-tx-body">
+              <span class="pt-tx-desc">{{ tx.description ?? (tx.type === 'EARN' ? 'Puntos ganados' : 'Puntos canjeados') }}</span>
+              <span class="pt-tx-date">{{ tx.createdAt | date:'d MMM yyyy' }}</span>
+            </div>
+            <span class="pt-tx-pts" [class.pt-tx-pts--earn]="tx.type === 'EARN'">
+              {{ tx.type === 'EARN' ? '+' : '−' }}{{ tx.points }}
+            </span>
+          </div>
+        }
+      </div>
+    }
+  </div>
+}

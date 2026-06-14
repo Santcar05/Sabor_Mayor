@@ -1,0 +1,114 @@
+<section class="sm-container checkout">
+  <h1 class="page-title">Finalizar pedido</h1>
+
+  @if (cart.isEmpty()) {
+    <div class="empty">
+      <p>No tienes artículos para pagar.</p>
+      <a app-button routerLink="/carta">Ir a la carta</a>
+    </div>
+  } @else {
+    <div class="checkout-grid">
+      <div class="forms">
+        <!-- Resumen del pedido -->
+        <section class="block">
+          <h2>Tu pedido</h2>
+          <ul class="order-items">
+            @for (item of cart.items(); track item.dishId + (item.notes ?? '')) {
+              <li>
+                <span class="q">{{ item.quantity }}×</span>
+                <span class="n">{{ item.name }}</span>
+                <span class="p">{{ item.unitPrice * item.quantity | cop }}</span>
+              </li>
+            }
+          </ul>
+        </section>
+
+        <!-- Entrega -->
+        <section class="block">
+          <h2>Entrega</h2>
+          <p class="fulfillment-badge">{{ cart.fulfillmentType() }}</p>
+          @if (cart.snapshot().deliveryAddress) {
+            <p class="addr">📍 {{ cart.snapshot().deliveryAddress }}</p>
+          }
+          <textarea
+            class="instructions"
+            rows="2"
+            placeholder="Instrucciones especiales (timbre, referencia, alergias críticas…)"
+            [value]="instructions()"
+            (input)="instructions.set($any($event.target).value)"
+          ></textarea>
+        </section>
+
+        <!-- Método de pago -->
+        <section class="block">
+          <h2>Método de pago</h2>
+          <div class="method-tabs">
+            @for (m of methods; track m.key) {
+              <button
+                class="method-tab"
+                [class.active]="method() === m.key"
+                (click)="setMethod(m.key)"
+                type="button"
+              >
+                <span>{{ m.icon }}</span> {{ m.label }}
+              </button>
+            }
+          </div>
+
+          @if (method() === 'CARD') {
+            <div class="card-form sm-animate-fade-in">
+              <input type="text" placeholder="Nombre en la tarjeta" [value]="cardName()" (input)="cardName.set($any($event.target).value)" />
+              <input type="text" placeholder="0000 0000 0000 0000" inputmode="numeric" [value]="cardNumber()" (input)="cardNumber.set($any($event.target).value)" />
+              <div class="card-row">
+                <input type="text" placeholder="MM/AA" [value]="cardExp()" (input)="cardExp.set($any($event.target).value)" />
+                <input type="text" placeholder="CVC" [value]="cardCvc()" (input)="cardCvc.set($any($event.target).value)" />
+              </div>
+              <p class="mock-note">🔒 Pasarela en modo demo (gateway mock del backend). No se procesan tarjetas reales.</p>
+            </div>
+          } @else if (method() === 'CASH') {
+            <p class="method-note sm-animate-fade-in">Pagas en efectivo al recibir o en el restaurante.</p>
+          } @else {
+            <p class="method-note sm-animate-fade-in">Serás dirigido a {{ method() }} para completar el pago (demo).</p>
+          }
+
+          <label class="decline-toggle">
+            <input type="checkbox" [checked]="simulateDecline()" (change)="simulateDecline.set($any($event.target).checked)" />
+            Simular pago rechazado (pruebas)
+          </label>
+        </section>
+      </div>
+
+      <!-- Resumen lateral -->
+      <aside class="summary">
+        <h3>Total a pagar</h3>
+        <div class="row"><span>Subtotal</span><span>{{ cart.subtotal() | cop }}</span></div>
+
+        <div class="tip">
+          <span class="tip-label">Propina</span>
+          <div class="tip-presets">
+            @for (p of tipPresets; track p) {
+              <button [class.active]="tipPercent() === p" (click)="setTip(p)" type="button">
+                {{ p === 0 ? 'Sin' : p + '%' }}
+              </button>
+            }
+          </div>
+        </div>
+        <div class="row"><span>Propina ({{ tipPercent() }}%)</span><span>{{ tip() | cop }}</span></div>
+        <div class="row total"><span>Total</span><span>{{ total() | cop }}</span></div>
+
+        <label class="terms">
+          <input type="checkbox" [checked]="acceptedTerms()" (change)="acceptedTerms.set($any($event.target).checked)" />
+          Acepto los términos, condiciones y el tratamiento de datos (Habeas Data).
+        </label>
+
+        <button app-button [block]="true" [loading]="submitting()" [pulse]="true" (pressed)="placeOrder()">
+          Realizar pedido · {{ total() | cop }}
+        </button>
+
+        @if (!isAuth()) {
+          <p class="auth-note">Necesitas <a routerLink="/auth/login" [queryParams]="{ returnUrl: '/pedidos/checkout' }">iniciar sesión</a> para confirmar.</p>
+        }
+      </aside>
+    </div>
+  }
+</section>

@@ -1,0 +1,87 @@
+:host.sm-btn {
+  --btn-bg: var(--gradient-gold);
+  --btn-fg: var(--tierra-profunda);
+  --btn-border: transparent;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--btn-border);
+  border-radius: var(--radius-pill);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  transition:
+    transform var(--dur-fast) var(--ease-fast),
+    box-shadow var(--dur-fast) var(--ease-fast),
+    filter var(--dur-fast) var(--ease-fast),
+    background var(--dur-fast) var(--ease-fast);
+}
+
+/* Tamaños */
+:host.sm-btn--sm { padding: 0.45rem 1.1rem; font-size: var(--fs-small); }
+:host.sm-btn--md { padding: 0.7rem 1.6rem; font-size: var(--fs-body); }
+:host.sm-btn--lg { padding: 0.95rem 2.2rem; font-size: var(--fs-lead); }
+
+:host.sm-btn--block { display: flex; width: 100%; }
+
+/* Variantes */
+:host.sm-btn--secondary {
+  --btn-bg: transparent;
+  --btn-fg: var(--sabor-gold-main);
+  --btn-border: var(--sabor-gold-main);
+}
+:host.sm-btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--crema-antigua);
+  --btn-border: rgba(213, 196, 164, 0.25);
+}
+:host.sm-btn--danger {
+  --btn-bg: var(--rojo-aji);
+  --btn-fg: var(--marfil-puro);
+}
+
+/* Hover / focus */
+:host.sm-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+  filter: brightness(1.05);
+}
+:host.sm-btn--ghost:hover {
+  background: rgba(213, 196, 164, 0.08);
+  box-shadow: none;
+}
+:host.sm-btn:active { transform: translateY(0); }
+
+/* Deshabilitado / cargando */
+:host.sm-btn[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Aro de luz dorada para CTAs destacados */
+:host.sm-btn--pulse:not([disabled]) { animation: sm-gold-pulse 2.4s var(--ease-out) infinite; }
+
+.content { display: inline-flex; align-items: center; gap: 0.55rem; }
+.content.is-hidden { visibility: hidden; }
+
+.spinner {
+  position: absolute;
+  width: 1.15em;
+  height: 1.15em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: sm-spin 0.7s linear infinite;
+}

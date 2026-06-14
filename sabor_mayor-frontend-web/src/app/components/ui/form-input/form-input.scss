@@ -1,0 +1,51 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--sabor-gold-muted);
+  letter-spacing: 0.02em;
+}
+.req { color: var(--rojo-aji); margin-left: 2px; }
+
+.control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--crema-antigua);
+  background: rgba(20, 16, 12, 0.55);
+  border: 1px solid rgba(213, 196, 164, 0.18);
+  border-radius: var(--radius-md);
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast), background var(--dur-fast);
+  resize: vertical;
+}
+.control::placeholder { color: rgba(213, 196, 164, 0.4); }
+.control:focus {
+  outline: none;
+  border-color: var(--sabor-gold-main);
+  box-shadow: 0 0 0 3px rgba(243, 181, 74, 0.18);
+  background: rgba(20, 16, 12, 0.8);
+}
+
+.has-error .control {
+  border-color: var(--rojo-aji);
+}
+.has-error .control:focus {
+  box-shadow: 0 0 0 3px rgba(139, 26, 26, 0.25);
+}
+
+.error-msg {
+  font-size: var(--fs-xs);
+  color: #e07a7a;
+}
+.hint {
+  font-size: var(--fs-xs);
+  color: rgba(213, 196, 164, 0.5);
+}

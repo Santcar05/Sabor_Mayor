@@ -1,0 +1,97 @@
+.carta-hero {
+  text-align: center;
+  padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--gradient-bg);
+}
+.carta-hero .sm-script { font-size: 1.8rem; }
+.carta-hero h1 { font-family: var(--font-display); font-size: var(--fs-hero); margin: 0.2rem 0 0.8rem; }
+.carta-hero .lead {
+  max-width: 60ch;
+  margin: 0 auto;
+  font-size: var(--fs-lead);
+  color: var(--sabor-gold-muted);
+  line-height: 1.6;
+}
+
+.carta-controls {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 20;
+  background: rgba(20, 16, 12, 0.9);
+  backdrop-filter: blur(12px);
+  border-block: var(--border-subtle);
+}
+.controls-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding-block: 1rem;
+}
+
+.categories { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.2rem; }
+.chip {
+  flex-shrink: 0;
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(213, 196, 164, 0.2);
+  background: transparent;
+  color: var(--crema-antigua);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-fast);
+}
+.chip:hover { border-color: var(--sabor-gold-main); }
+.chip.active { background: var(--gradient-gold); color: var(--tierra-profunda); border-color: transparent; }
+
+.filters { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 200px;
+  max-width: 340px;
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(213, 196, 164, 0.2);
+  background: rgba(20, 16, 12, 0.6);
+}
+.search input { flex: 1; background: none; border: none; color: var(--crema-antigua); font-size: var(--fs-small); }
+.search input:focus { outline: none; }
+.diet-filters { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.diet-chip {
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(213, 196, 164, 0.18);
+  background: transparent;
+  color: var(--sabor-gold-muted);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--dur-fast);
+}
+.diet-chip.active { background: rgba(200, 144, 42, 0.18); color: var(--sabor-gold-main); border-color: var(--sabor-gold-main); }
+
+.carta-grid-wrap { padding-block: 2.5rem 4rem; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.6rem;
+}
+
+.skeleton-card { display: flex; flex-direction: column; gap: 0.6rem; }
+.skeleton-card .img { aspect-ratio: 4/3; }
+.skeleton-card .line { height: 1rem; }
+.skeleton-card .line.short { width: 60%; }
+
+.empty {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--sabor-gold-muted);
+  font-size: var(--fs-lead);
+}
+
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; }
+}

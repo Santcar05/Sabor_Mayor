@@ -1,0 +1,21 @@
+<div class="fav-header">
+  <h1>Mis favoritos</h1>
+  <span class="fav-count">{{ items().length }} platos guardados</span>
+</div>
+
+@if (loading()) {
+  <div class="fav-loading"><app-loading-spinner /></div>
+} @else if (items().length === 0) {
+  <div class="fav-empty">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="fav-empty-icon"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    <p>Aún no tienes platos favoritos.</p>
+    <p class="fav-empty-sub">Explora la carta y toca el corazón en los platos que te gusten.</p>
+    <a app-button variant="primary" routerLink="/carta">Explorar la carta</a>
+  </div>
+} @else {
+  <div class="fav-grid">
+    @for (dish of items(); track dish.slug) {
+      <app-dish-card [dish]="dish" />
+    }
+  </div>
+}

@@ -1,0 +1,53 @@
+<section class="sm-container rastreo">
+  @if (loading()) {
+    <div class="loading-wrap"><app-loading-spinner label="Localizando tu pedido…" /></div>
+  } @else if (error() || !order()) {
+    <div class="empty">
+      <h2>Pedido no encontrado</h2>
+      <p>Verifica el enlace o revisa tus pedidos.</p>
+      <a app-button variant="secondary" routerLink="/perfil/pedidos">Mis pedidos</a>
+    </div>
+  } @else {
+    @let o = order()!;
+    <header class="track-head">
+      <div>
+        <p class="sm-script">Seguimiento en vivo</p>
+        <h1>Pedido #{{ o.id.slice(0, 8) }}</h1>
+      </div>
+      <span class="status-pill status--{{ o.status }}">{{ o.status }}</span>
+    </header>
+
+    @if (o.status === 'CANCELLED') {
+      <div class="cancelled">Este pedido fue cancelado.</div>
+    } @else {
+      <p class="eta">⏱ Tiempo estimado: <strong>{{ eta() }}</strong></p>
+
+      <ol class="timeline">
+        @for (step of steps; track step.key; let i = $index) {
+          <li class="step step--{{ stepState(i) }}">
+            <span class="dot">@if (stepState(i) === 'done') { ✓ } @else { {{ i + 1 }} }</span>
+            <span class="step-label">{{ step.label }}</span>
+          </li>
+        }
+      </ol>
+    }
+
+    <div class="track-body">
+      <div class="order-summary">
+        <h3>Detalle</h3>
+        <ul>
+          @for (item of o.items; track item.id) {
+            <li><span>{{ item.quantity }}× {{ item.dishName }}</span><span>{{ item.unitPrice * item.quantity | cop }}</span></li>
+          }
+        </ul>
+        <div class="total"><span>Total</span><span>{{ o.total | cop }}</span></div>
+      </div>
+
+      <div class="actions">
+        <button app-button variant="secondary" (pressed)="shareWhatsapp(o)">Compartir por WhatsApp</button>
+        <a app-button variant="ghost" routerLink="/carta">Pedir algo más</a>
+        <p class="support">¿Algún problema? Escríbenos por WhatsApp y te ayudamos en vivo.</p>
+      </div>
+    </div>
+  }
+</section>

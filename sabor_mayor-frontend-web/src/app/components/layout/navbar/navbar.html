@@ -1,0 +1,55 @@
+<header class="navbar">
+  <div class="nav-inner sm-container">
+    <a class="brand" routerLink="/" (click)="closeMobile()">
+      <span class="brand-mark">SM</span>
+      <span class="brand-text">
+        <span class="brand-name">Sabor Mayor</span>
+        <span class="brand-tag">Alta cocina latinoamericana</span>
+      </span>
+    </a>
+
+    <nav class="links" [class.open]="mobileOpen()" aria-label="Principal">
+      @for (link of links; track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="active"
+          (click)="closeMobile()"
+        >{{ link.label }}</a>
+      }
+    </nav>
+
+    <div class="actions">
+      <a class="cart-btn" routerLink="/pedidos/carrito" aria-label="Ver carrito">
+        <span class="cart-ico">🛒</span>
+        @if (cartCount() > 0) {
+          <span class="cart-badge">{{ cartCount() }}</span>
+        }
+      </a>
+
+      @if (isAuth()) {
+        <div class="user">
+          <button class="user-trigger" (click)="toggleUserMenu()" aria-label="Menú de usuario">
+            <app-user-avatar [name]="user()?.fullName ?? ''" [size]="38" />
+          </button>
+          @if (userMenuOpen()) {
+            <div class="user-menu">
+              <p class="user-name">{{ user()?.fullName }}</p>
+              <a routerLink="/perfil" (click)="toggleUserMenu()">Mi panel</a>
+              <a routerLink="/perfil/reservas" (click)="toggleUserMenu()">Mis reservas</a>
+              <a routerLink="/perfil/pedidos" (click)="toggleUserMenu()">Mis pedidos</a>
+              <a routerLink="/perfil/puntos" (click)="toggleUserMenu()">Sabor Points</a>
+              <button class="logout" (click)="logout()">Cerrar sesión</button>
+            </div>
+          }
+        </div>
+      } @else {
+        <a class="login-link" routerLink="/auth/login">Ingresar</a>
+        <a class="reserve-cta" routerLink="/reservar">Reservar</a>
+      }
+
+      <button class="hamburger" (click)="toggleMobile()" [attr.aria-expanded]="mobileOpen()" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>

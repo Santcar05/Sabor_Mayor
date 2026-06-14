@@ -1,0 +1,70 @@
+.portal {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2rem;
+  padding-block: 2.5rem;
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.account-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1.1rem;
+  background: var(--gradient-card);
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+.account-info { display: flex; flex-direction: column; min-width: 0; }
+.account-info strong { color: var(--crema-antigua); font-size: var(--fs-body); }
+.account-info span {
+  font-size: var(--fs-xs);
+  color: var(--sabor-gold-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.portal-nav { display: flex; flex-direction: column; gap: 0.2rem; }
+.portal-nav a,
+.portal-nav .logout {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-md);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--crema-antigua);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+.portal-nav a .ico,
+.portal-nav .logout .ico { width: 1.2rem; text-align: center; color: var(--sabor-gold-main); }
+.portal-nav a:hover { background: rgba(213, 196, 164, 0.07); }
+.portal-nav a.active {
+  background: rgba(200, 144, 42, 0.14);
+  color: var(--sabor-gold-main);
+}
+.portal-nav .logout { color: #e07a7a; margin-top: 0.5rem; border-top: var(--border-subtle); }
+.portal-nav .logout:hover { background: rgba(139, 26, 26, 0.16); }
+
+.portal-content { min-width: 0; }
+
+@media (max-width: 900px) {
+  .portal { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .portal-nav { flex-direction: row; flex-wrap: wrap; }
+  .portal-nav a, .portal-nav .logout { flex: 1 1 auto; }
+}

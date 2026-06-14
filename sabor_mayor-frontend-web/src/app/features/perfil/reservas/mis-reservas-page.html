@@ -1,0 +1,61 @@
+<div class="mr-header">
+  <h1>Mis reservas</h1>
+  <a app-button variant="primary" size="sm" routerLink="/reservar">Nueva reserva</a>
+</div>
+
+@if (loading()) {
+  <div class="mr-loading"><app-loading-spinner /></div>
+} @else if (error()) {
+  <p class="mr-error">No pudimos cargar tus reservas. Intenta de nuevo.</p>
+} @else if (reservations().length === 0) {
+  <div class="mr-empty">
+    <p>No tienes reservas todavía.</p>
+    <a app-button variant="primary" routerLink="/reservar">Hacer tu primera reserva</a>
+  </div>
+} @else {
+  <div class="mr-list">
+    @for (r of reservations(); track r.id) {
+      <div class="mr-card">
+        <div class="mr-card-header">
+          <span class="mr-date">{{ r.date }} · {{ r.time }}</span>
+          <span class="mr-badge mr-badge--{{ statusClass(r.status) }}">{{ r.status }}</span>
+        </div>
+        <div class="mr-details">
+          <div class="mr-detail">
+            <span class="mr-k">Personas</span>
+            <span class="mr-v">{{ r.partySize }}</span>
+          </div>
+          @if (r.occasion) {
+            <div class="mr-detail">
+              <span class="mr-k">Ocasión</span>
+              <span class="mr-v">{{ r.occasion }}</span>
+            </div>
+          }
+          @if (r.specialRequests) {
+            <div class="mr-detail">
+              <span class="mr-k">Solicitudes</span>
+              <span class="mr-v">{{ r.specialRequests }}</span>
+            </div>
+          }
+          <div class="mr-detail">
+            <span class="mr-k">Código</span>
+            <span class="mr-v mr-code">{{ r.id.slice(0, 8).toUpperCase() }}</span>
+          </div>
+        </div>
+        @if (canCancel(r)) {
+          <div class="mr-actions">
+            <button
+              app-button
+              variant="danger"
+              size="sm"
+              [loading]="cancelling() === r.id"
+              (pressed)="cancel(r.id)"
+            >
+              Cancelar reserva
+            </button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+}

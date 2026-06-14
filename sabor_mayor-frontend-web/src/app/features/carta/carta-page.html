@@ -1,0 +1,73 @@
+<section class="carta-hero">
+  <div class="sm-container">
+    <p class="sm-script">Nuestra cocina</p>
+    <h1 class="sm-gold-text">La Carta</h1>
+    <p class="lead">
+      Una travesía por los sabores de Latinoamérica reinterpretados con técnica de autor.
+      Cada plato cuenta el origen de su ingrediente.
+    </p>
+  </div>
+</section>
+
+<div class="carta-controls">
+  <div class="sm-container controls-inner">
+    <nav class="categories" aria-label="Categorías">
+      <button class="chip" [class.active]="selectedCategory() === 'todos'" (click)="setCategory('todos')">
+        Todos
+      </button>
+      @for (cat of categories(); track cat.id) {
+        <button class="chip" [class.active]="selectedCategory() === cat.slug" (click)="setCategory(cat.slug)">
+          {{ cat.name }}
+        </button>
+      }
+    </nav>
+
+    <div class="filters">
+      <div class="search">
+        <span class="search-ico" aria-hidden="true">🔍</span>
+        <input
+          type="search"
+          placeholder="Buscar plato…"
+          [value]="search()"
+          (input)="onSearch($event)"
+          aria-label="Buscar plato"
+        />
+      </div>
+      <div class="diet-filters">
+        @for (d of diets; track d.key) {
+          <button class="diet-chip" [class.active]="diet() === d.key" (click)="setDiet(d.key)">
+            {{ d.label }}
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="sm-container carta-grid-wrap">
+  @if (loading()) {
+    <div class="grid skeletons">
+      @for (s of [1,2,3,4,5,6]; track s) {
+        <div class="skeleton-card">
+          <div class="sm-skeleton img"></div>
+          <div class="sm-skeleton line"></div>
+          <div class="sm-skeleton line short"></div>
+        </div>
+      }
+    </div>
+  } @else if (loadError()) {
+    <div class="empty">
+      <p>No pudimos cargar la carta. Verifica que el backend esté disponible.</p>
+    </div>
+  } @else if (filtered().length === 0) {
+    <div class="empty">
+      <p>No encontramos platos con esos filtros.</p>
+    </div>
+  } @else {
+    <div class="grid" [@grid]="filtered().length">
+      @for (dish of filtered(); track trackBySlug($index, dish)) {
+        <app-dish-card [dish]="dish" />
+      }
+    </div>
+  }
+</section>

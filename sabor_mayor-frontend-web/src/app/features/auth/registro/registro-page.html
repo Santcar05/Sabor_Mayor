@@ -1,0 +1,104 @@
+<div class="auth-wrap">
+  <div class="auth-card sm-animate-scale-in">
+    <div class="auth-brand">
+      <span class="auth-logo">SM</span>
+      <span class="auth-logo-script sm-script">Sabor Mayor</span>
+    </div>
+    <h1 class="auth-title">Crea tu cuenta</h1>
+
+    <!-- Step indicator -->
+    <div class="auth-steps">
+      <div class="auth-step" [class.auth-step--active]="step() === 1" [class.auth-step--done]="step() > 1">
+        <span class="auth-step-num">1</span>
+        <span>Datos personales</span>
+      </div>
+      <div class="auth-step-line"></div>
+      <div class="auth-step" [class.auth-step--active]="step() === 2">
+        <span class="auth-step-num">2</span>
+        <span>Contraseña</span>
+      </div>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="auth-form">
+      @if (step() === 1) {
+        <div class="auth-row">
+          <app-form-input
+            label="Nombre"
+            formControlName="firstName"
+            autocomplete="given-name"
+            [required]="true"
+            [error]="fieldError('firstName')"
+            [invalid]="!!fieldError('firstName')"
+          />
+          <app-form-input
+            label="Apellido"
+            formControlName="lastName"
+            autocomplete="family-name"
+            [required]="true"
+            [error]="fieldError('lastName')"
+            [invalid]="!!fieldError('lastName')"
+          />
+        </div>
+        <app-form-input
+          label="Correo electrónico"
+          type="email"
+          formControlName="email"
+          autocomplete="email"
+          [required]="true"
+          [error]="fieldError('email')"
+          [invalid]="!!fieldError('email')"
+        />
+        <app-form-input
+          label="Teléfono (opcional)"
+          type="tel"
+          formControlName="phone"
+          autocomplete="tel"
+        />
+        <button app-button variant="primary" size="lg" type="button" [block]="true" (pressed)="nextStep()">
+          Continuar
+        </button>
+      } @else {
+        <app-form-input
+          label="Contraseña"
+          type="password"
+          formControlName="password"
+          autocomplete="new-password"
+          [required]="true"
+          hint="Mínimo 8 caracteres"
+          [error]="fieldError('password')"
+          [invalid]="!!fieldError('password')"
+        />
+        <app-form-input
+          label="Confirmar contraseña"
+          type="password"
+          formControlName="confirm"
+          autocomplete="new-password"
+          [required]="true"
+          [error]="confirmError()"
+          [invalid]="!!confirmError()"
+        />
+        <label class="auth-terms">
+          <input type="checkbox" formControlName="terms" />
+          <span>
+            Acepto los
+            <a href="#" target="_blank">Términos de uso</a>
+            y la
+            <a href="#" target="_blank">Política de privacidad</a>
+          </span>
+        </label>
+        @if (form.get('terms')?.touched && form.get('terms')?.invalid) {
+          <span class="auth-terms-error">Debes aceptar los términos para continuar</span>
+        }
+        <div class="auth-step-actions">
+          <button app-button variant="ghost" size="sm" type="button" (pressed)="step.set(1)">Atrás</button>
+          <button app-button variant="primary" size="lg" type="submit" [loading]="loading()">Crear cuenta</button>
+        </div>
+      }
+    </form>
+
+    <p class="auth-footer-link">
+      ¿Ya tienes cuenta?
+      <a routerLink="/auth/login">Inicia sesión</a>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,140 @@
+// Hero
+.nos-hero { padding-block: 5rem; border-bottom: var(--border-subtle); }
+
+.nos-hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+
+  @media (max-width: 760px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.nos-eyebrow { font-size: var(--fs-lg); color: var(--sabor-gold-main); }
+.nos-title { font-family: var(--font-display); font-size: var(--fs-hero); margin: 0.25rem 0 1rem; color: var(--crema-antiga); }
+.nos-lead {
+  color: rgba(244,236,216,0.75);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  font-size: var(--fs-lg);
+}
+
+.nos-hero-image { border-radius: var(--radius-xl); overflow: hidden; }
+.nos-img { width: 100%; height: 480px; object-fit: cover; display: block; }
+
+// Story
+.nos-story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+
+  @media (max-width: 760px) { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+.nos-story-img-wrap { border-radius: var(--radius-xl); overflow: hidden; }
+.nos-story-img { width: 100%; height: 420px; object-fit: cover; display: block; }
+
+.nos-story-text {
+  h2 { font-family: var(--font-heading); font-size: var(--fs-h2); color: var(--crema-antiga); margin: 0 0 1.25rem; }
+  p { color: rgba(244,236,216,0.75); line-height: 1.75; margin-bottom: 1rem; }
+}
+
+// Values
+.nos-values { background: var(--gradient-card); border-block: var(--border-subtle); }
+
+.nos-section-title {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h2);
+  color: var(--crema-antiga);
+  margin: 0 0 2rem;
+  text-align: center;
+}
+
+.nos-section-sub {
+  text-align: center;
+  color: var(--sabor-gold-muted);
+  margin: -1.5rem 0 2rem;
+}
+
+.nos-values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: 1.5rem;
+}
+
+.nos-value-card {
+  padding: 1.5rem;
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: rgba(20,16,12,0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: border-color 0.3s;
+
+  &:hover { border-color: rgba(200,144,42,0.5); }
+
+  h3 { font-family: var(--font-heading); font-size: var(--fs-h4); color: var(--crema-antiga); margin: 0; }
+  p { color: rgba(244,236,216,0.65); font-size: var(--fs-small); line-height: 1.6; margin: 0; }
+}
+
+.nos-value-icon { font-size: 2rem; }
+
+// Team
+.nos-team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 2rem;
+}
+
+.nos-team-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  text-align: center;
+}
+
+.nos-team-img-wrap {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(200,144,42,0.4);
+  background: var(--humo-suave);
+}
+
+.nos-team-img { width: 100%; height: 100%; object-fit: cover; }
+
+.nos-team-name { font-family: var(--font-heading); font-size: var(--fs-h4); color: var(--crema-antiga); margin: 0.5rem 0 0; }
+.nos-team-role { font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--sabor-gold-main); }
+.nos-team-bio { color: rgba(244,236,216,0.65); font-size: var(--fs-small); line-height: 1.6; margin: 0.5rem 0 0; max-width: 280px; }
+
+// Awards
+.nos-awards { background: var(--gradient-card); border-top: var(--border-subtle); }
+
+.nos-awards-inner { display: flex; flex-direction: column; gap: 2rem; }
+
+.nos-awards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 1.5rem;
+}
+
+.nos-award {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1.25rem 1.5rem;
+  border: var(--border-gold);
+  border-radius: var(--radius-lg);
+  background: rgba(20,16,12,0.5);
+}
+
+.nos-award-year { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--sabor-gold-main); letter-spacing: 0.1em; }
+.nos-award-name { font-family: var(--font-heading); font-size: var(--fs-base); color: var(--crema-antiga); font-weight: 600; }
+.nos-award-source { font-size: var(--fs-xs); color: var(--sabor-gold-muted); }

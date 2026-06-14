@@ -1,0 +1,110 @@
+@let s = state();
+
+@if (!s.dish && !s.error) {
+  <div class="loading-wrap"><app-loading-spinner label="Cargando plato…" /></div>
+} @else if (s.error || !s.dish) {
+  <div class="sm-container empty">
+    <h2>Plato no encontrado</h2>
+    <p>Es posible que ya no esté disponible en nuestra carta.</p>
+    <a app-button variant="secondary" routerLink="/carta">Volver a la carta</a>
+  </div>
+} @else {
+  @let dish = s.dish;
+  <article class="detail sm-container">
+    <a class="back" routerLink="/carta">← Volver a la carta</a>
+
+    <div class="detail-grid">
+      <div class="gallery sm-animate-fade-in">
+        <img
+          class="hero-img"
+          [src]="dish.imageUrl || 'assets/images/dish-placeholder.svg'"
+          [alt]="dish.name"
+        />
+        <button
+          class="fav"
+          [class.active]="isFavorite(dish.slug)"
+          (click)="toggleFavorite(dish.slug)"
+          [attr.aria-label]="isFavorite(dish.slug) ? 'Quitar de favoritos' : 'Agregar a favoritos'"
+        >
+          {{ isFavorite(dish.slug) ? '♥' : '♡' }} Favorito
+        </button>
+      </div>
+
+      <div class="info sm-animate-fade-up">
+        <p class="category sm-script">{{ dish.categoryName }}</p>
+        <h1 class="name">{{ dish.name }}</h1>
+        <app-price-display [amount]="dish.price" [large]="true" />
+
+        <p class="description">{{ dish.description }}</p>
+
+        <div class="meta">
+          <span class="meta-item">⏱ {{ dish.prepMinutes }} min de preparación</span>
+          @if (dish.available) {
+            <span class="meta-item available">● Disponible hoy</span>
+          } @else {
+            <span class="meta-item unavailable">● Agotado</span>
+          }
+        </div>
+
+        @if (dish.tags.length) {
+          <ul class="tags">
+            @for (tag of dish.tags; track tag) {
+              <li class="tag">{{ tag }}</li>
+            }
+          </ul>
+        }
+
+        @if (dish.allergens.length) {
+          <div class="allergens">
+            <span class="warn">⚠ Alérgenos</span>
+            <p>{{ dish.allergens.join(' · ') }}</p>
+          </div>
+        }
+
+        <button class="nutrition-toggle" (click)="nutritionOpen.set(!nutritionOpen())">
+          Información nutricional {{ nutritionOpen() ? '▲' : '▼' }}
+        </button>
+        @if (nutritionOpen()) {
+          <div class="nutrition sm-animate-fade-in">
+            <p>
+              Elaborado con ingredientes frescos de origen. Los valores nutricionales exactos
+              varían según la preparación; consulta a nuestro equipo por requerimientos
+              específicos.
+            </p>
+          </div>
+        }
+
+        @if (dish.available) {
+          <div class="order-box">
+            <div class="qty">
+              <button (click)="dec()" aria-label="Disminuir">−</button>
+              <span>{{ quantity() }}</span>
+              <button (click)="inc()" aria-label="Aumentar">+</button>
+            </div>
+            <input
+              class="notes"
+              type="text"
+              placeholder="Notas (sin cebolla, término…)"
+              [value]="notes()"
+              (input)="notes.set($any($event.target).value)"
+            />
+            <button app-button [block]="true" (pressed)="addToCart(dish)">
+              Agregar · {{ dish.price * quantity() | cop }}
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+
+    @if (s.pairings.length) {
+      <section class="pairings">
+        <h2 class="section-title">Marida bien con</h2>
+        <div class="pairings-grid">
+          @for (p of s.pairings; track p.slug) {
+            <app-dish-card [dish]="p" />
+          }
+        </div>
+      </section>
+    }
+  </article>
+}

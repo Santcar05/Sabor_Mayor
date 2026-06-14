@@ -1,0 +1,54 @@
+<section class="pedidos-hero">
+  <div class="sm-container">
+    <p class="sm-script">Pide en casa o en mesa</p>
+    <h1 class="sm-gold-text">¿Cómo quieres tu experiencia?</h1>
+  </div>
+</section>
+
+<section class="sm-container picker">
+  <div class="options">
+    @for (opt of options; track opt.key) {
+      <button
+        class="option"
+        [class.selected]="selected() === opt.key"
+        (click)="select(opt.key)"
+        type="button"
+      >
+        <span class="opt-icon">{{ opt.icon }}</span>
+        <span class="opt-title">{{ opt.title }}</span>
+        <span class="opt-desc">{{ opt.desc }}</span>
+        <span class="opt-eta">{{ opt.eta }}</span>
+      </button>
+    }
+  </div>
+
+  @if (selected() === 'DELIVERY') {
+    <div class="detail-input sm-animate-fade-in">
+      <label>Dirección de entrega</label>
+      <input
+        type="text"
+        placeholder="Calle 1 #2-3, Apto 301, Bogotá"
+        [value]="address()"
+        (input)="address.set($any($event.target).value)"
+      />
+      <p class="hint">📍 Cobertura en la zona urbana. El costo de domicilio se calcula al pagar.</p>
+    </div>
+  } @else if (selected() === 'DINE_IN') {
+    <div class="detail-input sm-animate-fade-in">
+      <label>Código de mesa (del QR)</label>
+      <input
+        type="text"
+        placeholder="qr-mesa-01"
+        [value]="tableId()"
+        (input)="tableId.set($any($event.target).value)"
+      />
+      <p class="hint">Escanea el QR de tu mesa para autocompletar este campo.</p>
+    </div>
+  }
+
+  <div class="cta">
+    <button app-button size="lg" (pressed)="continue()">
+      {{ count() > 0 ? 'Continuar al carrito' : 'Explorar la carta' }}
+    </button>
+  </div>
+</section>

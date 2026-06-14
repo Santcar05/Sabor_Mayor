@@ -1,13 +1,16 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LandingPage } from './features/landing-page/landing-page';
+import { ToastContainerComponent } from './components/ui/toast-container/toast-container';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LandingPage],
-  templateUrl: './app.html',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterOutlet, ToastContainerComponent],
+  template: `
+    <router-outlet />
+    <app-toast-container />
+  `,
   styleUrl: './app.css',
 })
-export class App {
-  protected readonly title = signal('sabor_mayor-frontend');
-}
+export class App {}

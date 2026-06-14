@@ -1,0 +1,57 @@
+<section class="sm-container cart-page">
+  <header class="page-head">
+    <h1>Tu pedido</h1>
+    <p class="sub">{{ cart.count() }} {{ cart.count() === 1 ? 'artículo' : 'artículos' }}</p>
+  </header>
+
+  @if (cart.isEmpty()) {
+    <div class="empty sm-animate-fade-in">
+      <span class="empty-ico">🍽</span>
+      <h2>Tu carrito está vacío</h2>
+      <p>Explora nuestra carta y arma tu experiencia.</p>
+      <a app-button routerLink="/carta">Ver la carta</a>
+    </div>
+  } @else {
+    <div class="cart-grid">
+      <ul class="items">
+        @for (item of cart.items(); track trackByItem($index, item)) {
+          <li class="item">
+            <img
+              class="thumb"
+              [src]="item.imageUrl || 'assets/images/dish-placeholder.svg'"
+              [alt]="item.name"
+              (error)="onImgError($event)"
+            />
+            <div class="item-info">
+              <a class="item-name" [routerLink]="['/carta', item.slug]">{{ item.name }}</a>
+              <input
+                class="item-notes"
+                type="text"
+                placeholder="Notas…"
+                [value]="item.notes ?? ''"
+                (change)="cart.updateNotes(item.dishId, item.notes, $any($event.target).value)"
+              />
+            </div>
+            <div class="qty">
+              <button (click)="cart.decrement(item)" aria-label="Disminuir">−</button>
+              <span>{{ item.quantity }}</span>
+              <button (click)="cart.increment(item)" aria-label="Aumentar">+</button>
+            </div>
+            <span class="line-total">{{ item.unitPrice * item.quantity | cop }}</span>
+            <button class="remove" (click)="cart.remove(item.dishId, item.notes)" aria-label="Eliminar">×</button>
+          </li>
+        }
+      </ul>
+
+      <aside class="summary">
+        <h3>Resumen</h3>
+        <div class="row"><span>Subtotal</span><span>{{ cart.subtotal() | cop }}</span></div>
+        <div class="row muted"><span>Domicilio / propina</span><span>Se calcula al pagar</span></div>
+        <div class="row total"><span>Total</span><span>{{ cart.subtotal() | cop }}</span></div>
+        <a app-button [block]="true" routerLink="/pedidos/checkout">Proceder al pago</a>
+        <a app-button variant="ghost" [block]="true" routerLink="/carta">Seguir comprando</a>
+        <button class="clear" (click)="cart.clear()">Vaciar carrito</button>
+      </aside>
+    </div>
+  }
+</section>

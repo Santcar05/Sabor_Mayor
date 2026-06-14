@@ -1,0 +1,136 @@
+/* ==========================================================================
+   SABOR MAYOR — Tokens de diseño extendidos
+   Construido sobre la paleta de _variables.scss. No redefine colores;
+   añade tipografía, espaciado, radios, sombras, gradientes y curvas de easing.
+   ========================================================================== */
+
+:root {
+  /* ---- Tipografía ---- */
+  --font-display: 'Playfair Display', 'Raleway', Georgia, serif; /* Hero / titulares grandes */
+  --font-heading: 'Playfair Display', Georgia, serif; /* Encabezados de sección */
+  --font-body: 'DM Sans', system-ui, -apple-system, sans-serif; /* Texto / UI */
+  --font-mono: 'DM Mono', ui-monospace, monospace; /* Precios, códigos */
+  --font-script: 'Great Vibes', cursive; /* Taglines / acentos */
+
+  /* Escala tipográfica (clamp para responsive fluido) */
+  --fs-hero: clamp(2.75rem, 6vw, 4.5rem);
+  --fs-h1: clamp(2.25rem, 4.5vw, 3.25rem);
+  --fs-h2: clamp(1.75rem, 3.5vw, 2.625rem);
+  --fs-h3: clamp(1.375rem, 2.5vw, 1.875rem);
+  --fs-lead: clamp(1.05rem, 1.6vw, 1.25rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-xs: 0.75rem;
+
+  /* ---- Espaciado (escala 4px) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+  --space-12: 6rem;
+  --space-16: 8rem;
+
+  /* ---- Radios ---- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  /* ---- Sombras (cálidas, no negro puro) ---- */
+  --shadow-sm: 0 2px 8px rgba(20, 12, 4, 0.35);
+  --shadow-md: 0 8px 28px rgba(20, 12, 4, 0.45);
+  --shadow-lg: 0 18px 50px rgba(20, 12, 4, 0.55);
+  --shadow-gold: 0 8px 30px rgba(200, 144, 42, 0.35);
+  --glow-gold: 0 0 0 1px rgba(243, 181, 74, 0.4), 0 0 22px rgba(243, 181, 74, 0.45);
+
+  /* ---- Gradientes de marca ---- */
+  --gradient-bg: radial-gradient(circle at 50% 0%, var(--sabor-bg-center) 0%, var(--sabor-bg-edge) 70%);
+  --gradient-gold: linear-gradient(135deg, var(--sabor-gold-main) 0%, var(--ambar-dorado) 55%, var(--cobre-vivo) 100%);
+  --gradient-overlay-dark: linear-gradient(180deg, rgba(20, 16, 12, 0) 0%, rgba(20, 16, 12, 0.85) 100%);
+  --gradient-card: linear-gradient(160deg, rgba(58, 46, 34, 0.65) 0%, rgba(28, 18, 8, 0.85) 100%);
+
+  /* ---- Bordes ---- */
+  --border-subtle: 1px solid rgba(213, 196, 164, 0.16);
+  --border-gold: 1px solid rgba(200, 144, 42, 0.55);
+
+  /* ---- Easing y duraciones (del sistema de animación) ---- */
+  --ease-fast: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-slow: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --dur-fast: 300ms;
+  --dur-medium: 400ms;
+  --dur-slow: 1s;
+
+  /* ---- Layout ---- */
+  --container-max: 1240px;
+  --header-height: 76px;
+  --z-header: 100;
+  --z-modal: 1000;
+  --z-toast: 1100;
+}
+
+/* ---- Utilidades globales de layout ---- */
+.sm-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 2.5rem);
+}
+
+.sm-section {
+  padding-block: clamp(3rem, 8vw, 6rem);
+}
+
+/* Texto con gradiente dorado (titulares de marca) */
+.sm-gold-text {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sm-script {
+  font-family: var(--font-script);
+  color: var(--sabor-gold-main);
+  font-weight: 400;
+}
+
+/* Accesibilidad: foco visible consistente */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--sabor-gold-main);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Scrollbar de marca (webkit) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--sabor-bg-edge);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--humo-suave);
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cobre-vivo);
+}
+
+/* Respeta a quien prefiere menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

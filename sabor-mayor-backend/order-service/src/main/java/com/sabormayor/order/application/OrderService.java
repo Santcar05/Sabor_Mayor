@@ -65,10 +65,10 @@ public class OrderService {
                 .build();
 
         if (request.type() == OrderType.DINE_IN) {
-            if (request.tableId() == null) {
+            if (request.tableId() == null || request.tableId().isBlank()) {
                 throw new BusinessRuleException("Dine-in orders require a table");
             }
-            RestaurantTable table = tableRepository.findById(request.tableId())
+            RestaurantTable table = tableRepository.findByQrToken(request.tableId())
                     .orElseThrow(() -> ResourceNotFoundException.of("Table", request.tableId()));
             table.setStatus(TableStatus.OCUPADA);
             order.setTableId(table.getId());

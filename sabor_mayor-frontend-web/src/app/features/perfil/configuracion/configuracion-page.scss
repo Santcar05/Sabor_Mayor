@@ -1,0 +1,44 @@
+.cfg-sections { display: flex; flex-direction: column; gap: 2rem; }
+
+.cfg-section {
+  background: var(--gradient-card);
+  border: var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &.cfg-danger { border-color: rgba(139,26,26,0.3); }
+}
+
+.cfg-section-title { font-family: var(--font-heading); font-size: var(--fs-h3); color: var(--crema-antiga); margin: 0; }
+.cfg-section-sub { font-size: var(--fs-small); color: var(--sabor-gold-muted); margin: 0; }
+
+.cfg-form { display: flex; flex-direction: column; gap: 0.875rem; }
+.cfg-form-row { display: grid; grid-template-columns: 1fr; }
+
+.cfg-readonly { display: flex; flex-direction: column; gap: 0.2rem; }
+.cfg-rl { font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--sabor-gold-muted); }
+.cfg-rv { font-size: var(--fs-base); color: rgba(244,236,216,0.5); }
+
+.cfg-diet-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.cfg-diet-btn {
+  padding: 0.4rem 0.875rem;
+  border-radius: 999px;
+  border: 1px solid rgba(200,144,42,0.3);
+  background: none;
+  color: var(--sabor-gold-muted);
+  font-size: var(--fs-small);
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &--active {
+    border-color: var(--sabor-gold-main);
+    color: var(--tierra-profunda);
+    background: var(--sabor-gold-main);
+  }
+
+  &:hover:not(.cfg-diet-btn--active) { border-color: var(--sabor-gold-main); color: var(--crema-antiga); }
+}

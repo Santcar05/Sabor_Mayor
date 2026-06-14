@@ -1,0 +1,60 @@
+<article class="dish-card sm-hover-lift" [class.unavailable]="!dish().available">
+  <div class="media">
+    <img
+      class="photo"
+      [src]="dish().imageUrl || 'assets/images/dish-placeholder.svg'"
+      [alt]="dish().name"
+      loading="lazy"
+      (error)="onImgError($event)"
+    />
+
+    @if (dish().featured) {
+      <span class="ribbon">Destacado</span>
+    }
+    @if (!dish().available) {
+      <span class="sold-out">Agotado</span>
+    }
+
+    <button
+      type="button"
+      class="fav"
+      [class.active]="isFavorite()"
+      (click)="toggleFavorite()"
+      [attr.aria-label]="isFavorite() ? 'Quitar de favoritos' : 'Agregar a favoritos'"
+    >
+      {{ isFavorite() ? '♥' : '♡' }}
+    </button>
+
+    <div class="overlay">
+      <a class="overlay-btn" [routerLink]="['/carta', dish().slug]">Saber más</a>
+      @if (showActions() && dish().available) {
+        <button type="button" class="overlay-btn primary" (click)="addToCart()">
+          Agregar al pedido
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="info">
+    <header class="info-head">
+      <h3 class="name">
+        <a [routerLink]="['/carta', dish().slug]">{{ dish().name }}</a>
+      </h3>
+      <app-price-display [amount]="dish().price" />
+    </header>
+
+    <p class="desc">{{ dish().description }}</p>
+
+    @if (badges().length) {
+      <ul class="tags">
+        @for (badge of badges(); track badge.label) {
+          <li class="tag tag--{{ badge.kind }}">{{ badge.label }}</li>
+        }
+      </ul>
+    }
+
+    @if (dish().allergens.length) {
+      <p class="allergens"><span>Alérgenos:</span> {{ dish().allergens.join(', ') }}</p>
+    }
+  </div>
+</article>

@@ -1,0 +1,99 @@
+<section class="nos-hero sm-section">
+  <div class="sm-container nos-hero-inner">
+    <div class="nos-hero-text">
+      <p class="sm-script nos-eyebrow">Una historia que sabe</p>
+      <h1 class="nos-title">Sobre <span class="sm-gold-text">Sabor Mayor</span></h1>
+      <p class="nos-lead">
+        Somos un restaurante de cocina latinoamericana de alta montaña fundado en 2018 con una convicción:
+        los sabores de los Andes colombianos merecen el lugar que les corresponde en la gastronomía mundial.
+      </p>
+      <a app-button variant="primary" size="lg" routerLink="/reservar">Vivir la experiencia</a>
+    </div>
+    <div class="nos-hero-image">
+      <img src="/assets/images/restaurante-interior.jpg" alt="Interior de Sabor Mayor" class="nos-img" />
+    </div>
+  </div>
+</section>
+
+<section class="sm-section nos-story sm-container">
+  <div class="nos-story-grid">
+    <div class="nos-story-img-wrap">
+      <img src="/assets/images/chef-cocina.jpg" alt="Chef en cocina" class="nos-story-img" />
+    </div>
+    <div class="nos-story-text">
+      <h2>Una cocina nacida del territorio</h2>
+      <p>
+        Sabor Mayor nació de un viaje. Tras una década formándose en Europa, nuestro chef fundador regresó a
+        Bogotá con una pregunta: ¿qué pasaría si tratáramos la papa criolla, el ají amarillo o el chontaduro
+        con la misma reverencia que el foie gras o la trufa?
+      </p>
+      <p>
+        La respuesta está en cada plato: ingredientes de pequeños agricultores de Boyacá, Nariño y el Eje
+        Cafetero, transformados con técnicas de alta cocina para revelar lo que siempre estuvo ahí.
+      </p>
+      <p>
+        Desde 2018, Sabor Mayor ha ganado reconocimientos en las listas de los mejores restaurantes de
+        Colombia, pero nuestra mayor satisfacción llega cuando un comensal nos dice: "por fin entiendo qué
+        puede ser nuestra cocina".
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="sm-section nos-values">
+  <div class="sm-container">
+    <h2 class="nos-section-title">Nuestros valores</h2>
+    <div class="nos-values-grid">
+      @for (val of values; track val.title) {
+        <div class="nos-value-card">
+          <span class="nos-value-icon" aria-hidden="true">{{ val.icon }}</span>
+          <h3>{{ val.title }}</h3>
+          <p>{{ val.text }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="sm-section nos-team">
+  <div class="sm-container">
+    <h2 class="nos-section-title">El equipo</h2>
+    <p class="nos-section-sub">Las personas detrás de cada experiencia</p>
+    <div class="nos-team-grid">
+      @for (member of team; track member.name) {
+        <div class="nos-team-card">
+          <div class="nos-team-img-wrap">
+            <img [src]="member.image" [alt]="member.name" class="nos-team-img"
+              (error)="$any($event.target).style.display='none'" />
+          </div>
+          <h3 class="nos-team-name">{{ member.name }}</h3>
+          <span class="nos-team-role">{{ member.role }}</span>
+          <p class="nos-team-bio">{{ member.bio }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="sm-section nos-awards">
+  <div class="sm-container nos-awards-inner">
+    <h2 class="nos-section-title">Reconocimientos</h2>
+    <div class="nos-awards-grid">
+      <div class="nos-award">
+        <span class="nos-award-year">2024</span>
+        <span class="nos-award-name">Top 10 Mejores Restaurantes de Colombia</span>
+        <span class="nos-award-source">La Barra Magazine</span>
+      </div>
+      <div class="nos-award">
+        <span class="nos-award-year">2023</span>
+        <span class="nos-award-name">Premio Innovación Gastronómica</span>
+        <span class="nos-award-source">Gastronomía & Cía Colombia</span>
+      </div>
+      <div class="nos-award">
+        <span class="nos-award-year">2022</span>
+        <span class="nos-award-name">Chef Revelación del Año</span>
+        <span class="nos-award-source">Congreso Gastronómico Andino</span>
+      </div>
+    </div>
+  </div>
+</section>

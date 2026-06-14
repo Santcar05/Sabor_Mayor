@@ -1,0 +1,33 @@
+<app-navbar />
+
+<div class="portal sm-container">
+  <aside class="sidebar">
+    <div class="account-card">
+      <app-user-avatar [name]="user()?.fullName ?? ''" [size]="56" />
+      <div class="account-info">
+        <strong>{{ user()?.fullName }}</strong>
+        <span>{{ user()?.email }}</span>
+      </div>
+    </div>
+
+    <nav class="portal-nav" aria-label="Cuenta">
+      @for (link of links; track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: link.path === '/perfil' }"
+        >
+          <span class="ico" aria-hidden="true">{{ link.icon }}</span>
+          {{ link.label }}
+        </a>
+      }
+      <button class="logout" (click)="logout()">
+        <span class="ico" aria-hidden="true">⎋</span> Cerrar sesión
+      </button>
+    </nav>
+  </aside>
+
+  <section class="portal-content">
+    <router-outlet />
+  </section>
+</div>

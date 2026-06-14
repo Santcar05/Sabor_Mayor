@@ -1,0 +1,94 @@
+<section class="exp-hero sm-section">
+  <div class="sm-container">
+    <p class="sm-script exp-eyebrow">Más allá de la mesa</p>
+    <h1 class="exp-title">Experiencias <span class="sm-gold-text">Gastronómicas</span></h1>
+    <p class="exp-lead">
+      Cada visita a Sabor Mayor puede convertirse en un momento irrepetible. Diseña la tuya.
+    </p>
+  </div>
+</section>
+
+<section class="sm-section sm-container">
+  <div class="exp-grid">
+    @for (exp of experiences(); track exp.id) {
+      <article class="exp-card" [class.exp-card--highlight]="exp.highlight">
+        @if (exp.highlight) {
+          <div class="exp-badge">Más solicitada</div>
+        }
+        <div class="exp-image-wrap">
+          <img
+            [src]="exp.image"
+            [alt]="exp.title"
+            class="exp-image"
+            loading="lazy"
+            (error)="$any($event.target).style.display='none'"
+          />
+          <div class="exp-image-overlay"></div>
+        </div>
+        <div class="exp-body">
+          <div class="exp-tags">
+            @for (tag of exp.tags; track tag) {
+              <span class="exp-tag">{{ tag }}</span>
+            }
+          </div>
+          <h2 class="exp-name">{{ exp.title }}</h2>
+          <p class="exp-subtitle">{{ exp.subtitle }}</p>
+          <p class="exp-desc">{{ exp.description }}</p>
+          <div class="exp-meta">
+            <span class="exp-meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              {{ exp.duration }}
+            </span>
+            <span class="exp-meta-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              {{ exp.guests }}
+            </span>
+          </div>
+          <div class="exp-price">{{ formatPrice(exp.price) }}</div>
+          <div class="exp-actions">
+            @if (exp.price === 0) {
+              <button app-button variant="primary" (pressed)="contact(exp)">Solicitar información</button>
+            } @else {
+              <button app-button variant="primary" (pressed)="reserve(exp)">Reservar experiencia</button>
+            }
+            <button app-button variant="ghost" size="sm" (pressed)="select(exp)">Ver más detalles</button>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+</section>
+
+<!-- Detail modal -->
+@if (selected(); as exp) {
+  <div class="exp-modal-backdrop" (click)="dismiss()" role="dialog" aria-modal="true" [attr.aria-label]="exp.title">
+    <div class="exp-modal" (click)="$event.stopPropagation()">
+      <button class="exp-modal-close" (click)="dismiss()" aria-label="Cerrar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <h2 class="exp-modal-title">{{ exp.title }}</h2>
+      <p class="exp-modal-sub">{{ exp.subtitle }}</p>
+      <p class="exp-modal-desc">{{ exp.description }}</p>
+      <div class="exp-modal-meta">
+        <div><span>Duración</span><strong>{{ exp.duration }}</strong></div>
+        <div><span>Personas</span><strong>{{ exp.guests }}</strong></div>
+        <div><span>Precio</span><strong>{{ formatPrice(exp.price) }}</strong></div>
+      </div>
+      <div class="exp-modal-actions">
+        @if (exp.price === 0) {
+          <button app-button variant="primary" [block]="true" (pressed)="contact(exp); dismiss()">Solicitar información</button>
+        } @else {
+          <button app-button variant="primary" [block]="true" (pressed)="reserve(exp); dismiss()">Reservar ahora</button>
+        }
+      </div>
+    </div>
+  </div>
+}
+
+<section class="exp-cta sm-section">
+  <div class="sm-container exp-cta-inner">
+    <h2>¿Tienes algo especial en mente?</h2>
+    <p>Cuéntanos y creamos juntos una experiencia única para ti.</p>
+    <a app-button variant="primary" size="lg" routerLink="/contacto">Hablemos</a>
+  </div>
+</section>

@@ -1,0 +1,47 @@
+<div class="mp-header">
+  <h1>Mis pedidos</h1>
+  <a app-button variant="primary" size="sm" routerLink="/pedidos">Nuevo pedido</a>
+</div>
+
+@if (loading()) {
+  <div class="mp-loading"><app-loading-spinner /></div>
+} @else if (error()) {
+  <p class="mp-msg">No pudimos cargar tus pedidos. Intenta de nuevo.</p>
+} @else if (orders().length === 0) {
+  <div class="mp-empty">
+    <p>Aún no has realizado ningún pedido.</p>
+    <a app-button variant="primary" routerLink="/carta">Explorar la carta</a>
+  </div>
+} @else {
+  <div class="mp-list">
+    @for (o of orders(); track o.id) {
+      <div class="mp-card">
+        <div class="mp-card-header">
+          <div>
+            <span class="mp-code">#{{ o.id.slice(0, 8).toUpperCase() }}</span>
+            <span class="mp-date">{{ o.createdAt | date:'d MMM yyyy, h:mm a' }}</span>
+          </div>
+          <span class="mp-badge mp-badge--{{ statusClass(o.status) }}">{{ o.status }}</span>
+        </div>
+        <ul class="mp-items">
+          @for (item of o.items; track item.dishId) {
+            <li class="mp-item">
+              <span class="mp-item-qty">× {{ item.quantity }}</span>
+              <span class="mp-item-name">{{ item.dishName }}</span>
+              <span class="mp-item-price">{{ item.unitPrice * item.quantity | cop }}</span>
+            </li>
+          }
+        </ul>
+        <div class="mp-footer">
+          <span class="mp-total">Total: <strong>{{ o.total | cop }}</strong></span>
+          <div class="mp-actions">
+            @if (o.status === 'CREATED' || o.status === 'CONFIRMED' || o.status === 'IN_KITCHEN') {
+              <a app-button variant="ghost" size="sm" [routerLink]="['/pedidos', o.id, 'rastreo']">Ver rastreo</a>
+            }
+            <button app-button variant="secondary" size="sm" (pressed)="orderAgain(o)">Pedir de nuevo</button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}

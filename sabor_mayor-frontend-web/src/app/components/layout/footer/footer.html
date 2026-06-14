@@ -1,0 +1,56 @@
+<footer class="footer">
+  <div class="footer-top sm-container">
+    <div class="col brand-col">
+      <span class="brand-name">Sabor Mayor</span>
+      <p class="brand-script sm-script">Donde la tradición se reinventa</p>
+      <p class="brand-desc">
+        Alta cocina latinoamericana de autor. Una experiencia sensorial que honra el origen de
+        cada ingrediente.
+      </p>
+      <div class="socials">
+        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok">TikTok</a>
+        <a href="https://wa.me/573000000000" target="_blank" rel="noopener" aria-label="WhatsApp">WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="col">
+      <h4>Explorar</h4>
+      <a routerLink="/carta">Carta</a>
+      <a routerLink="/experiencias">Experiencias</a>
+      <a routerLink="/galeria">Galería</a>
+      <a routerLink="/blog">Blog</a>
+    </div>
+
+    <div class="col">
+      <h4>Visítanos</h4>
+      <a routerLink="/reservar">Reservar mesa</a>
+      <a routerLink="/pedidos">Pedir a domicilio</a>
+      <a routerLink="/nosotros">Nuestra historia</a>
+      <a routerLink="/contacto">Contacto</a>
+    </div>
+
+    <div class="col newsletter-col">
+      <h4>Newsletter</h4>
+      <p>Recibe nuestro menú de temporada y eventos exclusivos.</p>
+      <form class="newsletter" (submit)="subscribe($event)">
+        <input
+          type="email"
+          placeholder="tu@correo.com"
+          [value]="email()"
+          (input)="email.set($any($event.target).value)"
+          aria-label="Correo para newsletter"
+        />
+        <button type="submit">Suscribirme</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer-bottom sm-container">
+    <span>© {{ year }} Sabor Mayor. Todos los derechos reservados.</span>
+    <span class="legal">
+      <a routerLink="/contacto">Términos</a>
+      <a routerLink="/contacto">Privacidad · Habeas Data</a>
+    </span>
+  </div>
+</footer>
