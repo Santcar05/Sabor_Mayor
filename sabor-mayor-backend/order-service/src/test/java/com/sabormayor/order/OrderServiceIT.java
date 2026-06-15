@@ -54,7 +54,7 @@ import com.sabormayor.order.infrastructure.OutboxRepository;
 })
 class OrderServiceIT {
 
-    static final String TABLE_1 = "30000000-0000-0000-0000-000000000001";
+    static final String TABLE_1 = "qr-mesa-01";
     static final UUID CEVICHE = UUID.fromString("20000000-0000-0000-0000-000000000001");
     static final UUID VACIO = UUID.fromString("20000000-0000-0000-0000-000000000005");
 
