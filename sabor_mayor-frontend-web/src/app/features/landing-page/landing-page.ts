@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../components/layout/navbar/navbar';
 import { HeroSectionComponent } from './sections/hero-section/hero-section';
+import { StatsSectionComponent } from './sections/stats-section/stats-section';
 import { AboutSectionComponent } from './sections/about-section/about-section';
 import { FeaturedDishesSectionComponent } from './sections/featured-dishes-section/featured-dishes-section';
 import { WineSelectionSectionComponent } from './sections/wine-selection-section/wine-selection-section';
@@ -15,6 +16,7 @@ import { FooterSectionComponent } from './sections/footer-section/footer-section
   imports: [
     NavbarComponent,
     HeroSectionComponent,
+    StatsSectionComponent,
     AboutSectionComponent,
     FeaturedDishesSectionComponent,
     WineSelectionSectionComponent,

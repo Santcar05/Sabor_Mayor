@@ -1,22 +1,61 @@
-<section class="featured-dishes" id="featured">
-  <div class="featured-container">
-    <h2 class="section-title">Platos Destacados</h2>
-    <p class="section-subtitle">Una selección curada de nuestras creaciones más emblemáticas</p>
+<section class="dishes" id="featured" aria-labelledby="dishes-heading">
 
-    <div class="dishes-grid">
-      <article class="dish-card" *ngFor="let dish of dishes">
-        <div class="dish-image">
-          <img [src]="dish.image" [alt]="dish.name" />
-        </div>
-        <div class="dish-content">
-          <h3 class="dish-name">{{ dish.name }}</h3>
-          <p class="dish-description">{{ dish.description }}</p>
-          <div class="dish-meta">
-            <span class="price">{{ dish.price }}</span>
-            <span class="tag" [ngClass]="'tag-' + dish.tagType">{{ dish.tag }}</span>
-          </div>
-        </div>
-      </article>
-    </div>
+  <div class="dishes-header">
+    <h2 class="dishes-heading" id="dishes-heading">
+      <span class="dishes-heading__line1">Nuestra</span>
+      <span class="dishes-heading__line2">Selección</span>
+    </h2>
   </div>
+
+  <div class="dishes-layout">
+
+    <!-- Featured dish — large left panel -->
+    <div class="dishes-featured" role="article" aria-label="{{ featuredDish.name }}">
+      <div class="dishes-featured__image">
+        <img
+          [src]="featuredDish.image"
+          [alt]="featuredDish.name"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="dishes-featured__overlay" aria-hidden="true"></div>
+      </div>
+      <div class="dishes-featured__caption">
+        <span class="dishes-featured__index" aria-hidden="true">01</span>
+        <h3 class="dishes-featured__name">{{ featuredDish.name }}</h3>
+        <p class="dishes-featured__desc">{{ featuredDish.description }}</p>
+        <span class="dishes-featured__price">{{ featuredDish.price }}</span>
+      </div>
+    </div>
+
+    <!-- Side dish list — right panel -->
+    <div class="dishes-list" role="list">
+      @for (dish of sideDishes; track dish.name; let i = $index) {
+        <article class="dish-row" role="listitem">
+          <div class="dish-row__left">
+            <span class="dish-row__index" aria-hidden="true">{{ (i + 2).toString().padStart(2, '0') }}</span>
+            <div class="dish-row__text">
+              <h3 class="dish-row__name">{{ dish.name }}</h3>
+              <p class="dish-row__desc">{{ dish.description }}</p>
+            </div>
+          </div>
+          <div class="dish-row__right">
+            <span class="dish-row__price">{{ dish.price }}</span>
+            <div class="dish-row__thumb" aria-hidden="true">
+              <img [src]="dish.image" [alt]="" loading="lazy" />
+            </div>
+          </div>
+        </article>
+      }
+
+      <div class="dishes-list__footer">
+        <a href="/carta" class="dishes-cta" aria-label="Ver la carta completa del restaurante">
+          Ver carta completa
+          <span class="dishes-cta__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
 </section>

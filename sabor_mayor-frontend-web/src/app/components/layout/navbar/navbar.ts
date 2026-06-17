@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  HostListener,
+  inject,
+  signal,
+  PLATFORM_ID,
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../shared/services/auth.service';
 import { CartService } from '../../../shared/services/cart.service';
@@ -23,22 +32,32 @@ export class NavbarComponent {
   private readonly auth = inject(AuthService);
   private readonly cart = inject(CartService);
   private readonly router = inject(Router);
+  private readonly platformId = inject(PLATFORM_ID);
 
   protected readonly user = this.auth.currentUser;
   protected readonly cartCount = this.cart.count;
   protected readonly mobileOpen = signal(false);
   protected readonly userMenuOpen = signal(false);
   protected readonly role = this.auth.role;
+  protected readonly scrolled = signal(false);
 
-  protected readonly links: NavItem[] = [
+  protected readonly linksLeft: NavItem[] = [
     { label: 'Carta', path: '/carta' },
-    { label: 'Reservar', path: '/reservar' },
-    { label: 'Pedir', path: '/pedidos' },
     { label: 'Experiencias', path: '/experiencias' },
-    { label: 'Blog', path: '/blog' },
     { label: 'Galería', path: '/galeria' },
+  ];
+
+  protected readonly linksRight: NavItem[] = [
+    { label: 'Blog', path: '/blog' },
     { label: 'Nosotros', path: '/nosotros' },
     { label: 'Contacto', path: '/contacto' },
+  ];
+
+  // Mobile overlay includes Reservar since the CTA button hides when authenticated
+  protected readonly allLinks: NavItem[] = [
+    ...this.linksLeft,
+    { label: 'Reservar', path: '/reservar' },
+    ...this.linksRight,
   ];
 
   protected readonly isAuth = computed(() => this.auth.isAuthenticated());
@@ -73,6 +92,12 @@ export class NavbarComponent {
     };
     return map[this.role() ?? 'CLIENTE'] ?? '';
   });
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    this.scrolled.set(window.scrollY > 60);
+  }
 
   protected toggleMobile(): void { this.mobileOpen.update((v) => !v); }
   protected closeMobile(): void { this.mobileOpen.set(false); }

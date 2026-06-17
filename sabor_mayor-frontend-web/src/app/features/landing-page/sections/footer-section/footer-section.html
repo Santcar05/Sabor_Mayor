@@ -1,18 +1,38 @@
-<footer class="footer">
-  <div class="footer-container">
-    <div class="footer-content">
-      <div class="footer-section" *ngFor="let section of footerSections">
-        <h3>{{ section.title }}</h3>
-        <p *ngIf="section.content">{{ section.content }}</p>
-        <ul *ngIf="section.links">
-          <li *ngFor="let link of section.links">
-            <a [href]="link.href">{{ link.label }}</a>
-          </li>
-        </ul>
-      </div>
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+
+    <!-- Logo & tagline -->
+    <div class="footer-brand">
+      <span class="footer-logo">Sabor Mayor</span>
+      <p class="footer-tagline">Alta Gastronomía Latinoamericana<br>desde 1999</p>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; {{ currentYear }} Sabor Mayor. Todos los derechos reservados.</p>
+
+    <!-- Nav links centered -->
+    <nav class="footer-nav" aria-label="Navegación del pie de página">
+      <a href="#about" class="footer-nav__link">Nosotros</a>
+      <a href="#featured" class="footer-nav__link">Menú</a>
+      <a href="#wines" class="footer-nav__link">Vinos</a>
+      <a href="#experience" class="footer-nav__link">Experiencias</a>
+      <a href="#contact" class="footer-nav__link">Reservar</a>
+    </nav>
+
+    <!-- Social links right -->
+    <div class="footer-social">
+      <a href="#" class="footer-social__link" aria-label="Instagram de Sabor Mayor">Instagram</a>
+      <a href="#" class="footer-social__link" aria-label="Facebook de Sabor Mayor">Facebook</a>
+      <a href="mailto:reservas@sabor-mayor.com" class="footer-social__link" aria-label="Email de reservas">reservas&#64;sabor-mayor.com</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-bottom__inner">
+      <span class="footer-copyright">&copy; {{ currentYear }} Sabor Mayor</span>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="#" class="footer-legal">Política de privacidad</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="#" class="footer-legal">Términos de uso</a>
     </div>
   </div>
+
 </footer>

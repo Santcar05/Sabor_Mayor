@@ -1,65 +1,93 @@
-<section class="contact-reservation" id="contact">
-  <div class="contact-container">
-    <div class="contact-info">
-      <h2 class="section-title">Contáctanos</h2>
-      <div class="info-group">
-        <h3 class="info-label">Dirección</h3>
-        <p class="info-content">Calle Gourmet 123, Distrito Gastronómico</p>
+<section class="contact" id="contact" aria-labelledby="contact-heading">
+
+  <!-- Full-bleed background -->
+  <div class="contact-bg" aria-hidden="true">
+    <img src="assets/chef.jpg" alt="" loading="lazy" />
+  </div>
+
+  <div class="contact-inner">
+
+    <!-- Dramatic headline -->
+    <div class="contact-headline" aria-hidden="true">
+      <span class="contact-headline__pre">Reserva tu</span>
+      <span class="contact-headline__main" id="contact-heading">Mesa</span>
+    </div>
+
+    <!-- Horizontal form -->
+    <form
+      class="contact-form"
+      (ngSubmit)="onSubmit()"
+      aria-label="Formulario de reserva"
+      novalidate>
+
+      <div class="contact-form__fields">
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="res-name">Nombre</label>
+          <input
+            class="contact-form__input"
+            type="text"
+            id="res-name"
+            name="name"
+            [(ngModel)]="formData.name"
+            autocomplete="given-name"
+            placeholder="Tu nombre"
+            required
+          />
+        </div>
+
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="res-date">Fecha</label>
+          <input
+            class="contact-form__input"
+            type="date"
+            id="res-date"
+            name="date"
+            [(ngModel)]="formData.date"
+            required
+          />
+        </div>
+
+        <div class="contact-form__field">
+          <label class="contact-form__label" for="res-guests">Personas</label>
+          <select
+            class="contact-form__input contact-form__select"
+            id="res-guests"
+            name="guests"
+            [(ngModel)]="formData.guests"
+            required>
+            <option value="">—</option>
+            @for (n of [1,2,3,4,5,6]; track n) {
+              <option [value]="n">{{ n }}</option>
+            }
+            <option value="7">7+</option>
+          </select>
+        </div>
+
+        <button class="contact-form__btn" type="submit">
+          Reservar
+        </button>
       </div>
-      <div class="info-group">
-        <h3 class="info-label">Teléfono</h3>
-        <p class="info-content">+1 (555) 123-4567</p>
+
+    </form>
+
+    <!-- Contact info — 3 columns -->
+    <div class="contact-info" role="contentinfo" aria-label="Información de contacto">
+      <div class="contact-info__item">
+        <span class="contact-info__label">Dirección</span>
+        <span class="contact-info__value">Calle Gourmet 123<br>Distrito Gastronómico</span>
       </div>
-      <div class="info-group">
-        <h3 class="info-label">Email</h3>
-        <p class="info-content">reservas@sabor-mayor.com</p>
+      <div class="contact-info__sep" aria-hidden="true"></div>
+      <div class="contact-info__item">
+        <span class="contact-info__label">Teléfono</span>
+        <a class="contact-info__value contact-info__link" href="tel:+15551234567">+1 (555) 123-4567</a>
       </div>
-      <div class="info-group">
-        <h3 class="info-label">Horarios</h3>
-        <p class="info-content">
-          Martes - Domingo: 18:00 - 23:00<br />
-          Lunes: Cerrado<br />
-          Almuerzo: Martes - Viernes, 12:00 - 16:00
-        </p>
+      <div class="contact-info__sep" aria-hidden="true"></div>
+      <div class="contact-info__item">
+        <span class="contact-info__label">Horarios</span>
+        <span class="contact-info__value">Mar–Dom 18:00–23:00<br>Lun: Cerrado</span>
       </div>
     </div>
 
-    <form class="reservation-form" (ngSubmit)="onSubmit()">
-      <h3 class="form-title">Hacer una Reserva</h3>
-      <div class="form-group">
-        <label for="name">Nombre</label>
-        <input type="text" id="name" name="name" [(ngModel)]="formData.name" required />
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" [(ngModel)]="formData.email" required />
-      </div>
-      <div class="form-group">
-        <label for="date">Fecha</label>
-        <input type="date" id="date" name="date" [(ngModel)]="formData.date" required />
-      </div>
-      <div class="form-group">
-        <label for="time">Hora</label>
-        <input type="time" id="time" name="time" [(ngModel)]="formData.time" required />
-      </div>
-      <div class="form-group">
-        <label for="guests">Número de Huéspedes</label>
-        <select id="guests" name="guests" [(ngModel)]="formData.guests" required>
-          <option value="">Seleccionar</option>
-          <option value="1">1 Huésped</option>
-          <option value="2">2 Huéspedes</option>
-          <option value="3">3 Huéspedes</option>
-          <option value="4">4 Huéspedes</option>
-          <option value="5">5 Huéspedes</option>
-          <option value="6">6 Huéspedes</option>
-          <option value="7">7+ Huéspedes</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="message">Mensaje especial</label>
-        <textarea id="message" name="message" [(ngModel)]="formData.message" rows="4"></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Enviar Reserva</button>
-    </form>
   </div>
+
 </section>

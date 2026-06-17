@@ -1,74 +1,171 @@
-@use '../../_landing-config.scss' as *;
+// Footer — Minimal Horizontal 3-Column
+// =============================================================================
 
 .footer {
-  position: relative;
-  background-color: #0d0905;
-  color: $gold-muted;
-  padding: $spacing-2xl $spacing-lg;
-  @include grain-texture;
+  background: #0d0905;
+  border-top: 1px solid rgba(213, 196, 164, 0.1);
+}
 
-  .footer-container {
-    @include container;
-  }
+.footer-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(3rem, 5vh, 4rem) clamp(1.5rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 2rem;
+}
 
-  .footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: $spacing-2xl;
-    margin-bottom: $spacing-2xl;
-    position: relative;
-    z-index: 2;
+// Brand — left
+// -----------------------------------------------------------------------------
 
-    @media (max-width: $bp-tablet) {
-      grid-template-columns: 1fr;
-      gap: $spacing-lg;
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.footer-logo {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: 1.25rem;
+  font-weight: 800;
+  font-style: italic;
+  color: var(--sabor-gold-main, #f3b54a);
+  letter-spacing: -0.01em;
+}
+
+.footer-tagline {
+  font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(244, 236, 216, 0.3);
+  line-height: 1.6;
+  margin: 0;
+}
+
+// Nav — center
+// -----------------------------------------------------------------------------
+
+.footer-nav {
+  display: flex;
+  gap: 1.75rem;
+  align-items: center;
+  justify-content: center;
+
+  &__link {
+    font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+    font-size: 0.775rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(244, 236, 216, 0.45);
+    text-decoration: none;
+    transition: color 180ms ease;
+
+    &:hover {
+      color: rgba(244, 236, 216, 0.8);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--sabor-gold-main);
+      outline-offset: 3px;
     }
   }
+}
 
-  .footer-section {
-    h3 {
-      @include title-sm;
-      color: $gold-main;
-      margin-bottom: $spacing-md;
+// Social / Contact — right
+// -----------------------------------------------------------------------------
+
+.footer-social {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: flex-end;
+
+  &__link {
+    font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+    font-size: 0.75rem;
+    color: rgba(244, 236, 216, 0.35);
+    text-decoration: none;
+    transition: color 180ms ease;
+
+    &:hover {
+      color: var(--sabor-gold-main, #f3b54a);
     }
 
-    p {
-      @include body-text-md;
-      margin: 0;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-
-      li {
-        margin-bottom: $spacing-sm;
-
-        a {
-          @include body-text-md;
-          color: $gold-muted;
-          @include transition-fast;
-
-          &:hover {
-            color: $gold-main;
-          }
-        }
-      }
+    &:focus-visible {
+      outline: 2px solid var(--sabor-gold-main);
+      outline-offset: 3px;
     }
   }
+}
 
-  .footer-bottom {
-    @include divider-copper;
-    padding-top: $spacing-lg;
+// Bottom bar — copyright
+// -----------------------------------------------------------------------------
+
+.footer-bottom {
+  border-top: 1px solid rgba(213, 196, 164, 0.07);
+}
+
+.footer-bottom__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 1rem clamp(1.5rem, 5vw, 4rem);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer-copyright {
+  font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+  font-size: 0.7rem;
+  color: rgba(244, 236, 216, 0.22);
+}
+
+.footer-sep {
+  font-size: 0.7rem;
+  color: rgba(244, 236, 216, 0.15);
+}
+
+.footer-legal {
+  font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+  font-size: 0.7rem;
+  color: rgba(244, 236, 216, 0.22);
+  text-decoration: none;
+  transition: color 180ms ease;
+
+  &:hover {
+    color: rgba(244, 236, 216, 0.5);
+  }
+}
+
+// Responsive
+// -----------------------------------------------------------------------------
+
+@media (max-width: 900px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
     text-align: center;
-    position: relative;
-    z-index: 2;
+    gap: 2.5rem;
+  }
 
-    p {
-      @include body-text-md;
-      color: $gold-muted;
-      margin: 0;
-    }
+  .footer-brand {
+    align-items: center;
+  }
+
+  .footer-nav {
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    justify-content: center;
+  }
+
+  .footer-social {
+    align-items: center;
+  }
+
+  .footer-bottom__inner {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 }

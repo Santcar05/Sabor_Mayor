@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NgForOf } from '@angular/common';
 
 interface Wine {
   name: string;
@@ -12,7 +11,7 @@ interface Wine {
 @Component({
   selector: 'app-wine-selection-section',
   standalone: true,
-  imports: [NgForOf],
+  imports: [],
   templateUrl: './wine-selection-section.html',
   styleUrl: './wine-selection-section.scss',
 })

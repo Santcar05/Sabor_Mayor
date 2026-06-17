@@ -1,51 +1,177 @@
-@use '../../_landing-config.scss' as *;
+// About — Editorial 55/45 statement layout
+// =============================================================================
 
 .about {
-  @include section-base;
-  background-color: $color-tierra-profunda;
+  background-color: var(--tierra-profunda, #1c1208);
+  padding: clamp(5rem, 10vh, 8rem) 0;
+  overflow: hidden;
+}
 
-  .about-container {
-    @include container;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: $spacing-2xl;
-    align-items: center;
+.about-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: center;
+}
 
-    @media (max-width: $bp-tablet) {
-      grid-template-columns: 1fr;
-      gap: $spacing-lg;
-    }
+// Left: text
+// -----------------------------------------------------------------------------
+
+.about-text-col {
+  position: relative;
+}
+
+// Giant decorative quotemark — background ornament
+.about-ornament {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: clamp(8rem, 16vw, 14rem);
+  font-weight: 900;
+  line-height: 0.7;
+  color: rgba(243, 181, 74, 0.06);
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.about-statement {
+  position: relative;
+  z-index: 1;
+}
+
+// Gold horizontal rule before heading
+.about-rule {
+  width: 48px;
+  height: 2px;
+  background: var(--sabor-gold-main, #f3b54a);
+  margin-bottom: 1.5rem;
+}
+
+.about-heading {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: clamp(1.65rem, 2.8vw, 2.25rem);
+  font-weight: 700;
+  font-style: italic;
+  color: var(--crema-antigua, #f4ecd8);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  margin: 0 0 1.5rem;
+}
+
+.about-body {
+  font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+  font-size: clamp(0.925rem, 1.2vw, 1.025rem);
+  color: rgba(244, 236, 216, 0.68);
+  line-height: 1.78;
+  max-width: 56ch;
+  margin: 0 0 2.5rem;
+}
+
+// Factoid list — editorial key/value rows
+.about-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.about-fact {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(213, 196, 164, 0.12);
+
+  &:first-child {
+    border-top: 1px solid rgba(213, 196, 164, 0.12);
   }
 
-  .section-title {
-    @include title-md;
+  dt {
+    font-family: var(--font-mono, 'DM Mono', monospace);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(244, 236, 216, 0.38);
   }
 
-  .about-text {
-    @include body-text-lg;
-    margin-bottom: $spacing-lg;
+  dd {
+    font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(244, 236, 216, 0.72);
+    margin: 0;
+  }
+}
+
+// Right: framed image
+// -----------------------------------------------------------------------------
+
+.about-image-col {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.about-image-frame {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+
+  // Thin offset gold frame
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border: 1px solid rgba(200, 144, 42, 0.4);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center top;
     position: relative;
-    z-index: 2;
+    z-index: 1;
+  }
+}
 
-    &:last-of-type {
-      margin-bottom: 0;
-    }
+// Responsive
+// -----------------------------------------------------------------------------
+
+@media (max-width: 900px) {
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
 
-  .about-image {
-    position: relative;
-    z-index: 2;
-    overflow: hidden;
+  .about-image-col {
+    justify-content: center;
+    order: -1;
+  }
 
-    img {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: transform 0.6s ease;
-    }
+  .about-image-frame {
+    max-width: 360px;
+  }
 
-    &:hover img {
-      transform: scale(1.02);
-    }
+  .about-ornament {
+    font-size: 8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-image-frame::before {
+    inset: -6px;
   }
 }

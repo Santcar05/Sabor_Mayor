@@ -1,17 +1,15 @@
-import { Component } from '@angular/core';
-import { NgForOf } from '@angular/common';
+import { Component, computed } from '@angular/core';
 
 interface Testimonial {
   text: string;
   author: string;
   role: string;
-  rating: number;
 }
 
 @Component({
   selector: 'app-testimonials-section',
   standalone: true,
-  imports: [NgForOf],
+  imports: [],
   templateUrl: './testimonials-section.html',
   styleUrl: './testimonials-section.scss',
 })
@@ -21,23 +19,36 @@ export class TestimonialsSectionComponent {
       text: 'Una experiencia verdaderamente transcendental. Cada plato es una obra maestra. El chef entiende la profundidad de nuestras tradiciones culinarias.',
       author: 'María García',
       role: 'Chef reconocida internacionalmente',
-      rating: 5,
     },
     {
-      text: 'No es solo comida, es poesía en el plato. La atención al detalle, desde la presentación hasta el sabor, es impecable. Volveré con frecuencia.',
+      text: 'No es solo comida, es poesía en el plato. La atención al detalle, desde la presentación hasta el sabor, es impecable.',
       author: 'Carlos Mendoza',
       role: 'Crítico gastronómico',
-      rating: 5,
     },
     {
-      text: 'El ambiente es elegante sin ser pretencioso. El servicio impecable. Y la comida... simplemente incomparable. Sabor Mayor es un destino culinario obligatorio.',
+      text: 'El ambiente es elegante sin ser pretencioso. El servicio impecable. Y la comida... simplemente incomparable.',
       author: 'Julia Rodríguez',
       role: 'Viajera de gastronomía',
-      rating: 5,
+    },
+    {
+      text: 'Sabor Mayor redefinió lo que una cena puede ser. Volvería todas las noches si pudiera.',
+      author: 'Andrés Solano',
+      role: 'Director creativo',
+    },
+    {
+      text: 'Los ingredientes hablan solos. Raramente encuentro en un restaurante esta honestidad de sabor combinada con tanta elegancia.',
+      author: 'Elena Vargas',
+      role: 'Sommelier',
     },
   ];
 
-  getStars(rating: number): string {
-    return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+  // 4x duplication for seamless infinite marquee
+  get marqueeRow1(): Testimonial[] {
+    return [...this.testimonials, ...this.testimonials, ...this.testimonials, ...this.testimonials];
+  }
+
+  get marqueeRow2(): Testimonial[] {
+    const reversed = [...this.testimonials].reverse();
+    return [...reversed, ...reversed, ...reversed, ...reversed];
   }
 }

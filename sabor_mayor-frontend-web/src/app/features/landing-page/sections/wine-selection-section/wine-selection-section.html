@@ -1,18 +1,50 @@
-<section class="wine-selection" id="wines">
-  <div class="wine-container">
-    <h2 class="section-title">Selección de Vinos</h2>
-    <p class="section-subtitle">Los mejores vinos de América Latina y el mundo, cuidadosamente seleccionados</p>
+<section class="wine" id="wines" aria-labelledby="wine-heading">
 
-    <div class="wines-grid">
-      <article class="wine-card" *ngFor="let wine of wines">
-        <div class="wine-image">
-          <img [src]="wine.image" [alt]="wine.name" />
-        </div>
-        <h3 class="wine-name">{{ wine.name }}</h3>
-        <p class="wine-region">{{ wine.region }}</p>
-        <p class="wine-description">{{ wine.description }}</p>
-        <span class="price">{{ wine.price }}</span>
-      </article>
-    </div>
+  <!-- Full-bleed atmospheric background -->
+  <div class="wine-bg" aria-hidden="true">
+    <img src="assets/Malbec.jpg" alt="" loading="lazy" />
   </div>
+
+  <div class="wine-inner">
+
+    <!-- Sommelier quote -->
+    <div class="wine-quote-block">
+      <div class="wine-rule" aria-hidden="true"></div>
+      <blockquote class="wine-quote">
+        <p>Cada botella elegida nace de la misma pregunta: ¿qué hace este vino por el plato que lo acompaña?</p>
+        <footer class="wine-quote__author">
+          <cite>Marco Alvarado, Sommelier Jefe</cite>
+        </footer>
+      </blockquote>
+      <div class="wine-rule" aria-hidden="true"></div>
+    </div>
+
+    <!-- Minimal wine row -->
+    <div class="wine-row" role="list" id="wine-heading" aria-label="Selección de vinos">
+      @for (wine of wines; track wine.name; let i = $index) {
+        <article class="wine-item" role="listitem">
+          <div class="wine-item__image">
+            <img [src]="wine.image" [alt]="wine.name" loading="lazy" width="100" height="100" />
+          </div>
+          <div class="wine-item__info">
+            <h3 class="wine-item__name">{{ wine.name }}</h3>
+            <p class="wine-item__region">{{ wine.region }}</p>
+          </div>
+          <span class="wine-item__price">{{ wine.price }}</span>
+        </article>
+        @if (i < wines.length - 1) {
+          <div class="wine-row__sep" aria-hidden="true"></div>
+        }
+      }
+    </div>
+
+    <div class="wine-cta-wrap">
+      <a href="/carta" class="wine-cta" aria-label="Ver la carta de vinos completa">
+        Carta de vinos
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+  </div>
+
 </section>

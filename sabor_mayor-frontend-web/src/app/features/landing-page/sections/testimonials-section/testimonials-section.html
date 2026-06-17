@@ -1,18 +1,51 @@
-<section class="testimonials" id="testimonials">
-  <div class="testimonials-container">
-    <h2 class="section-title">Lo Que Dicen Nuestros Huéspedes</h2>
+<section class="testimonials" id="testimonials" aria-labelledby="testimonials-heading">
 
-    <div class="testimonials-grid">
-      <article class="testimonial-card" *ngFor="let testimonial of testimonials">
-        <div class="stars">
-          <span>{{ getStars(testimonial.rating) }}</span>
+  <div class="testimonials-header">
+    <p class="testimonials-label" id="testimonials-heading">Lo que dicen quienes nos visitan</p>
+  </div>
+
+  <!-- Row 1: scrolls left -->
+  <div class="marquee-track" aria-hidden="true">
+    <div class="marquee-row marquee-row--left">
+      @for (t of marqueeRow1; track t.author + $index) {
+        <div class="marquee-item">
+          <blockquote class="marquee-quote">
+            <p>"{{ t.text }}"</p>
+            <footer>
+              <cite>{{ t.author }}<span class="marquee-role">, {{ t.role }}</span></cite>
+            </footer>
+          </blockquote>
+          <span class="marquee-sep" aria-hidden="true">—</span>
         </div>
-        <p class="testimonial-text">"{{ testimonial.text }}"</p>
-        <div class="testimonial-author">
-          <p class="author-name">- {{ testimonial.author }}</p>
-          <p class="author-role">{{ testimonial.role }}</p>
-        </div>
-      </article>
+      }
     </div>
   </div>
+
+  <!-- Row 2: scrolls right -->
+  <div class="marquee-track" aria-hidden="true">
+    <div class="marquee-row marquee-row--right">
+      @for (t of marqueeRow2; track t.author + $index) {
+        <div class="marquee-item">
+          <blockquote class="marquee-quote">
+            <p>"{{ t.text }}"</p>
+            <footer>
+              <cite>{{ t.author }}<span class="marquee-role">, {{ t.role }}</span></cite>
+            </footer>
+          </blockquote>
+          <span class="marquee-sep" aria-hidden="true">—</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Accessible static summary (visually hidden) -->
+  <div class="sr-only" role="list" aria-label="Testimonios de clientes">
+    @for (t of testimonials; track t.author) {
+      <div role="listitem">
+        <q>{{ t.text }}</q>
+        <span>— {{ t.author }}, {{ t.role }}</span>
+      </div>
+    }
+  </div>
+
 </section>

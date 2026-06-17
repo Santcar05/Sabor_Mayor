@@ -1,20 +1,43 @@
-<section class="experience" id="experience">
-  <div class="experience-container">
-    <h2 class="section-title">Experiencias Culinarias</h2>
-    <p class="section-subtitle">Más allá del menú: eventos privados y degustaciones inmersivas</p>
+<section class="exp" id="experience" aria-labelledby="exp-heading">
 
-    <div class="experiences-list">
-      <article class="experience-card" *ngFor="let exp of experiences">
-        <div class="experience-header">
-          <h3 class="experience-title">{{ exp.title }}</h3>
-          <span class="experience-duration">{{ exp.duration }}</span>
+  <h2 class="exp-section-label" id="exp-heading">
+    <span>Experiencias</span>
+  </h2>
+
+  @for (experience of experiences; track experience.title; let i = $index) {
+    <article
+      class="exp-panel"
+      [class.exp-panel--odd]="i % 2 !== 0"
+      [attr.aria-label]="experience.title">
+
+      <!-- Full-bleed background image -->
+      <div class="exp-panel__bg" aria-hidden="true">
+        <img
+          [src]="experience.image"
+          [alt]=""
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <!-- Content overlay -->
+      <div class="exp-panel__content">
+        <div class="exp-panel__meta">
+          <span class="exp-panel__duration">{{ experience.duration }}</span>
+          <span class="exp-panel__price">{{ experience.price }}</span>
         </div>
-        <p class="experience-description">{{ exp.description }}</p>
-        <div class="experience-footer">
-          <span class="price">{{ exp.price }}</span>
-          <button class="btn btn-outline">{{ exp.buttonText }}</button>
+
+        <div class="exp-panel__text">
+          <p class="exp-panel__subtitle">{{ experience.subtitle }}</p>
+          <h3 class="exp-panel__title">{{ experience.title }}</h3>
+          <p class="exp-panel__desc">{{ experience.description }}</p>
+          <a href="/reservar" class="exp-panel__cta" [attr.aria-label]="experience.buttonText + ' — ' + experience.title">
+            {{ experience.buttonText }}
+          </a>
         </div>
-      </article>
-    </div>
-  </div>
+      </div>
+
+    </article>
+  }
+
 </section>

@@ -1,74 +1,61 @@
-<section class="hero" id="hero" [@fadeInUp]="heroLoaded">
-  <div class="hero-content" appScrollReveal>
-    <h1 class="hero-title">Sabor Mayor</h1>
+<section class="hero" aria-label="Sabor Mayor — Alta Gastronomía Latinoamericana">
 
-    <p class="hero-subtitle" appScrollReveal>
-      Donde la tradición culinaria latinoamericana encuentra la sofisticación moderna
-    </p>
-
-    <div class="hero-cta">
-      <!-- PRIMARY CTA - Magnetic Button Effect + Extreme Hover Physics -->
-      <button
-        class="btn btn-primary magnetic-button"
-        appMagneticHover
-        [magneticConfig]="{ magneticRange: 200, magneticStrength: 0.8, elasticity: 0.12 }"
-        (mouseenter)="onButtonHover()"
-        (mouseleave)="onButtonLeave()"
-        (click)="onButtonClick()"
-        [@glowEffect]="glowState"
-        [attr.aria-label]="'Reservar una mesa en Sabor Mayor'"
-      >
-        <span class="btn-text">Reservar Ahora</span>
-        <span class="btn-glow"></span>
-      </button>
-
-      <!-- SECONDARY CTA - Magnetic Link Style + Magnetic Hover -->
-      <button
-        class="btn btn-secondary magnetic-button"
-        appMagneticHover
-        [magneticConfig]="{ magneticRange: 180, magneticStrength: 0.6, elasticity: 0.15 }"
-        (mouseenter)="onButtonHover()"
-        (mouseleave)="onButtonLeave()"
-        [attr.aria-label]="'Ver menú completo'"
-      >
-        <span class="btn-text">Explorar Menú</span>
-      </button>
-    </div>
-
-    <!-- Scroll Indicator - Fade in animation -->
-    <!--
-    <div class="scroll-indicator" appScrollReveal>
-      <span class="scroll-text">Scroll para descubrir</span>
-      <div class="scroll-arrow">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path
-            d="M10 2v12M4 10l6 6 6-6"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </div>
-    </div>
-    -->
+  <!-- Background full-bleed image -->
+  <div class="hero-bg" aria-hidden="true">
+    <img src="assets/chef.jpg" alt="" loading="eager" fetchpriority="high" />
   </div>
 
-  <!-- PARALLAX IMAGE LAYER -->
-  <div class="hero-image-wrapper" #heroImage>
-    <div class="hero-image parallax-layer">
-      <img
-        src="assets/ceviche.jpg"
-        alt="Plato destacado de Sabor Mayor - Experiencia culinaria premium"
-        loading="lazy"
-        decoding="async"
-      />
-      <!-- Overlay con vintage blur effect -->
-      <div class="image-overlay"></div>
+  <!-- Floating award chip — top right -->
+  <div class="hero-badge" aria-hidden="true">
+    <span class="hero-badge__year">Est. 1999</span>
+    <span class="hero-badge__label">Alta Gastronomía</span>
+  </div>
+
+  <!-- Main editorial content — left aligned, vertically centered -->
+  <div class="hero-body">
+    <div class="hero-content">
+      <span class="hero-tagline">Una experiencia única</span>
+
+      <h1 class="hero-title">
+        <span class="hero-word">
+          <span class="hero-word__inner">Sabor</span>
+        </span>
+        <span class="hero-word hero-word--accent">
+          <span class="hero-word__inner">Mayor</span>
+        </span>
+      </h1>
+
+      <p class="hero-desc">
+        Donde la tradición culinaria latinoamericana<br>
+        encuentra la sofisticación contemporánea.
+      </p>
     </div>
   </div>
 
-  <!-- DECORATIVE ELEMENTS -->
-  <div class="hero-decoration hero-deco-1"></div>
-  <div class="hero-decoration hero-deco-2"></div>
+  <!-- CTAs — absolute bottom left -->
+  <div class="hero-cta" role="group" aria-label="Acciones principales">
+    <button
+      class="hero-btn hero-btn--primary"
+      appMagneticHover
+      [magneticConfig]="{ magneticRange: 160, magneticStrength: 0.5, elasticity: 0.12 }"
+      (mouseenter)="onButtonHover()"
+      (mouseleave)="onButtonLeave()"
+      (click)="onButtonClick()"
+      aria-label="Reservar una mesa">
+      Reservar Mesa
+    </button>
+    <a
+      href="#featured"
+      class="hero-btn hero-btn--ghost"
+      aria-label="Ver el menú">
+      Ver Menú
+    </a>
+  </div>
+
+  <!-- Scroll indicator — bottom right -->
+  <div class="hero-scroll" aria-hidden="true">
+    <span class="hero-scroll__text">Descubrir</span>
+    <div class="hero-scroll__line"></div>
+  </div>
+
 </section>

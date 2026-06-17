@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NgForOf, NgClass } from '@angular/common';
 
 interface Dish {
   name: string;
@@ -13,7 +12,7 @@ interface Dish {
 @Component({
   selector: 'app-featured-dishes-section',
   standalone: true,
-  imports: [NgForOf, NgClass],
+  imports: [],
   templateUrl: './featured-dishes-section.html',
   styleUrl: './featured-dishes-section.scss',
 })
@@ -47,4 +46,12 @@ export class FeaturedDishesSectionComponent {
       tagType: 'spicy',
     },
   ];
+
+  get featuredDish(): Dish {
+    return this.dishes[0];
+  }
+
+  get sideDishes(): Dish[] {
+    return this.dishes.slice(1);
+  }
 }

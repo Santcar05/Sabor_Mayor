@@ -1,0 +1,13 @@
+<div class="stats-strip" role="region" aria-label="Estadísticas del restaurante">
+  <div class="stats-inner">
+    @for (stat of stats; track stat.label; let i = $index) {
+      <div class="stat-item">
+        <span class="stat-number" aria-label="{{ displayValues()[i] }}">{{ displayValues()[i] }}</span>
+        <span class="stat-label">{{ stat.label }}</span>
+      </div>
+      @if (i < stats.length - 1) {
+        <div class="stat-divider" aria-hidden="true"></div>
+      }
+    }
+  </div>
+</div>

@@ -1,21 +1,52 @@
-<section class="about" id="about">
-  <div class="about-container">
-    <div class="about-content">
-      <h2 class="section-title">Nuestra Historia</h2>
-      <p class="about-text">
-        Sabor Mayor es más que un restaurante. Es una celebración de las raíces culinarias profundas
-        de América Latina, reimaginadas a través de una lente de sofisticación contemporánea. Cada
-        plato cuenta una historia, cada ingrediente es seleccionado con reverencia, y cada
-        experiencia es diseñada para transportarte en un viaje sensorial.
-      </p>
-      <p class="about-text">
-        Nuestro chef, formado en las cocinas más prestigiosas del mundo, dedica su arte a honrar las
-        tradiciones mientras innova con técnicas modernas. El resultado es una gastronomía que
-        respeta el pasado y abraza el futuro.
-      </p>
+<section class="about" id="about" aria-labelledby="about-heading">
+  <div class="about-inner">
+
+    <!-- Left column: editorial statement -->
+    <div class="about-text-col">
+      <div class="about-ornament" aria-hidden="true">"</div>
+
+      <div class="about-statement">
+        <div class="about-rule" aria-hidden="true"></div>
+        <h2 class="about-heading" id="about-heading">
+          Cocina que honra la tierra, la memoria y el paladar.
+        </h2>
+        <p class="about-body">
+          Desde 1999 llevamos la riqueza de América Latina a la mesa sin pedirle permiso
+          a ninguna moda. Cada plato es un acto de memoria: ingredientes de origen trazable,
+          técnicas de quienes cocinaron antes que nosotros, presentadas con la precisión
+          de quien entiende que la sofisticación no está reñida con la emoción.
+        </p>
+      </div>
+
+      <dl class="about-facts">
+        <div class="about-fact">
+          <dt>Chef ejecutivo</dt>
+          <dd>Eduardo Vargas</dd>
+        </div>
+        <div class="about-fact">
+          <dt>Fundado en</dt>
+          <dd>Lima, 1999</dd>
+        </div>
+        <div class="about-fact">
+          <dt>Estrellas Michelin</dt>
+          <dd>Nominados 2024</dd>
+        </div>
+      </dl>
     </div>
-    <div class="about-image">
-      <img src="assets/chef.jpg" alt="Chef de Sabor Mayor" width="500" height="600" />
+
+    <!-- Right column: framed image -->
+    <div class="about-image-col" aria-hidden="true">
+      <div class="about-image-frame">
+        <img
+          src="assets/chef.jpg"
+          alt="Chef Eduardo Vargas en la cocina de Sabor Mayor"
+          width="520"
+          height="680"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
     </div>
+
   </div>
 </section>

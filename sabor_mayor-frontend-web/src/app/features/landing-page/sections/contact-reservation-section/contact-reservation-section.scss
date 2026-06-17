@@ -1,106 +1,270 @@
-@use '../../_landing-config.scss' as *;
+// Contact & Reservation — Dramatic CTA Layout
+// =============================================================================
 
-.contact-reservation {
-  @include section-base;
-  @include gradient-bg-subtle;
+.contact {
+  position: relative;
+  background: var(--tierra-profunda, #1c1208);
+  padding: clamp(5rem, 10vh, 8rem) 0;
+  overflow: hidden;
+  isolation: isolate;
+}
 
-  .contact-container {
-    @include container;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: $spacing-2xl;
+// Background image with very dark overlay
+// -----------------------------------------------------------------------------
 
-    @media (max-width: $bp-tablet) {
-      grid-template-columns: 1fr;
-      gap: $spacing-lg;
+.contact-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    display: block;
+    opacity: 0.18;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(12, 8, 4, 0.8);
+  }
+}
+
+// Inner layout
+// -----------------------------------------------------------------------------
+
+.contact-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  text-align: center;
+}
+
+// Dramatic headline
+// -----------------------------------------------------------------------------
+
+.contact-headline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+
+  &__pre {
+    font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(244, 236, 216, 0.55);
+  }
+
+  &__main {
+    font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+    font-size: clamp(4.5rem, 10vw, 8rem);
+    font-weight: 900;
+    font-style: italic;
+    color: var(--sabor-gold-main, #f3b54a);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+  }
+}
+
+// Horizontal form
+// -----------------------------------------------------------------------------
+
+.contact-form {
+  width: 100%;
+  max-width: 760px;
+
+  &__fields {
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+    border: 1px solid rgba(200, 144, 42, 0.3);
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1;
+    padding: 1rem 1.25rem;
+    border-right: 1px solid rgba(200, 144, 42, 0.2);
+
+    &:last-of-type {
+      border-right: none;
     }
+  }
+
+  &__label {
+    font-family: var(--font-mono, 'DM Mono', monospace);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(243, 181, 74, 0.6);
+    display: block;
+  }
+
+  &__input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+    font-size: 0.9rem;
+    color: var(--crema-antigua, #f4ecd8);
+    padding: 0.25rem 0;
+    width: 100%;
+
+    &::placeholder {
+      color: rgba(244, 236, 216, 0.28);
+    }
+
+    // Remove date picker chrome
+    &[type='date']::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      position: absolute;
+    }
+
+    &:focus {
+      color: #fff;
+    }
+  }
+
+  &__select {
+    cursor: pointer;
+    appearance: none;
+
+    option {
+      background: #241a10;
+      color: var(--crema-antigua, #f4ecd8);
+    }
+  }
+
+  &__btn {
+    flex-shrink: 0;
+    padding: 0 2rem;
+    min-height: 4.5rem;
+    background: var(--sabor-gold-main, #f3b54a);
+    color: var(--tierra-profunda, #1c1208);
+    font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+    font-size: 0.775rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background-color 180ms ease, transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+
+    &:hover {
+      background: #e6a83a;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--sabor-gold-main);
+      outline-offset: 2px;
+    }
+  }
+}
+
+// Contact info strip
+// -----------------------------------------------------------------------------
+
+.contact-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(213, 196, 164, 0.12);
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+    padding: 0 2rem;
+    text-align: center;
+  }
+
+  &__sep {
+    width: 1px;
+    height: 3rem;
+    background: rgba(200, 144, 42, 0.18);
+    flex-shrink: 0;
+  }
+
+  &__label {
+    font-family: var(--font-mono, 'DM Mono', monospace);
+    font-size: 0.625rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(243, 181, 74, 0.55);
+  }
+
+  &__value {
+    font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+    font-size: 0.825rem;
+    color: rgba(244, 236, 216, 0.6);
+    line-height: 1.6;
+  }
+
+  &__link {
+    text-decoration: none;
+    transition: color 180ms ease;
+
+    &:hover {
+      color: var(--sabor-gold-main, #f3b54a);
+    }
+  }
+}
+
+// Responsive
+// -----------------------------------------------------------------------------
+
+@media (max-width: 768px) {
+  .contact-form__fields {
+    flex-direction: column;
+    border: 1px solid rgba(200, 144, 42, 0.3);
+  }
+
+  .contact-form__field {
+    border-right: none;
+    border-bottom: 1px solid rgba(200, 144, 42, 0.15);
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+
+  .contact-form__btn {
+    min-height: 3.5rem;
+    width: 100%;
+    padding: 1rem;
   }
 
   .contact-info {
-    position: relative;
-    z-index: 2;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 
-  .section-title {
-    @include title-md;
-    margin-bottom: $spacing-lg;
+  .contact-info__sep {
+    width: 3rem;
+    height: 1px;
   }
 
-  .info-group {
-    margin-bottom: $spacing-2xl;
-    position: relative;
-    z-index: 2;
-
-    .info-label {
-      @include body-text-accent;
-      margin-bottom: $spacing-sm;
-      display: block;
-    }
-
-    .info-content {
-      @include body-text-lg;
-      margin: 0;
-      line-height: 1.8;
-    }
-  }
-
-  .reservation-form {
-    position: relative;
-    z-index: 2;
-
-    .form-title {
-      @include title-sm;
-      margin-bottom: $spacing-lg;
-    }
-
-    .form-group {
-      margin-bottom: $spacing-lg;
-
-      label {
-        @include body-text-accent;
-        margin-bottom: $spacing-sm;
-        display: block;
-      }
-
-      input,
-      select,
-      textarea {
-        width: 100%;
-        background-color: transparent;
-        border: none;
-        border-bottom: 1px solid $gold-muted;
-        padding: 0.75rem 0;
-        font-family: $font-sans;
-        font-size: 1rem;
-        color: $color-crema-antigua;
-        @include transition-smooth;
-
-        &::placeholder {
-          color: $gold-muted;
-        }
-
-        &:focus {
-          outline: none;
-          border-bottom-color: $gold-main;
-        }
-
-        &:disabled {
-          background-color: rgba($color-tierra-profunda, 0.5);
-          color: $gold-muted;
-        }
-      }
-
-      select {
-        appearance: none;
-        cursor: pointer;
-        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%23f3b54a' d='M0 0l6 8 6-8z'/%3E%3C/svg%3E") no-repeat right;
-        padding-right: 20px;
-      }
-    }
-
-    .btn {
-      @include btn-primary;
-      width: 100%;
-    }
+  .contact-info__item {
+    padding: 0;
   }
 }

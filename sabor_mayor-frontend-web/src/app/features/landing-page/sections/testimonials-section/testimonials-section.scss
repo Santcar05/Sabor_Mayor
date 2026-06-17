@@ -1,68 +1,171 @@
-@use '../../_landing-config.scss' as *;
+// Testimonials — Infinite CSS Marquee, Two Rows
+// =============================================================================
 
 .testimonials {
-  @include section-base;
+  background: var(--tierra-profunda, #1c1208);
+  padding: clamp(4rem, 8vh, 6rem) 0;
+  overflow: hidden;
+}
 
-  .testimonials-container {
-    @include container;
+// Header
+// -----------------------------------------------------------------------------
+
+.testimonials-header {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  margin-bottom: 3rem;
+}
+
+.testimonials-label {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--crema-antigua, #f4ecd8);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+// Marquee container
+// -----------------------------------------------------------------------------
+
+.marquee-track {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+
+  & + & {
+    margin-top: 2rem;
   }
 
-  .section-title {
-    @include title-md;
-    text-align: center;
-    margin-bottom: $spacing-2xl;
+  &:hover .marquee-row {
+    animation-play-state: paused;
+  }
+}
+
+// Scrolling row
+.marquee-row {
+  display: flex;
+  gap: 0;
+  width: max-content;
+
+  &--left {
+    animation: marqueeLeft 45s linear infinite;
   }
 
-  .testimonials-grid {
-    @include grid-responsive;
-    position: relative;
-    z-index: 2;
+  &--right {
+    animation: marqueeRight 40s linear infinite;
+  }
+}
+
+@keyframes marqueeLeft {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+
+@keyframes marqueeRight {
+  0%   { transform: translateX(-25%); }
+  100% { transform: translateX(0); }
+}
+
+// Marquee item
+// -----------------------------------------------------------------------------
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.marquee-quote {
+  min-width: 280px;
+  max-width: 400px;
+  padding: 0 2rem;
+  margin: 0;
+
+  p {
+    font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+    font-size: clamp(0.9rem, 1.1vw, 1rem);
+    font-style: italic;
+    color: rgba(244, 236, 216, 0.72);
+    line-height: 1.65;
+    margin: 0 0 0.6rem;
   }
 
-  .testimonial-card {
-    padding: $spacing-lg;
-    border: 1px solid $color-cobre-vivo;
-    background-color: rgba($color-cobre-vivo, 0.02);
-    @include transition-smooth;
-
-    &:hover {
-      border-color: $gold-main;
-      background-color: rgba($gold-main, 0.05);
-    }
-
-    .stars {
-      font-size: 1.2rem;
-      color: $gold-main;
-      margin-bottom: $spacing-md;
-      letter-spacing: 0.2em;
-      position: relative;
-      z-index: 2;
-    }
-
-    .testimonial-text {
-      @include body-text-lg;
-      font-style: italic;
-      margin-bottom: $spacing-md;
-      position: relative;
-      z-index: 2;
-    }
-
-    .testimonial-author {
-      @include divider-subtle;
-      padding-top: $spacing-md;
-      position: relative;
-      z-index: 2;
-
-      .author-name {
-        @include body-text-accent;
-        color: $gold-main;
-        margin: 0;
-      }
-
-      .author-role {
-        @include body-text-muted;
-        margin: $spacing-sm 0 0 0;
-      }
-    }
+  footer {
+    font-style: normal;
   }
+
+  cite {
+    font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+    font-size: 0.725rem;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: rgba(244, 236, 216, 0.45);
+  }
+}
+
+.marquee-role {
+  font-weight: 400;
+  color: rgba(244, 236, 216, 0.28);
+}
+
+.marquee-sep {
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  font-size: 1.2rem;
+  color: rgba(200, 144, 42, 0.2);
+  flex-shrink: 0;
+}
+
+// Screen reader only
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Reduced motion — freeze marquee, show static list
+@media (prefers-reduced-motion: reduce) {
+  .marquee-row {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .marquee-track {
+    overflow: visible;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .marquee-item {
+    max-width: 380px;
+  }
+
+  .marquee-sep { display: none; }
+
+  // Show only first 3 of each row
+  .marquee-track:last-of-type { display: none; }
 }

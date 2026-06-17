@@ -1,105 +1,197 @@
-@use '../../_landing-config.scss' as *;
+// Experience — Stacked 60vh Cinematic Panels
+// =============================================================================
 
-.experience {
-  @include section-base;
-  background-color: $color-humo-suave;
+.exp {
+  display: flex;
+  flex-direction: column;
+  background: var(--tierra-profunda, #1c1208);
+}
 
-  .experience-container {
-    @include container;
+// Sticky section label that scrolls with the page
+.exp-section-label {
+  background: var(--tierra-profunda, #1c1208);
+  padding: clamp(3rem, 6vh, 5rem) clamp(1.5rem, 5vw, 4rem) 2rem;
+  margin: 0;
+
+  span {
+    font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    font-style: italic;
+    color: var(--crema-antigua, #f4ecd8);
+    letter-spacing: -0.025em;
+  }
+}
+
+// Each panel
+// -----------------------------------------------------------------------------
+
+.exp-panel {
+  position: relative;
+  min-height: 62vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+
+  // Content aligned right on odd panels for variety
+  &--odd .exp-panel__content {
+    align-items: flex-end;
+    text-align: right;
+
+    .exp-panel__cta {
+      align-self: flex-end;
+    }
   }
 
-  .section-title {
-    @include title-md;
-    text-align: center;
-    margin-bottom: $spacing-sm;
+  &__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    // Dark overlay — gradient from bottom
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(12, 8, 4, 0.9) 0%,
+        rgba(12, 8, 4, 0.55) 40%,
+        rgba(12, 8, 4, 0.25) 75%,
+        rgba(12, 8, 4, 0.3) 100%
+      );
+    }
   }
 
-  .section-subtitle {
-    @include body-text-muted;
-    text-align: center;
-    margin-bottom: $spacing-2xl;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+  &:hover &__bg img {
+    transform: scale(1.03);
+  }
+
+  &__content {
     position: relative;
-    z-index: 2;
-  }
-
-  .experiences-list {
+    z-index: 1;
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 3rem clamp(1.5rem, 5vw, 4rem);
     display: flex;
     flex-direction: column;
-    gap: $spacing-lg;
-    position: relative;
-    z-index: 2;
+    align-items: flex-start;
+    gap: 1.25rem;
   }
 
-  .experience-card {
-    border-left: 3px solid $gold-main;
-    padding: $spacing-lg;
-    background-color: rgba($gold-main, 0.03);
-    @include transition-smooth;
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  &__duration {
+    font-family: var(--font-mono, 'DM Mono', monospace);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(243, 181, 74, 0.65);
+  }
+
+  &__price {
+    font-family: var(--font-mono, 'DM Mono', monospace);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: rgba(244, 236, 216, 0.4);
+  }
+
+  &__text {
+    max-width: 520px;
+  }
+
+  &__subtitle {
+    font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+    font-size: 0.775rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(243, 181, 74, 0.7);
+    margin: 0 0 0.5rem;
+  }
+
+  &__title {
+    font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-weight: 800;
+    color: var(--crema-antigua, #f4ecd8);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.75rem;
+  }
+
+  &__desc {
+    font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
+    color: rgba(244, 236, 216, 0.62);
+    line-height: 1.7;
+    margin: 0 0 1rem;
+    max-width: 48ch;
+  }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+    font-size: 0.775rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sabor-gold-main, #f3b54a);
+    text-decoration: none;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid rgba(243, 181, 74, 0.35);
+    transition:
+      color 180ms ease,
+      border-color 180ms ease,
+      transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
 
     &:hover {
-      background-color: rgba($gold-main, 0.08);
+      color: #e6a83a;
+      border-color: rgba(243, 181, 74, 0.7);
+      transform: translateX(3px);
     }
 
-    .experience-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: $spacing-md;
-      position: relative;
-      z-index: 2;
-
-      @media (max-width: $bp-tablet) {
-        flex-direction: column;
-        gap: $spacing-sm;
-      }
+    &:focus-visible {
+      outline: 2px solid var(--sabor-gold-main);
+      outline-offset: 3px;
     }
+  }
+}
 
-    .experience-title {
-      @include title-sm;
-      margin: 0;
-    }
+// Divider between panels
+.exp-panel + .exp-panel {
+  border-top: 1px solid rgba(200, 144, 42, 0.12);
+}
 
-    .experience-duration {
-      @include body-text-accent;
-      position: relative;
-      z-index: 2;
-    }
+// Responsive
+// -----------------------------------------------------------------------------
 
-    .experience-description {
-      @include body-text-muted;
-      margin-bottom: $spacing-md;
-      position: relative;
-      z-index: 2;
-    }
+@media (max-width: 768px) {
+  .exp-panel {
+    min-height: 50vh;
+    align-items: flex-end;
 
-    .experience-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: $spacing-md;
-      position: relative;
-      z-index: 2;
+    &--odd .exp-panel__content {
+      align-items: flex-start;
+      text-align: left;
 
-      @media (max-width: $bp-tablet) {
-        flex-direction: column;
-        align-items: flex-start;
-
-        .btn {
-          width: 100%;
-        }
-      }
-
-      .price {
-        @include body-text-accent;
-        color: $gold-main;
-        font-size: 1.1rem;
-      }
-
-      .btn {
-        @include btn-outline;
+      .exp-panel__cta {
+        align-self: flex-start;
       }
     }
   }
