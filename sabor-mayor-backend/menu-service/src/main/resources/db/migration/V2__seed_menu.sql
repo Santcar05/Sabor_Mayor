@@ -9,46 +9,73 @@ INSERT INTO categories (id, name, slug, description, display_order) VALUES
 INSERT INTO dishes (id, category_id, name, slug, description, price, cost, available, featured, image_url, prep_minutes) VALUES
     ('20000000-0000-0000-0000-000000000001', '10000000-0000-0000-0000-000000000001',
      'Ceviche de Maracuya Molecular', 'ceviche-de-maracuya-molecular',
-     'Pesca del dia curada en leche de tigre de maracuya con esferificaciones citricas', 42000, 14700, TRUE, TRUE, '/assets/ceviche.jpg', 15),
+     'Pesca del dia curada en leche de tigre de maracuya con esferificaciones citricas', 42000, 14700, TRUE, TRUE,
+     'https://images.unsplash.com/photo-1534482421-64566f976cfa?w=800&q=80&auto=format&fit=crop', 15),
+
     ('20000000-0000-0000-0000-000000000002', '10000000-0000-0000-0000-000000000001',
      'Texturas de Maiz Criollo', 'texturas-de-maiz-criollo',
-     'Maiz andino en cinco texturas: espuma, crocante, cremoso, tostado y encurtido', 36000, 10800, TRUE, FALSE, NULL, 18),
+     'Maiz andino en cinco texturas: espuma, crocante, cremoso, tostado y encurtido', 36000, 10800, TRUE, FALSE,
+     'https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=800&q=80&auto=format&fit=crop', 18),
+
     ('20000000-0000-0000-0000-000000000003', '10000000-0000-0000-0000-000000000001',
      'Ceviche Ancestral', 'ceviche-ancestral',
-     'Receta tradicional peruana con aji limo, camote glaseado y cancha serrana', 38000, 13300, TRUE, TRUE, '/assets/ceviche.jpg', 12),
+     'Receta tradicional peruana con aji limo, camote glaseado y cancha serrana', 38000, 13300, TRUE, TRUE,
+     'https://images.unsplash.com/photo-1612257999756-faf81c8b3428?w=800&q=80&auto=format&fit=crop', 12),
+
     ('20000000-0000-0000-0000-000000000004', '10000000-0000-0000-0000-000000000001',
      'Causa Limena Premium', 'causa-limena-premium',
-     'Papa amarilla prensada, cangrejo real, palta y aji amarillo emulsionado', 34000, 11900, TRUE, TRUE, '/assets/Limenia.jpg', 14),
+     'Papa amarilla prensada, cangrejo real, palta y aji amarillo emulsionado', 34000, 11900, TRUE, TRUE,
+     'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&q=80&auto=format&fit=crop', 14),
+
     ('20000000-0000-0000-0000-000000000005', '10000000-0000-0000-0000-000000000002',
      'Vacio en Madera de Olivo', 'vacio-en-madera-de-olivo',
-     'Corte argentino madurado 28 dias, ahumado en madera de olivo con pure trufado', 89000, 35600, TRUE, TRUE, NULL, 35),
+     'Corte argentino madurado 28 dias, ahumado en madera de olivo con pure trufado', 89000, 35600, TRUE, TRUE,
+     'https://images.unsplash.com/photo-1546039907-7fa05f864c02?w=800&q=80&auto=format&fit=crop', 35),
+
     ('20000000-0000-0000-0000-000000000006', '10000000-0000-0000-0000-000000000002',
      'Risotto de Quinoa y Setas', 'risotto-de-quinoa-y-setas',
-     'Quinoa tricolor cremosa con setas silvestres y aceite de huacatay', 64000, 22400, TRUE, FALSE, NULL, 28),
+     'Quinoa tricolor cremosa con setas silvestres y aceite de huacatay', 64000, 22400, TRUE, FALSE,
+     'https://images.unsplash.com/photo-1476718406336-418d1a0b76be?w=800&q=80&auto=format&fit=crop', 28),
+
     ('20000000-0000-0000-0000-000000000007', '10000000-0000-0000-0000-000000000002',
      'Aji de Gallina Contemporaneo', 'aji-de-gallina-contemporaneo',
-     'Gallina de campo en crema de aji amarillo con esferas de papa nativa', 58000, 20300, TRUE, TRUE, '/assets/Aji_de_Gallina_Contemporaneo.jpg', 30),
+     'Gallina de campo en crema de aji amarillo con esferas de papa nativa', 58000, 20300, TRUE, TRUE,
+     'https://images.unsplash.com/photo-1598515214146-aca1a7ab4ec0?w=800&q=80&auto=format&fit=crop', 30),
+
     ('20000000-0000-0000-0000-000000000008', '10000000-0000-0000-0000-000000000003',
      'Volcan de Cacao Amazonico', 'volcan-de-cacao-amazonico',
-     'Coulant de cacao 72% del Amazonas con helado de lucuma', 28000, 8400, TRUE, TRUE, NULL, 20),
+     'Coulant de cacao 72% del Amazonas con helado de lucuma', 28000, 8400, TRUE, TRUE,
+     'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800&q=80&auto=format&fit=crop', 20),
+
     ('20000000-0000-0000-0000-000000000009', '10000000-0000-0000-0000-000000000003',
      'Suspiro Limeno Deconstruido', 'suspiro-limeno-deconstruido',
-     'Manjar blanco aireado, merengue de oporto y crocante de almendra', 26000, 7800, TRUE, FALSE, NULL, 15),
+     'Manjar blanco aireado, merengue de oporto y crocante de almendra', 26000, 7800, TRUE, FALSE,
+     'https://images.unsplash.com/photo-1488477181049-3c08df6f65fa?w=800&q=80&auto=format&fit=crop', 15),
+
     ('20000000-0000-0000-0000-000000000010', '10000000-0000-0000-0000-000000000004',
      'Clerico Mayor Elite', 'clerico-mayor-elite',
-     'Vino blanco, frutas de temporada maceradas y toque de hierbabuena', 34000, 10200, TRUE, TRUE, NULL, 8),
+     'Vino blanco, frutas de temporada maceradas y toque de hierbabuena', 34000, 10200, TRUE, TRUE,
+     'https://images.unsplash.com/photo-1568644396922-5c3bfae12521?w=800&q=80&auto=format&fit=crop', 8),
+
     ('20000000-0000-0000-0000-000000000011', '10000000-0000-0000-0000-000000000004',
      'Pisco Sour Clasico', 'pisco-sour-clasico',
-     'Pisco quebranta, limon sutil, jarabe de goma y amargo de angostura', 30000, 9000, TRUE, FALSE, NULL, 6),
+     'Pisco quebranta, limon sutil, jarabe de goma y amargo de angostura', 30000, 9000, TRUE, FALSE,
+     'https://images.unsplash.com/photo-1551024601-bec78aea7d0c?w=800&q=80&auto=format&fit=crop', 6),
+
     ('20000000-0000-0000-0000-000000000012', '10000000-0000-0000-0000-000000000005',
      'Malbec Reserva', 'malbec-reserva',
-     'Mendoza, Argentina. Notas de ciruela madura, vainilla y final prolongado', 52000, 26000, TRUE, TRUE, '/assets/Malbec.jpg', NULL),
+     'Mendoza, Argentina. Notas de ciruela madura, vainilla y final prolongado', 52000, 26000, TRUE, TRUE,
+     'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80&auto=format&fit=crop', NULL),
+
     ('20000000-0000-0000-0000-000000000013', '10000000-0000-0000-0000-000000000005',
      'Carmenere Gran Reserva', 'carmenere-gran-reserva',
-     'Valle de Colchagua, Chile. Especiado, frutos negros y taninos sedosos', 48000, 24000, TRUE, FALSE, '/assets/Carmenere.jpg', NULL),
+     'Valle de Colchagua, Chile. Especiado, frutos negros y taninos sedosos', 48000, 24000, TRUE, FALSE,
+     'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=800&q=80&auto=format&fit=crop', NULL),
+
     ('20000000-0000-0000-0000-000000000014', '10000000-0000-0000-0000-000000000005',
      'Sauvignon Blanc', 'sauvignon-blanc',
-     'Valle de Casablanca, Chile. Fresco, citrico y mineral', 38000, 19000, TRUE, FALSE, '/assets/Sauvignon_Blanc.jpg', NULL);
+     'Valle de Casablanca, Chile. Fresco, citrico y mineral', 38000, 19000, TRUE, FALSE,
+     'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&auto=format&fit=crop', NULL);
 
 INSERT INTO dish_tags (dish_id, tag) VALUES
     ('20000000-0000-0000-0000-000000000001', 'signature'),

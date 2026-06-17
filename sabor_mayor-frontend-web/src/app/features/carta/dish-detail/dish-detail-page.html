@@ -14,20 +14,45 @@
     <a class="back" routerLink="/carta">← Volver a la carta</a>
 
     <div class="detail-grid">
-      <div class="gallery sm-animate-fade-in">
-        <img
-          class="hero-img"
-          [src]="dish.imageUrl || 'assets/images/dish-placeholder.svg'"
-          [alt]="dish.name"
-        />
-        <button
-          class="fav"
-          [class.active]="isFavorite(dish.slug)"
-          (click)="toggleFavorite(dish.slug)"
-          [attr.aria-label]="isFavorite(dish.slug) ? 'Quitar de favoritos' : 'Agregar a favoritos'"
-        >
-          {{ isFavorite(dish.slug) ? '♥' : '♡' }} Favorito
-        </button>
+      <!-- gallery-wrap: position:relative sin overflow:hidden para que el prompt no se clippe -->
+      <div class="gallery-wrap sm-animate-fade-in">
+        <div class="gallery">
+          <img
+            class="hero-img"
+            [src]="dish.imageUrl || 'assets/images/dish-placeholder.svg'"
+            [alt]="dish.name"
+          />
+        </div>
+
+        <div class="detail-fav-anchor">
+          <button
+            class="detail-fav"
+            [class.active]="isFavorite(dish.slug)"
+            [class.just-liked]="justLiked()"
+            (click)="toggleFavorite(dish.slug)"
+            [attr.aria-label]="isFavorite(dish.slug) ? 'Quitar de favoritos' : 'Guardar en favoritos'"
+          >
+            <svg class="heart-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                class="heart-path"
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                stroke-width="1.4"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="detail-fav__label">{{ isFavorite(dish.slug) ? 'Guardado' : 'Guardar' }}</span>
+          </button>
+
+          @if (showAuthPrompt()) {
+            <div class="detail-auth-prompt" role="tooltip">
+              <span class="detail-auth-prompt__text">Inicia sesión para guardar favoritos</span>
+              <button type="button" class="detail-auth-prompt__link" (click)="navigateToLogin()">
+                Ingresar →
+              </button>
+            </div>
+          }
+        </div>
       </div>
 
       <div class="info sm-animate-fade-up">

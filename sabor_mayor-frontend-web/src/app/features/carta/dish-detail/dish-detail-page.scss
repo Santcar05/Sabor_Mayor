@@ -19,25 +19,147 @@
   align-items: start;
 }
 
-.gallery { position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
+// Gallery — wrapper provides positioning context, inner keeps overflow:hidden for image
+// =============================================================================
+
+.gallery-wrap {
+  position: relative;
+}
+
+.gallery {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
 .hero-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; }
-.fav {
+
+// Fav button — anchored to gallery-wrap to escape gallery's overflow:hidden
+// =============================================================================
+
+.detail-fav-anchor {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-pill);
-  border: none;
-  background: rgba(20, 12, 4, 0.7);
-  backdrop-filter: blur(6px);
-  color: var(--crema-antigua);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.detail-fav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.85rem 0.55rem 0.65rem;
+  border: 1px solid rgba(213, 196, 164, 0.22);
+  background: rgba(14, 11, 7, 0.78);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease-fast),
+    background var(--dur-fast) var(--ease-fast),
+    transform var(--dur-fast) var(--ease-fast);
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: rgba(200, 144, 42, 0.42);
+  }
+
+  &.active {
+    border-color: rgba(230, 57, 70, 0.42);
+    background: rgba(230, 57, 70, 0.14);
+  }
+
+  &.active .heart-path {
+    stroke: #e63946;
+    fill: #e63946;
+  }
+
+  &.active .detail-fav__label { color: #e63946; }
+
+  &.just-liked .heart-svg {
+    animation: heartbeat 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  &:focus-visible { outline: 2px solid var(--sabor-gold-main); outline-offset: 3px; }
+}
+
+.heart-svg { width: 1.2rem; height: 1.2rem; display: block; flex-shrink: 0; }
+
+.heart-path {
+  stroke: rgba(213, 196, 164, 0.72);
+  fill: none;
+  transition:
+    stroke var(--dur-fast) var(--ease-fast),
+    fill var(--dur-fast) var(--ease-fast);
+}
+
+.detail-fav__label {
+  font-family: var(--font-body);
   font-size: var(--fs-small);
   font-weight: 600;
-  cursor: pointer;
-  transition: transform var(--dur-fast), color var(--dur-fast);
+  color: rgba(213, 196, 164, 0.72);
+  transition: color var(--dur-fast);
+  white-space: nowrap;
 }
-.fav:hover { transform: translateY(-2px); }
-.fav.active { color: var(--rojo-aji); }
+
+@keyframes heartbeat {
+  0%   { transform: scale(1); }
+  20%  { transform: scale(1.35); }
+  55%  { transform: scale(0.9); }
+  75%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+// Auth prompt — appears above the fav button
+// =============================================================================
+
+.detail-auth-prompt {
+  min-width: 220px;
+  padding: 0.75rem 1rem;
+  background: rgba(14, 11, 7, 0.96);
+  border: 1px solid rgba(200, 144, 42, 0.38);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(4, 2, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  animation: prompt-in 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  &__text {
+    font-family: var(--font-body);
+    font-size: var(--fs-small);
+    color: rgba(213, 196, 164, 0.78);
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  &__link {
+    align-self: flex-start;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-small);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--sabor-gold-main);
+    cursor: pointer;
+    transition: color var(--dur-fast);
+
+    &:hover { color: var(--crema-antigua); }
+  }
+}
+
+@keyframes prompt-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+// Info section
+// =============================================================================
 
 .info { display: flex; flex-direction: column; gap: 1rem; }
 .category { font-size: 1.5rem; }
@@ -123,6 +245,9 @@
 .notes:focus { outline: none; border-color: var(--sabor-gold-main); }
 .order-box > [app-button] { flex-basis: 100%; }
 
+// Pairings
+// =============================================================================
+
 .pairings { margin-top: 4rem; }
 .section-title { font-family: var(--font-heading); font-size: var(--fs-h2); margin-bottom: 1.5rem; }
 .pairings-grid {
@@ -133,4 +258,12 @@
 
 @media (max-width: 900px) {
   .detail-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+// Accessibility
+// =============================================================================
+
+@media (prefers-reduced-motion: reduce) {
+  .detail-fav.just-liked .heart-svg { animation: none; }
+  .detail-auth-prompt { animation: none; }
 }

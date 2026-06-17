@@ -15,16 +15,6 @@
       <span class="sold-out">Agotado</span>
     }
 
-    <button
-      type="button"
-      class="fav"
-      [class.active]="isFavorite()"
-      (click)="toggleFavorite()"
-      [attr.aria-label]="isFavorite() ? 'Quitar de favoritos' : 'Agregar a favoritos'"
-    >
-      {{ isFavorite() ? '♥' : '♡' }}
-    </button>
-
     <div class="overlay">
       <a class="overlay-btn" [routerLink]="['/carta', dish().slug]">Saber más</a>
       @if (showActions() && dish().available) {
@@ -33,6 +23,37 @@
         </button>
       }
     </div>
+  </div>
+
+  <!-- fav-anchor fuera de .media para evitar overflow:hidden clip -->
+  <div class="fav-anchor">
+    <button
+      type="button"
+      class="fav"
+      [class.active]="isFavorite()"
+      [class.just-liked]="justLiked()"
+      (click)="toggleFavorite()"
+      [attr.aria-label]="isFavorite() ? 'Quitar de favoritos' : 'Agregar a favoritos'"
+    >
+      <svg class="heart-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          class="heart-path"
+          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+
+    @if (showAuthPrompt()) {
+      <div class="auth-prompt" role="tooltip">
+        <span class="auth-prompt__text">Inicia sesión para guardar favoritos</span>
+        <button type="button" class="auth-prompt__link" (click)="navigateToLogin()">
+          Ingresar →
+        </button>
+      </div>
+    }
   </div>
 
   <div class="info">

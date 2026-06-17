@@ -1,4 +1,5 @@
 .dish-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   background: var(--gradient-card);
@@ -37,25 +38,116 @@
 .ribbon { background: var(--gradient-gold); color: var(--tierra-profunda); }
 .sold-out { background: var(--rojo-aji); color: var(--marfil-puro); left: auto; right: 0.75rem; }
 
-.fav {
+// Fav button — anchored outside .media to escape overflow:hidden
+// =============================================================================
+
+.fav-anchor {
   position: absolute;
   top: 0.6rem;
   right: 0.6rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+}
+
+.fav {
   width: 2.4rem;
   height: 2.4rem;
   display: grid;
   place-items: center;
   border: none;
-  border-radius: 50%;
-  background: rgba(20, 12, 4, 0.55);
-  backdrop-filter: blur(6px);
-  color: var(--crema-antigua);
-  font-size: 1.3rem;
+  border-radius: 0;
+  background: transparent;
   cursor: pointer;
-  transition: transform var(--dur-fast) var(--ease-fast), color var(--dur-fast);
+  padding: 0;
+  filter: drop-shadow(0 1px 4px rgba(8, 4, 1, 0.75));
+  transition: transform var(--dur-fast) var(--ease-fast);
+
+  &:hover { transform: scale(1.12); }
+  &:focus-visible { outline: 2px solid var(--sabor-gold-main); outline-offset: 3px; }
 }
-.fav:hover { transform: scale(1.15); }
-.fav.active { color: var(--rojo-aji); }
+
+.heart-svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: block;
+}
+
+.heart-path {
+  stroke: rgba(244, 236, 216, 0.72);
+  fill: none;
+  transition:
+    stroke var(--dur-fast) var(--ease-fast),
+    fill var(--dur-fast) var(--ease-fast);
+}
+
+.fav:hover .heart-path { stroke: rgba(244, 236, 216, 0.95); }
+
+.fav.active .heart-path {
+  stroke: #e63946;
+  fill: #e63946;
+}
+
+@keyframes heartbeat {
+  0%   { transform: scale(1); }
+  20%  { transform: scale(1.35); }
+  55%  { transform: scale(0.9); }
+  75%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.fav.just-liked .heart-svg {
+  animation: heartbeat 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+// Auth prompt tooltip
+// =============================================================================
+
+.auth-prompt {
+  min-width: 196px;
+  padding: 0.65rem 0.85rem;
+  background: rgba(14, 11, 7, 0.96);
+  border: 1px solid rgba(200, 144, 42, 0.38);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  animation: prompt-in 220ms cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  &__text {
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    color: rgba(213, 196, 164, 0.78);
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  &__link {
+    align-self: flex-start;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--sabor-gold-main);
+    cursor: pointer;
+    transition: color var(--dur-fast);
+
+    &:hover { color: var(--crema-antigua); }
+  }
+}
+
+@keyframes prompt-in {
+  from { opacity: 0; transform: translateY(-5px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+// Overlay
+// =============================================================================
 
 .overlay {
   position: absolute;
@@ -83,6 +175,9 @@
 }
 .overlay-btn.primary { background: var(--gradient-gold); color: var(--tierra-profunda); border-color: transparent; }
 .overlay-btn:hover { transform: translateY(-2px); }
+
+// Info section
+// =============================================================================
 
 .info { display: flex; flex-direction: column; gap: 0.6rem; padding: 1.1rem 1.2rem 1.3rem; flex: 1; }
 .info-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem; }
@@ -122,3 +217,11 @@
 
 .allergens { font-size: var(--fs-xs); color: rgba(213, 196, 164, 0.55); margin-top: auto; }
 .allergens span { font-weight: 700; color: var(--cobre-vivo); }
+
+// Accessibility
+// =============================================================================
+
+@media (prefers-reduced-motion: reduce) {
+  .fav.just-liked .heart-svg { animation: none; }
+  .auth-prompt { animation: none; }
+}
