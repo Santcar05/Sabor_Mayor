@@ -389,7 +389,7 @@ La colección HTTP para pruebas manuales está en `sabor-mayor-backend/http/sabo
 
 **Santiago Castro Garzón**
 - GitHub: [@Santcar05](https://github.com/Santcar05)
-- Email: castrogarzonsantiago@gmail.com
+- Email: sacastro.scg@gmail.com
 
 ---
 
